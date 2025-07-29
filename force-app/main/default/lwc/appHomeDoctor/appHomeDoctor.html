@@ -1,0 +1,75 @@
+<template>
+    <div class="text-card">
+        <div class="text-content">
+            <p class="user-name-doctor">Dr. {userName}</p>            
+        </div>
+
+        <div class="status-button">
+            <lightning-icon icon-name="utility:record" size="xx-small" class="icone-disponivel"></lightning-icon>
+            <p class="user-status">Disponível</p>  
+            <lightning-icon icon-name="utility:chevronright" size="xx-small" class="icone-seta"></lightning-icon>
+        </div>
+    </div>
+
+    <div class="home-container">
+        <div class="welcome-card">
+            <div class="text-content">
+                <p class="greeting">Olá,</p>
+                <p class="subtitle">Sua consulta já vai começar</p>
+                
+                <div class="horario-container">
+                    <lightning-icon icon-name="utility:clock" size="xx-small" class="icone-relogio"></lightning-icon>
+                    <span class="horario-texto">10:05</span>
+                    <span class="separador">-</span>
+                    <span class="user-name">Cássia Eller</span>
+                </div>
+
+                <div class="botao-container">
+                    <button class="button-teleconsulta">Iniciar Teleconsulta</button>
+                </div>                
+            </div>
+
+            <div class="image-content">
+                <img src={doctorsImage} alt="Doctors" class="doctors-image" />
+            </div>
+        </div>
+
+        <div class="bloco-agenda-home">
+            <div class="header-container">
+                <div class="title">
+                    <img src={agenda} class="custom-icon" alt="Agenda" />
+                    <p>Minha agenda</p>
+                </div>
+
+                <div class="button-inline-toggle">
+                    <lightning-button label="Ver todas" variant="base" onclick={irParaAgendaCompleta}></lightning-button>
+                </div>
+            </div>
+
+            <c-app-my-schedule-doctor modo-home="true" onstatusagenda={atualizarBotaoAgendaCompleta} exibir-todas={exibirTodas}></c-app-my-schedule-doctor>
+
+            <template if:true={mostrarBotaoAgendaCompleta}>
+                <button class="button-agenda-completa" onclick={irParaAgendaCompleta}>
+                    Veja a agenda completa
+                </button>
+            </template>
+        </div>
+
+        <c-app-quick-actions-grid onactionselected={handleActionSelected}></c-app-quick-actions-grid>
+
+        <div class="bloco-agenda-home">
+            <div class="header-container-conversations">
+                <div class="title">
+                    <img src={mensagemIcon} class="custom-icon" alt="Mensagens" />
+                    <p>Mensagens recentes</p>
+                </div>
+
+                <div class="button-inline-toggle">
+                    <lightning-button label="Ver todas" variant="base"></lightning-button>
+                </div>
+            </div>
+            <c-app-conversations></c-app-conversations>
+            <button class="button-agenda-completa">Ver todas as mensagens</button>
+        </div>
+    </div>
+</template>

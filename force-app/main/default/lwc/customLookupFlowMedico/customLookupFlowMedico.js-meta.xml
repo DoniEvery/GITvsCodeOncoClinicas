@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="customLookupFlow">
+    <apiVersion>59.0</apiVersion>
+        <isExposed>true</isExposed>
+    <masterLabel>LWC CustomLookupMedico</masterLabel>
+    <description>Expose Lightning Web Component in the App Builder</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="EstadoMedico" label="EstadoMedico" type="String"  />
+            <property name="IdMedico" label="IdMedico" type="String" role="inputOnly" />
+            <property name="IdResult" label="IdResult" type="String" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,58 @@
+<template>
+    <template if:true={consulta}>
+        <div class="detalhes-modal">
+        
+            <div class="header-modal">
+                <img src={detalhesConsulta} class="custom-icon" alt="Data da consulta" />
+                <lightning-icon icon-name="utility:close" size="x-small" class="fechar-modal" onclick={fecharModal}></lightning-icon>
+            </div>
+        
+            <h2 class="titulo-modal">Detalhes do agendamento</h2>
+        
+            <div class="status-container">
+                <span><strong>Status</strong></span>
+                <span class="status-badge">{statusFormatado}</span>
+            </div>
+        
+            <div class="info-grid">
+                <div>
+                    <p class="label">Data/Hora</p>
+                    <p>{dataHoraFormatada}</p>
+                </div>
+                <div>
+                    <p class="label">Local</p>
+                    <p>{nomeUnidade}</p>
+                </div>
+                <div>
+                    <p class="label">Médico</p>
+                    <p>{nomeMedico}</p>
+                </div>
+                <div>
+                    <p class="label">Especialidade</p>
+                    <p>{especialidade}</p>
+                </div>
+                <div>
+                    <p class="label">Convênio</p>
+                    <p>{consulta.insurance.display}</p>
+                </div>
+                <div>
+                    <p class="label">Endereço</p>
+                    <p>{enderecoCompleto}</p>
+                </div>
+            </div>
+        
+            <div class="observacoes">
+                <p>{consulta.description}</p>
+            </div>
+        
+            <div class="linha"></div>
+            
+            <div class="botoes-modal">
+                <button class="cancel" onclick={fecharModal}>Cancelar</button>
+                <button class="confirm" onclick={abrirModalConfirmacao}>Confirmar</button>
+            </div>
+        </div>
+    </template>
+    
+     
+</template>

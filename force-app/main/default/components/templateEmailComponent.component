@@ -1,0 +1,11 @@
+<apex:component access="global">
+
+    <apex:attribute type="Decimal" name="valorOrcadoComponent" description="Pegar o valor da moeda formatada em BRL"/>
+    
+    <span> {!IF(valorOrcadoComponent < 0, "-", "") & IF(ABS(valorOrcadoComponent) >= 1000000, 
+    TEXT(FLOOR(ABS(valorOrcadoComponent) / 1000000)) & ".", "") & IF(ABS(valorOrcadoComponent) >= 1000, 
+    RIGHT(TEXT(FLOOR(ABS(valorOrcadoComponent) / 1000)), 3) & ".", "") & RIGHT(TEXT(FLOOR(ABS(valorOrcadoComponent))), 3) & "," & 
+    IF(MOD(ABS(valorOrcadoComponent) , 1) * 100 < 10, "0" & TEXT(ROUND(MOD(ABS(valorOrcadoComponent) , 1), 2) * 100), 
+    TEXT(MIN(ROUND(MOD(ABS(valorOrcadoComponent) , 1), 2) * 100, 99)))}</span>
+          
+</apex:component>

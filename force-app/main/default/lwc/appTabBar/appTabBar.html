@@ -1,0 +1,38 @@
+<template>
+    <div class="tab-bar">
+        <div class="tab-item" onclick={selectInicio}>
+            <div class="icon">
+                <img src={inicio} class="custom-icon" alt="Inicio"/>
+            </div>
+            <div class={inicioClass}>Início</div>
+        </div>
+
+        <div class="tab-item" onclick={selectConversas}>
+            <div class="icon">
+                <img src={conversas} class="custom-icon" alt="Consersas"/>
+            </div>
+            <div class={conversasClass}>Conversas</div>
+        </div>
+
+        <div class="tab-item" onclick={selectAgenda}>
+            <div class="icon">
+                <img src={agenda} class="custom-icon" alt="Agenda"/>
+            </div>
+            <div class={agendaClass}>Minha agenda</div>
+        </div>
+
+        <div class="tab-item" onclick={selectServicos}>
+            <div class="icon">
+                <img src={servicos} class="custom-icon" alt="Serviços"/>
+            </div>
+            <div class={servicosClass}>Serviços</div>
+        </div>
+
+        <div class="tab-item" onclick={selectMenu}>
+            <div class="icon">
+                <img src={menu} class="custom-icon" alt="Menu"/>
+            </div>
+            <div class={menuClass}>Menu</div>
+        </div>
+    </div>
+</template>

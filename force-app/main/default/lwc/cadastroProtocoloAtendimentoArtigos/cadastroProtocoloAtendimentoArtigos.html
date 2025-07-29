@@ -1,0 +1,50 @@
+<template>
+    <div class="slds-box slds-m-around_xxx-small" style="width: 99%; min-height: 450px; max-height:100%;">
+        <lightning-card title='Artigos Relacionados' icon-name="standard:article">
+            <template if:true={isAssuntoUnidadeSelected}>
+                <template if:true={showResults}>
+                    <div class="slds-p-around_xxx-small" style="min-height: 450px; max-height:80%;">   
+                        <lightning-accordion onsectiontoggle={handleSectionToggle} class="slds-box slds-theme_shade">
+                            
+                            <template for:each={data} for:item="item" for:index="index">
+                                <lightning-accordion-section key={item.id} name={item.title} label={item.title} class="">                        
+                                    <div class="slds-p-around_small" style="width: 100%; height: 100%;">                                                         
+                                        <strong>
+                                            <lightning-formatted-rich-text value={item.question}></lightning-formatted-rich-text>
+                                        </strong>
+                                    </div>
+                                    <div class="slds-p-horizontal_medium" style="width: 100%; height: 100%;">
+                                        <lightning-formatted-rich-text value={item.answer}></lightning-formatted-rich-text>                              
+                                    </div>
+                                </lightning-accordion-section>  
+                            </template>
+                        </lightning-accordion>
+                    </div>
+
+                    <!--  Pagination Buttons Start -->
+
+                    <div class="slds-align_absolute-center" style="width: 99%;">
+                        <lightning-button label='Anterior' icon-name="utility:chevronleft" onclick={previousHandler}
+                            disabled={isPreviousDisable}>
+                        </lightning-button>
+
+                        <span class="slds-badge slds-badge_lightest"
+                                    style="margin-right: 10px;margin-left: 10px;">
+                                    Página {page} de {totalPage}
+                                </span>
+
+                        <lightning-button label='Próxima' icon-name="utility:chevronright" icon-position="right" onclick={nextHandler}
+                            disabled={isNextDisable}>
+                        </lightning-button>
+                    </div>
+
+                </template>
+                <template if:false={showResults}>
+                    <div class="slds-align_absolute-center">
+                        <b>Nenhum artigo encontrado.</b>
+                    </div>
+                </template>            
+            </template>
+        </lightning-card>   
+    </div>
+</template>

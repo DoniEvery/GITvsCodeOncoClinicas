@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="customLookupFlow">
+    <apiVersion>59.0</apiVersion>
+        <isExposed>true</isExposed>
+    <masterLabel>LWC CustomLookup</masterLabel>
+    <description>Expose Lightning Web Component in the App Builder</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="RecordTypeIdParent" label="RecordTypeIdParent" type="String" role="inputOnly" />
+            <property name="RecordTypeIdChild" label="RecordTypeIdChild" type="String" role="inputOnly" />
+            <property name="Field1ResultParent" label="Field1ResultParent" type="String" role="outputOnly" />
+            <property name="Field2ResultParent" label="Field2ResultParent" type="String" role="outputOnly" />
+            <property name="Field3ResultParent" label="Field3ResultParent" type="String" role="outputOnly" />
+            <property name="Field1ResultChild" label="Field1ResultChild" type="String" role="outputOnly" />
+            <property name="Field2ResultChild" label="Field2ResultChild" type="String" role="outputOnly" />
+            <property name="Field3ResultChild" label="Field3ResultChild" type="String" role="outputOnly" />
+            <property name="IdResultParent" label="IdResultParent" type="String"/>
+            <property name="IdResultChild" label="IdResultChild" type="String"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

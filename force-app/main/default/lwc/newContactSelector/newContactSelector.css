@@ -1,0 +1,7 @@
+.modalBody {
+	position: relative;
+}
+
+.slds-modal__content {
+	overflow: initial !important;
+}

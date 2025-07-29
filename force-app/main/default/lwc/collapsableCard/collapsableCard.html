@@ -1,0 +1,41 @@
+<template>
+	<article class="slds-card outerCard">
+        <template if:true={showHeader}>
+            <div class={headerClass}>
+                <header class="slds-media slds-media_center slds-has-flexi-truncate flex-header">
+                    <div class="slds-media slds-media__figure">
+                        <lightning-icon icon-name={iconName} size={iconSize}></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a onclick={toggleBody} class={titleClass} title={title}>
+                                <span>{title}</span>
+                            </a>
+                        </h2>
+                        <p class={subtitleClass}>{subtitle}</p> 
+                    </div>
+                    <div style="display: flex">
+                        <slot name="actions"> </slot>
+                        <template if:false={_hideCollapse}>
+                            <lightning-button-icon
+                                onclick={toggleBody}
+                                icon-name="utility:chevrondown"
+                                size="medium"
+                                alternative-text="View More"
+                                class="slds-m-left_xx-small"
+                            ></lightning-button-icon>
+                        </template>
+                    </div>
+                </header>
+            </div>
+        </template>
+		<template if:true={_showBody}>
+			<div class="card-section"><slot name="body"> </slot></div>
+			<template if:true={showFooter}>
+				<footer class="slds-card__footer card-section">
+					<slot name="footer"> </slot>
+				</footer>
+			</template>
+		</template>
+	</article>
+</template>

@@ -1,0 +1,35 @@
+<template>
+    <div class="checkin-card">
+        <div class="checkin-content">
+            <div class="text-content">
+                <h2>Realize seu check-in!</h2>
+                <p>Ao realizar o check-in, você agilizará o seu atendimento.</p>
+
+                <div class="info">
+                    <lightning-icon icon-name="utility:event" size="x-small"></lightning-icon>
+                    <span>27/12/25</span>
+
+                    <lightning-icon icon-name="utility:clock" size="x-small"></lightning-icon>
+                    <span>08h30</span>
+                </div>
+
+                <div class="professional">
+                    <div>
+                        <strong>Dr. Paulo Campelo</strong>
+                        <p>Unidade A</p>
+                    </div>
+                </div>
+
+                <lightning-button
+                    label="Realizar check-in"
+                    variant="brand"
+                    onclick={handleCheckin}>
+                </lightning-button>
+            </div>
+
+            <div class="image-content">
+                <img src={nurseImage} alt="Enfermeira" class="nurse-illustration" />
+            </div>
+        </div>
+    </div>
+</template>

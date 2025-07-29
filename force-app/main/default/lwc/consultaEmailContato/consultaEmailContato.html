@@ -1,0 +1,42 @@
+<template>
+    <lightning-spinner variant="brand" size="medium" if:true={isLoading}> </lightning-spinner>
+
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="5">
+            <div class="header-column">
+                <lightning-input type="date" name="dataInicial" label="Data Inicial" value={filterDataInicial} onchange={handleChange}></lightning-input>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="5">
+            <div class="header-column">
+                <lightning-input type="date" name="dataFinal" label="Data Final" value={filterDataFinal} onchange={handleChange}></lightning-input>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" class="slds-text-align_right" size="2">
+            <div class="header-column" style="padding-top: 19px;">
+                <lightning-button variant="brand" label="Pesquisar" icon-name="utility:search" onclick={getDadosMkt} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="12">
+            <template if:true={alreadySearch}>
+                <lightning-card variant="base" title="Consulta E-mails" footer="Card Footer" icon-name="standard:email">
+                    <lightning-datatable
+                        class="slds-table_header-fixed_container slds-scrollable_x slds-table_col-bordered"
+                        key-field="id"
+                        data={infoTabela.results}
+                        columns={columns}
+                        show-row-number-column
+                        hide-checkbox-column
+                        enable-infinite-loading
+                    >
+                    </lightning-datatable>
+                </lightning-card>
+            </template> 
+        </lightning-layout-item>
+       
+    </lightning-layout>
+
+</template>

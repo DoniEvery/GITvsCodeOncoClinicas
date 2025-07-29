@@ -1,0 +1,31 @@
+<template>
+    <section class="modal-backdrop">
+        <div class="modal-content">
+            <div class="header-modal">
+                <img src={dateIcon} class="custom-icon" alt="Data da consulta" />
+                <lightning-icon icon-name="utility:close" size="x-small" class="fechar-modal" onclick={fecharModal}></lightning-icon>
+            </div>
+
+            <h2 class="titulo-modal">Escolha as datas</h2>
+
+            <div class="modal-datas">
+                <lightning-input type="date" label="Data Inicial" onchange={handleDataInicialChange}></lightning-input>
+                <lightning-input type="date" label="Data Final" onchange={handleDataFinalChange}></lightning-input>
+            </div>
+
+            <div class="modal-linha"></div>
+
+            <div class="modal-actions">
+                <button class="cancel-date" onclick={fecharModal}>Cancelar</button>
+                
+                <!-- Classe dinâmica e disabled atrelado ao getter -->
+                <button 
+                    class={confirmButtonClass} 
+                    onclick={aplicarFiltro} 
+                    disabled={botaoDesabilitado}>
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </section>    
+</template>

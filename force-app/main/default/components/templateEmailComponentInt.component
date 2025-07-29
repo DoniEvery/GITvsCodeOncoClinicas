@@ -1,0 +1,9 @@
+<apex:component access="global">
+
+    <apex:attribute type="Decimal" name="qtdPessoas" description="Pegar o valor da moeda formatada em BRL"/>
+    
+    <span> {!IF(qtdPessoas< 0, "-", "") & IF(ABS(qtdPessoas) >= 1000000, 
+    TEXT(FLOOR(ABS(qtdPessoas) / 1000000)) & ".", "") & IF(ABS(qtdPessoas) >= 1000, 
+    RIGHT(TEXT(FLOOR(ABS(qtdPessoas) / 1000)), 3) & ".", "") & RIGHT(TEXT(FLOOR(ABS(qtdPessoas))), 3)}</span>
+          
+</apex:component>

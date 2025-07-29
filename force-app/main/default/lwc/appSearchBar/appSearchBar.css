@@ -1,0 +1,39 @@
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0; 
+    margin-left: 1rem; 
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.6rem 2.5rem 0.6rem 1rem; 
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: #06b6ae;
+    opacity: 1;
+}
+
+.search-input:focus {
+    border-color: #06b6ae;
+}
+
+.search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.search-icon lightning-icon {
+    --sds-c-icon-color-foreground-default: #06b6ae; 
+}

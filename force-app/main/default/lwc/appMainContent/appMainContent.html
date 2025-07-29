@@ -1,0 +1,119 @@
+<template>
+    <div class="main-content">
+        <template if:true={isPageNotFound}>
+            <div class="not-found">
+                <p>Página não encontrada</p>
+            </div>
+        </template>
+
+        <template if:true={isHome}>
+            <template if:true={isMedico}>
+                <c-app-home-doctor></c-app-home-doctor>
+            </template>
+            <template if:false={isMedico}>
+                <c-app-home></c-app-home>
+            </template>
+        </template>
+
+        <template if:true={isConversas}>
+            <c-app-chat></c-app-chat>
+        </template>
+
+        <template if:true={isPrivacidade}>
+            <p>Política de Privacidade</p>
+        </template>
+
+        <template if:true={isPerfil}>
+            <c-app-user-profile-form></c-app-user-profile-form>
+        </template>
+
+        <template if:true={showAgenda}>
+            <template if:true={isMedico}>
+                <c-app-my-schedule-doctor onback={handleBack}></c-app-my-schedule-doctor>
+            </template>
+            <template if:false={isMedico}>
+                <c-app-my-schedule onback={handleBack}></c-app-my-schedule>
+            </template>
+        </template>
+
+        <template if:true={showPerguntasFrequentes}>
+            <c-app-faq-page onback={handleBack}></c-app-faq-page>
+        </template>
+
+        <template if:true={showAtendimento}>
+            <p>Atendimento</p>
+        </template>
+
+        <template if:true={showFaleConosco}>
+            <p>Fale Conosco</p>
+        </template>
+
+        <template if:true={showLaudos}>
+            <p>Laudos</p>
+        </template>
+
+        <template if:true={showMeuProntuario}>
+            <p>Meu prontuário</p>
+        </template>
+
+        <template if:true={showAcompanhantes}>
+            <c-app-acompanhantes-management onback={handleBack}></c-app-acompanhantes-management>
+        </template>
+
+        <template if:true={showNossosServicos}>
+            <p>Nossos serviços</p>
+        </template>
+
+        <template if:true={showSaibaMais}>
+            <p>Saiba mais sobre o APP</p>
+        </template>
+
+        <template if:true={showSuporte}>
+            <p>Suporte ao APP</p>
+        </template>
+
+        <template if:true={showManual}>
+            <c-app-manual-page onback={handleBack}></c-app-manual-page>
+        </template>
+
+        <template if:true={showPacientes}>
+            <c-app-show-patients
+                                 onscrolltoprequest={handleScrollTop}
+                                 altura={altura}
+                                 onpatientselected={handlePatientSelected}></c-app-show-patients>
+        </template>
+
+        <template if:true={showPaciente}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+        </template>
+        <template if:true={showProntuario}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showEnviarArquivos}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showSolicitarExames}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showTratamentos}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showDiagnostico}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showHistoricoCconsultas}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+        <template if:true={showHistoricoSaude}>
+            <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
+
+        </template>
+
+    </div>
+</template>

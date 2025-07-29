@@ -1,0 +1,39 @@
+<template>
+    <div class="home-container">
+        <div class="welcome-card">
+            <div class="text-content">
+                <p class="greeting">Olá,</p>
+                <p class="user-name">{userName}</p>
+                <p class="subtitle">Estamos aqui para cuidar de você.</p>
+            </div>
+            <div class="image-content">
+                <img src={doctorsImage} alt="Doctors" class="doctors-image" />
+            </div>
+        </div>
+
+        <c-app-pre-checkin></c-app-pre-checkin>
+
+        <div class="bloco-agenda-home">
+            <div class="header-container">
+                <div class="title">
+                    <img src={agenda} class="custom-icon" alt="Agenda" />
+                    <p>Minha agenda</p>
+                </div>
+    
+                <div class="button-inline-toggle">
+                    <lightning-button label="Ver todas" onclick={toggleExpandAgenda} variant="base"></lightning-button>
+                </div>
+            </div>
+
+            <c-app-my-schedule modo-home="true" onstatusagenda={atualizarBotaoAgendaCompleta} exibir-todas={exibirTodas}></c-app-my-schedule>
+
+            <template if:true={mostrarBotaoAgendaCompleta}>
+                <button class="button-agenda-completa" onclick={irParaAgendaCompleta}>
+                    Veja a agenda completa
+                </button>
+            </template>
+        </div>
+
+        <c-app-quick-actions-grid onactionselected={handleActionSelected}></c-app-quick-actions-grid>
+    </div>
+</template>

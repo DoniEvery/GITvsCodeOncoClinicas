@@ -1,0 +1,108 @@
+<template>
+    <div class="slds-theme_default slds-p-around_medium slds-m-around_medium slds-align_absolute-center container">
+        <div class="form-box">
+
+            <!-- Tela de Sucesso -->
+            <template if:true={successMessage}>
+                <div class="success-wrapper">
+                    <p class="success-subtitle">Sua nova senha foi criada com sucesso!</p>
+                    <div class="spinner"></div>
+                </div>
+            </template>
+
+            <!-- Tela principal (oculta quando sucesso estiver ativo) -->
+            <template if:false={successMessage}>
+                <template if:true={showPrimeiroAcesso}>
+                    <div class="login-header">
+                        <div class="login-header-row">
+                            <lightning-icon icon-name="utility:chevronleft" onclick={handleVoltar} size="x-small" class="back-icon"></lightning-icon>
+                            <h1 class="login-title">Primeiro Acesso</h1>
+                        </div>
+                        <p class="login-subtitle">Para iniciar seu acesso, digite seu documento de identificação:</p>
+                    </div>
+
+                    <template if:true={errorMessage}>
+                        <div class="custom-error-box slds-m-top_medium">
+                            <lightning-icon
+                                icon-name="utility:info_alt"
+                                size="x-small"
+                                class="error-icon">
+                            </lightning-icon>
+                            <span class="error-text">{errorMessage}</span>
+                        </div>
+                    </template>            
+
+                    <template if:true={mostrarCamposDocumento}>
+                        <div class="custom-input">
+                            <label for="tipoDocumento">Tipo de Documento</label>
+                            <select id="tipoDocumento" name="tipoDocumento" onchange={handleTipoDocumentoChange}>
+                                <option value="" disabled selected class="placeholder-option">Selecione</option>
+                                <template for:each={tiposDocumento} for:item="option">
+                                    <option key={option.value} value={option.value}>{option.label}</option>
+                                </template>
+                            </select>
+                        </div>
+
+                        <div class="custom-input slds-m-top_small">
+                            <label for="numeroDocumento">Número do Documento</label>
+                            <input
+                                type="text"
+                                id="numeroDocumento"
+                                name="numeroDocumento"
+                                value={numeroDocumento}
+                                oninput={handleNumeroDocumentoChange}
+                                placeholder="Digite o número do seu documento" />
+                        </div>
+
+                        <div class="slds-m-top_medium">
+                            <button class={botaoSeguirClass} onclick={handleSeguir} disabled={botaoDesabilitado}>Seguir</button>
+                        </div>
+                    </template>
+
+                    <template if:true={mostrarNovaSenha}>
+                        <div class="login-subtitle slds-m-bottom_medium">Escolha sua senha</div>
+
+                        <div class="custom-input">
+                            <label for="novaSenha">Senha</label>
+                            <input
+                                type="password"
+                                id="novaSenha"
+                                name="novaSenha"
+                                value={novaSenha}
+                                oninput={handleNovaSenhaChange}
+                                placeholder="Digite sua senha" />
+                        </div>
+
+                        <ul class="regra-lista slds-m-bottom_small">
+                            <template for:each={regrasSenha} for:item="regra">
+                                <li key={regra.id} class={regra.itemClass}>
+                                    <span class="icon">{regra.iconChar}</span>
+                                    {regra.label}
+                                </li>
+                            </template>
+                        </ul>
+
+                        <div class="custom-input">
+                            <label for="confirmaSenha">Confirme a Senha</label>
+                            <input
+                                type="password"
+                                id="confirmaSenha"
+                                name="confirmaSenha"
+                                value={confirmaSenha}
+                                oninput={handleConfirmaSenhaChange}
+                                placeholder="Digite novamente sua senha" />
+                        </div>
+
+                        <div class="slds-m-top_medium">
+                            <button class="custom-button" onclick={handleSalvar}>Salvar</button>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={showRecuperarSenha}>
+                    <c-app-login-esqueci-senha onvoltar={voltarParaLogin}></c-app-login-esqueci-senha>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

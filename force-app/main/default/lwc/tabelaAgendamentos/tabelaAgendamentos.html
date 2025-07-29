@@ -1,0 +1,97 @@
+<template>
+
+    <lightning-layout multiple-rows="true">
+        <!--Tela de Filtros-->
+        <template if:true={filtroLateral}>
+            <lightning-layout-item padding="around-small" size="2">         
+                <lightning-card variant="base" title="Filtros" footer="Card Footer" icon-name="standard:filter">
+                    <div >
+                        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                            <lightning-accordion-section name="Plano" label={filtroPlanoLabel}>
+                                
+                                <lightning-input type="search" onchange={buscaConvenioPorNome}></lightning-input>
+                                <br/>
+                                
+                                <template for:each={filtroConvenio} for:item="conv">
+                                    <div key={conv} style="padding-left: 0px;">
+                                        <lightning-input type="checkbox" data-id={conv.nomeFiltro} label={conv.nomeFiltro} value={conv.status} onchange={handleFiltroConvenio}></lightning-input>
+                                    </div>
+                                </template>
+                                
+                                <template if:true={semFiltroPlano}>
+                                    Nenhum convênio retornado.
+                                </template>
+
+                            </lightning-accordion-section>
+
+                            <lightning-accordion-section name="Diag" label={filtroDiagLabel}>
+                                
+                                <lightning-input type="search" onchange={buscaDiagPorNome}></lightning-input>
+                                <br/>
+
+                                <template for:each={filtroDiagnostico} for:item="diag">     
+                                    <div key={diag} style="padding-left: 0px;">
+                                        <lightning-input type="checkbox" data-id={diag.nomeFiltro} label={diag.nomeFiltro} value={diag.status} onchange={handleFiltroDiagnostico}></lightning-input>
+                                    </div>
+                                </template>
+
+                                <template if:true={semFiltroDiagnostico}>
+                                    Nenhum diagnóstico retornado.
+                                </template>
+
+                            </lightning-accordion-section>
+
+                        </lightning-accordion>
+                    </div>
+                </lightning-card>
+            </lightning-layout-item>
+        </template>
+
+        <!--Tela de busca-->
+        <lightning-layout-item padding="around-small" size={tamanhoTotal}>
+            <lightning-card variant="base" title="Agendas Médicas" footer="Card Footer" icon-name="standard:event">
+                <lightning-button variant="brand-outline" label={telaFiltros} onclick={handleFiltroTela} class="slds-m-left_x-small" slot="actions"></lightning-button>
+                <lightning-button variant="brand-outline" label="Buscar Agendas" onclick={getDadosTabela} class="slds-m-left_x-small" slot="actions"></lightning-button>   
+                
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-record-edit-form object-api-name="AgendaMedica__c" id="createForm" >
+                        <div class="slds-align_absolute-center">
+                            <lightning-input-field field-name="Profissional__c" variant="label-stacked" onchange={handleMedicoSelection}> </lightning-input-field>
+                            <lightning-input-field field-name="Unidade__c" variant="label-stacked" onchange={handleUnidadeSelection}> </lightning-input-field>
+                            <lightning-input-field field-name="Especialidade__c" variant="label-stacked" onchange={handleEspecialidadeSelection}> </lightning-input-field>
+                        </div>
+                    </lightning-record-edit-form>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding="around-small" size="12">
+                    <p class="slds-p-horizontal_small">total de registros retornados: {infoTabelaAux.length}</p>
+                </lightning-layout-item>
+
+                <!--Tabela de Agendamentos-->
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-datatable
+                        key-field="id"
+                        data={infoTabelaAux}
+                        show-row-number-column
+                        hide-checkbox-column
+                        enable-infinite-loading
+                        sorted-by={sortBy}
+                        sorted-direction={sortDirection}
+                        onsort={handleSortAccountData}
+                        columns={columns}>
+                    </lightning-datatable>
+                </lightning-layout-item>
+                
+                <lightning-layout-item padding="around-small" size="12">
+                    <template if:true={tabelaVazia}>
+                        <div align="center">
+                            <p class="slds-p-horizontal_small">Nenhuma agenda médica encontrada!</p>
+                        </div>
+                    </template>
+                </lightning-layout-item>
+            
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+
+</template>

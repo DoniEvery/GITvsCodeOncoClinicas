@@ -1,0 +1,220 @@
+<template>
+    <template if:true={patient}>
+
+        <div class="patientInfos">
+
+            <div class="patientCard">
+                <div class="containerPeopleImage">
+                    <img src={patient.photo} class="peopleImage" alt="Foto" />
+
+                </div>
+                <div class="textContainer">
+
+                    <span class="infoTitleText">{patient.nome}</span>
+                    <div class="infosTextCard">
+
+                        <span>CPF:
+                            <span class="infoText">
+                                {patient.cpf}
+                            </span>
+                        </span>
+                        <span>
+                            Data Nasc.:
+                            <span class="infoText">
+                                {patient.dataNascimento}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="iconPatientCard ">
+                <div class={detailsClass} onclick={handleClickDetails}>
+                    <img src={details} class="details-icon" alt="Ícone" />
+                    <div class="detailsText">
+                        Detalhes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class={showDetailsWrapperClass}>
+            <div class="showDetailsClass">
+                <div class="showDetailsRightCollumn">
+                    <span class="showDetailsClassTextContainer">
+                        Altura
+                        <span class="showDetailsClassText"> {patient.altura}m </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Peso
+                        <span class="showDetailsClassText"> {patient.peso}Kg </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Sexo
+                        <span class="showDetailsClassText"> {patient.sexo} </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Prontuário
+                        <span class="showDetailsClassText"> {patient.prontuario} </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Filiação 1
+                        <span class="showDetailsClassText"> {patient.filiacao1} </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Filiação 2
+                        <span class="showDetailsClassText"> {patient.filiacao2} </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Telefone
+                        <span class="showDetailsClassText"> {patient.telefone} </span>
+                    </span>
+                    <span class="showDetailsClassTextContainer">
+                        Email
+                        <span class="showDetailsClassText"> {patient.email} </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <template if:true={isPatientPage}>
+            <template for:each={menuPatient} for:item="itemMenu">
+
+                <div key={itemMenu.label} class="menusContainer" onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+
+                    <div class="menuCardContainer">
+                        <div class="infoTextCard">
+                            <img src={itemMenu.icon} class="details-icon-card" alt="Ícone" />{itemMenu.label}
+
+                        </div>
+                        <lightning-icon
+                                        icon-name="utility:chevronright"
+                                        alternative-text="chevronright"
+                                        size="x-small"
+                                        title="large size"
+                                        variant="default"></lightning-icon>
+                    </div>
+                </div>
+
+            </template>
+        </template>
+        <template if:true={isProntuario}>
+            <template for:each={menuProntuario} for:item="itemMenu">
+
+                <div key={itemMenu.label} class="menusContainer" onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
+
+                    <div class="menuCardContainer">
+                        <div class="infoTextCard">
+                            <img src={itemMenu.icon} class="details-icon-card" alt="Ícone" />{itemMenu.label}
+
+                        </div>
+                        <lightning-icon
+                                        icon-name="utility:chevronright"
+                                        alternative-text="chevronright"
+                                        size="x-small"
+                                        title="large size"
+                                        variant="default"></lightning-icon>
+                    </div>
+                </div>
+
+            </template>
+        </template>
+        <template if:true={isEnviarArquivos}>
+            Sem tela
+        </template>
+        <template if:true={isSolicitarExames}>
+            Sem tela
+        </template>
+        <template if:true={isTratamentos}>
+            <template for:each={patient.prontuarios} for:item="pront">
+
+                <div key={pront.uniqueKey} class="menusContainer" onclick={handleClickVewDetailTratamentos} data-id={pront.uniqueKey}>
+
+                    <div class="menuCardContainerProtocolos">
+                        <div class="infoTextCardTitle">
+                            Nome do protocolo
+                            <lightning-icon
+                                            icon-name="utility:chevrondown"
+                                            alternative-text="chevrondown"
+                                            size="x-small"
+                                            title="large size"
+                                            variant="default"></lightning-icon>
+
+                        </div>
+
+                        <div class="protocoloTextInfo">
+
+                            <div class="protocoloTextInfoCollum">
+
+                                <div class="cardProtocoloInfo">
+                                    Data de início
+                                </div>
+                                <div class="cardProtocoloValue">
+                                    {pront.startDate}
+                                </div>
+                            </div>
+
+                            <div class="protocoloTextInfoCollum">
+
+                                <div class="cardProtocoloInfo">
+                                    última sessão
+
+                                </div>
+                                <div class="cardProtocoloValue">
+                                    {pront.lastSessionDate}
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class={pront.className}>
+
+                            <div class="protocoloTextInfoSecondContainer">
+
+                                <div class="protocoloTextInfoCollum">
+
+                                    <div class="cardProtocoloInfo">
+                                        Nome do tratamento
+                                    </div>
+                                    <div class="cardProtocoloValue">
+                                        {pront.summary}
+                                    </div>
+
+                                    <div class="cardProtocoloInfoSecondContainer">
+                                        Progresso do tratamento
+
+                                    </div>
+                                    <div class="cardProtocoloValueLink slds-current-color">
+                                        Visualizar progresso <lightning-icon
+                                                        icon-name="utility:chevronRight"
+                                                        alternative-text="chevronRight"
+                                                        size="xx-small"
+                                                        title="large size"
+                                                        variant="default"></lightning-icon>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </template>
+        </template>
+
+
+
+
+
+
+    </template>
+    <template if:false={patient}>
+        <p>Carregando paciente...</p>
+    </template>
+</template>

@@ -1,0 +1,92 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Carregando..." size="small"></lightning-spinner>
+    </template>
+
+    <template if:false={isLoading}>
+        <div class="header-container">
+            <div class="title">
+                <img src={servicos} class="custom-icon" alt="Inicio" />
+                <p>Nossos serviços</p>
+            </div>
+
+            <div class="button-inline-toggle">
+                <template if:true={temMuitosCards}>
+                    <lightning-button 
+                        label={toggleButtonLabel} 
+                        onclick={handleToggleView} 
+                        variant="base"
+                        disabled={isEditing}>
+                    </lightning-button>
+                </template>
+            </div>
+        </div>
+
+        <template if:true={showAll}>
+            <div class="button-below-toggle">
+                <lightning-button
+                    label="Mudar posições"
+                    onclick={handleEditPositions}
+                    variant="base">
+                </lightning-button>
+            </div>
+
+            <template if:true={isEditing}>
+                <template if:true={showMedicoMobileMessage}>
+                    <p class="info-message" style="margin-top: 8px; font-size: 0.85rem; color: #666; margin-bottom: 0.5rem">
+                        Para mudar a posição, pressione o ícone e arraste
+                    </p>
+                </template>
+            </template>
+        </template>
+
+        <div class="quick-actions-grid">
+            <template if:true={cards}>
+                <template for:each={visibleCards} for:item="card" for:index="index">
+                    <div key={card.id}
+                         class="card"
+                         data-id={card.id}
+                         data-index={index}
+                         draggable={isEditing}
+                         ondragstart={handleDragStart}
+                         ondragover={handleDragOver}
+                         ondrop={handleDrop}>
+                        <c-app-quick-action-item
+                            label={card.title}
+                            icon={card.icon}
+                            content={card.content}
+                            type="Link"
+                            onactionclick={handleActionClick}>
+                        </c-app-quick-action-item>
+                    </div>
+                </template>
+            </template>
+            <template if:false={cards}>
+                <p>Nenhuma ação encontrada.</p>
+            </template>
+        </div>
+
+        <template if:true={isEditing}>
+            <div class="edit-button-group">
+                <lightning-button
+                    label="Cancelar"
+                    onclick={handleCancelEdit}
+                    variant="base"
+                    class="s-button"
+                    disabled={isSaving}>
+                </lightning-button>
+                <lightning-button
+                    label="Salvar"
+                    onclick={handleSaveOrder}
+                    variant="brand"
+                    class="s-button"
+                    disabled={isSaving}>
+                </lightning-button>
+            </div>
+        </template>
+
+        <template if:true={isSaving}>
+            <lightning-spinner alternative-text="Salvando..." size="small"></lightning-spinner>
+        </template>
+    </template>
+</template>

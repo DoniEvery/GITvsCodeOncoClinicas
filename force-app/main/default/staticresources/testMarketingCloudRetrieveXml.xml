@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <soap:Header>
+        <wsa:Action>RetrieveResponse</wsa:Action>
+        <wsa:MessageID>urn:uuid:f6a761e3-4c5d-490d-aa54-1ef2392ddb3c</wsa:MessageID>
+        <wsa:RelatesTo>urn:uuid:c96f3ed8-37fe-4c44-9a63-81c0d3ccc223</wsa:RelatesTo>
+        <wsa:To>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:To>
+        <wsse:Security>
+            <wsu:Timestamp wsu:Id="Timestamp-d19dca3f-cf76-4c78-9555-558105dd7c6f">
+                <wsu:Created>2022-11-29T18:24:02Z</wsu:Created>
+                <wsu:Expires>2022-11-29T18:29:02Z</wsu:Expires>
+            </wsu:Timestamp>
+        </wsse:Security>
+    </soap:Header>
+    <soap:Body>
+        <RetrieveResponseMsg xmlns="http://exacttarget.com/wsdl/partnerAPI">
+            <OverallStatus>OK</OverallStatus>
+            <RequestID>427144cd-1c44-4765-95fa-61e3aa0319a4</RequestID>
+            <Results xsi:type="DataExtensionObject">
+                <PartnerKey xsi:nil="true" />
+                <ObjectID xsi:nil="true" />
+                <Type>DataExtensionObject</Type>
+                <Properties>
+                    <Property>
+                        <Name>SubscriberKey</Name>
+                        <Value>0034x00000cER90AAG</Value>
+                    </Property>
+                    <Property>
+                        <Name>Nome Jornada</Name>
+                        <Value />
+                    </Property>
+                    <Property>
+                        <Name>Nome Email</Name>
+                        <Value>id_01410 - QUINTAS MOLECULARES - 24-11 - CONVITE 2</Value>
+                    </Property>
+                    <Property>
+                        <Name>JobID</Name>
+                        <Value>106892</Value>
+                    </Property>
+                    <Property>
+                        <Name>Data Envio</Name>
+                        <Value>11/22/2022 2:00:51 PM</Value>
+                    </Property>
+                    <Property>
+                        <Name>Abertura</Name>
+                        <Value>Sim</Value>
+                    </Property>
+                    <Property>
+                        <Name>Data Abertura</Name>
+                        <Value>7/4/2022 6:34:03 PM</Value>
+                    </Property>
+                    <Property>
+                        <Name>Clique</Name>
+                        <Value>Não</Value>
+                    </Property>
+                    <Property>
+                        <Name>Data Clique</Name>
+                        <Value />
+                    </Property>
+                    <Property>
+                        <Name>Bounce</Name>
+                        <Value>Não</Value>
+                    </Property>
+                    <Property>
+                        <Name>Data Bounce</Name>
+                        <Value />
+                    </Property>
+                    <Property>
+                        <Name>Unsubscribe</Name>
+                        <Value>Não</Value>
+                    </Property>
+                    <Property>
+                        <Name>Data Unsubscribe</Name>
+                        <Value />
+                    </Property>
+                </Properties>
+            </Results>
+        </RetrieveResponseMsg>
+    </soap:Body>
+</soap:Envelope>

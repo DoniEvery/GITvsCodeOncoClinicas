@@ -1,0 +1,254 @@
+:host {
+    display: block;
+}
+
+.mobile-header {
+    display: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 0;
+}
+
+.form-box {
+    width: 100%;
+    padding: 2rem;
+    min-width: 350px;
+}
+
+/* Estilo dos campos de input e select */
+.custom-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-input label {
+    font-weight: 400;
+    padding-left: 0.5rem;
+    font-size: 12px;
+    color: #606060;
+}
+
+.custom-input input,
+.custom-input select {
+    height: 3rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #B2B2B2;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-input input:focus,
+.custom-input select:focus {
+    border-color: #0CA29C;
+    box-shadow: 0 0 0 2px rgba(12, 162, 156, 0.2);
+}
+
+.custom-input input::placeholder,
+.custom-input select::placeholder {
+    color: #9D9D9D; /* Altere aqui para a cor desejada */
+    opacity: 1;  /* Garante que a cor seja aplicada */
+}
+
+
+
+/* Altera a cor da opção "Selecione" no menu dropdown */
+.placeholder-option {
+    color: #9D9D9D; /* cinza claro, como se fosse um placeholder */
+}
+
+/* Muda a cor do texto exibido quando "Selecione" está visível */
+.custom-select {
+    color: #9D9D9D;
+}
+
+/* Quando o usuário seleciona uma opção válida, muda a cor do texto */
+.custom-select:valid {
+    color: #333;
+}
+
+/* Estilo da seta do select */
+.custom-input select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='24px' height='24px' stroke-width='1.5' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' color='%23000000'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+}
+
+/* Botão personalizado */
+.custom-button {
+    width: 100%;
+    background-color: #0CA29C;
+    border: 2px solid #0CA29C;
+    font-weight: 600;
+    color: white;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #08837e;
+    border-color: #08837e;
+}
+
+.custom-button.disabled {
+    background-color: #B5D2D0;
+    border-color: #B5D2D0;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Links */
+.link-container a {
+    color: #017C77;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.link-container a:hover {
+    color: #017C77;
+    text-decoration: underline;
+}
+
+/* Linha divisória */
+.divider {
+    background-color: #DBDBDB;
+    height: 1px;
+    border: none;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-header {
+    margin-bottom: 1.5rem;
+}
+
+.login-header-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem; /* altura mínima desejada */
+}
+
+.back-icon {
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+.login-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: #3F3E3E;
+}
+
+.login-subtitle {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #3F3E3E;
+    font-weight: 400;
+    text-align: left;
+}
+
+.radio-label-custom {
+    display: flex;
+    align-items: center;
+    border: 1px solid #B6E5E5; /* Verde */
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+
+@media (max-width: 768px) {
+    .login-subtitle {
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 600px;
+        background-color: white; /* fundo branco só no conteúdo */
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .form-box {
+        width: 100%;
+        padding: 2rem;
+        min-width: 400px;
+        flex-grow: 1;
+    }
+
+    .link-container a {
+        font-size: 1rem;
+    }
+
+    .custom-button{
+        margin-top: 2rem;
+    }
+    
+    .custom-input label {
+        padding-left: 0.5rem;
+        text-align: left;
+        display: block;
+    }
+}
+
+.custom-radio-visible {
+    appearance: auto;
+    width: 18px;
+    height: 18px;
+    accent-color: #0CA29C; 
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.radio-label-custom {
+    display: flex;
+    align-items: center;
+    border: 1px solid #B6E5E5;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+    background-color: white;
+}
+
+.radio-label-custom.radio-checked {
+    background-color: #D1F5F4;
+    border: 1px solid #0CA29C;
+}
+
+.custom-radio-visible {
+    appearance: auto;
+    width: 18px;
+    height: 18px;
+    accent-color: #0CA29C;
+    cursor: pointer;
+}

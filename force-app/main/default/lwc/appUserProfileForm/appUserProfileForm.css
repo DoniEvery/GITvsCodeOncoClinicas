@@ -1,0 +1,73 @@
+.user-profile-form {
+    width: 100%;
+    max-width: 1000px; 
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+    padding: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .user-profile-form {
+        max-width: 95vw;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .user-profile-form {
+        max-width: 100%;
+        padding: 1rem;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
+.profile-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.user-details-section {
+    flex: 1;
+}
+
+.user-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #102a43;
+    margin-bottom: 0.5rem;
+}
+
+.user-info-field {
+    font-size: 1rem;
+    color: #334e68;
+    margin-bottom: 0.5rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-fields lightning-input-field {
+    margin-bottom: 0.5rem;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

@@ -1,0 +1,29 @@
+.modal-position{
+    z-index: 901 !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform .1s linear,opacity .1s linear;
+}
+
+.fade{
+    z-index: 900 !important;
+}
+
+.disableOverflow {
+    overflow: visible !important;
+    overflow-y: visible !important;
+}
+
+.allowOverrideModal {
+    transform: inherit;
+}
+
+.slds-button_icon-brand{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}

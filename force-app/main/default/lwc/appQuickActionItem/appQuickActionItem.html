@@ -1,0 +1,15 @@
+<template>
+    <div class={cardClass} 
+         title={label} 
+         draggable="true" 
+         ondragstart={handleDragStart} 
+         ondragend={handleDragEnd} 
+         onclick={handleClick}
+         ontouchstart={handleTouchStart}>
+        <div class="icon-wrapper">
+            <img src={iconUrl} alt="Ícone estático" class="custom-icon" />
+        </div>
+        
+        <div class="label" draggable="false">{label}</div>
+    </div>
+</template>

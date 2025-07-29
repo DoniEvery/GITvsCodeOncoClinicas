@@ -1,0 +1,144 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    color: #3F3E3E;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-icon {
+    transform: scale(0.85);
+    width: 24px;
+    height: 24px;
+}
+
+.button-group-top {
+    display: flex;
+    gap: 1rem;
+}
+
+.quick-actions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.8rem;     
+}
+
+.edit-button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem 2rem 0 2rem;
+    padding-right: 0.1rem;
+    --slds-c-button-brand-color-background: #3666AE;
+    --slds-c-button-brand-color-border: #3666AE;
+    --slds-c-button-text-color: #3666AE;
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quick-actions-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.5rem;     
+        padding: 0rem;
+        padding-right: 0rem; 
+    }
+
+    .title {
+        font-size: 14px;
+    }
+}
+
+.button-inline-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    --slds-c-button-text-color: #3666AE;
+}
+
+.button-below-toggle {
+    margin-top: 0.75rem;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0.1rem;
+    --slds-c-button-text-color: #3666AE;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quick-actions-grid {
+        gap: 1rem;  
+        padding-right: 0.35rem;   
+        padding-left: 0.35rem;
+    }
+
+    .title {
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .custom-icon {
+        margin-right: 0.25rem;
+    }
+
+    .button-below-toggle {
+        margin-top: 0.5rem;
+        justify-content: flex-end;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .edit-button-group {
+        justify-content: flex-end;
+        padding-left: 1rem;
+        padding-right: 0.5rem;
+    }
+
+    .button-inline-toggle {
+        padding-right: 0rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .header-container {
+        padding-right: 0.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .button-inline-toggle,
+    .button-below-toggle {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 383px) {
+    .quick-actions-grid {
+        gap: 0.6rem;     
+    }
+}

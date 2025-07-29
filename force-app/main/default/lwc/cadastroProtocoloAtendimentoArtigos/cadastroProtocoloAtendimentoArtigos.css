@@ -1,0 +1,11 @@
+lightning-accordion-section{
+    --slds-c-accordion-color-border : #000000;
+    --slds-c-accordion-heading-text-color : #000000;
+    --slds-c-accordion-summary-color-background: #FFF6E3;
+    --slds-c-accordion-heading-font-size : 13px;
+    
+    --slds-c-accordion-section-spacing-block-end : 0.50rem;
+    --slds-c-accordion-section-spacing-block-start : 0.50rem;
+    --slds-c-accordion-section-spacing-inline-end : 0.50rem;
+    --slds-c-accordion-section-spacing-inline-start : 0.50rem;
+}

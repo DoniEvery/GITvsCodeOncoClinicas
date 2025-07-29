@@ -1,0 +1,73 @@
+<template>
+    <div class="slds-theme_default slds-p-around_medium slds-m-around_medium slds-align_absolute-center container">
+        <div class="form-box">
+            
+            <!-- Login -->
+            <template if:true={showLogin}>
+                <div class="login-header">
+                    <div class="login-header-row">
+                        <lightning-icon icon-name="utility:chevronleft" onclick={handleVoltar} size="x-small" class="back-icon"></lightning-icon>
+                        <h1 class="login-title">Login</h1>
+                    </div>
+                    <p class="login-subtitle">Para acessar, digite seu usuário e </br>senha:</p>
+                </div>       
+                
+                <template if:true={errorMessage}>
+                    <div class="custom-error-box slds-m-top_medium">
+                        <lightning-icon
+                            icon-name="utility:info_alt"
+                            size="x-small"
+                            class="error-icon">
+                        </lightning-icon>
+                        <span class="error-text">{errorMessage}</span>
+                    </div>
+                </template>   
+
+                <div class="custom-input">
+                    <label for="tipoDocumento">Tipo de Documento</label>
+                    <select id="tipoDocumento" name="tipoDocumento" onchange={handleTipoDocumentoChange}>
+                        <option value="" disabled selected class="placeholder-option">Selecione</option>
+                        <template for:each={documentoOptions} for:item="option">
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        </template>
+                    </select>
+                </div>
+
+                <div class="custom-input slds-m-top_small">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Digite o número do seu documento" value={numeroDocumento} oninput={handleNumeroDocumentoChange} />
+                </div>
+
+                <div class="custom-input slds-m-top_small">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite a sua senha" value={senha} oninput={handleSenhaChange} />
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button class={botaoSeguirClass} onclick={handleLogin} disabled={botaoDesabilitado}>Acessar</button>
+                </div>
+
+                <hr class="divider" />
+
+                <div class="slds-m-top_medium slds-text-align_center link-container">
+                    <a onclick={exibirRecuperarSenha} class="slds-m-right_medium">Recuperar Senha</a>
+                    <a onclick={exibirPrimeiroAcesso}>Primeiro Acesso</a>
+                </div>
+            </template>
+
+            <!-- Recuperar Senha -->
+            <template if:true={showRecuperarSenha}>
+                <c-app-login-esqueci-senha tipo-documento={tipoDocumento} numero-documento={numeroDocumento} onvoltar={voltarParaLogin}></c-app-login-esqueci-senha>
+            </template>
+
+            <!-- Primeiro Acesso -->
+            <template if:true={showPrimeiroAcesso}>
+                <c-app-login-primeiro-acesso tipo-perfil={tipoUsuario} onvoltar={voltarParaLogin}></c-app-login-primeiro-acesso>
+            </template>
+
+            <template if:true={mostrarAcompanhante}>
+                <c-app-login-acompanhante login-url={loginUrl} acompanhante-id={acompanhanteId} onredirect={handleRedirect}></c-app-login-acompanhante>
+            </template>        
+        </div>
+    </div>
+</template>

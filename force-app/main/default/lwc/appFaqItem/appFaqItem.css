@@ -1,0 +1,23 @@
+:host {
+    border: none;
+    background-color: transparent;
+}
+
+.faq-item {
+    border: none;
+}
+
+.resposta-richtext {
+    padding-top: 0.5rem;
+    line-height: 1.5;
+}
+
+.pergunta-richtext {
+    font-weight: 700;
+    line-height: 1.4;
+    margin-right: 0.5rem;
+}
+
+.custom-icon {
+    --slds-c-icon-color-foreground-default: #06b6ae;
+}

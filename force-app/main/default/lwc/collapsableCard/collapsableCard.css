@@ -1,0 +1,38 @@
+.outerCard {
+	background: #fff;
+	border: 1px solid #dddbda;
+	border-radius: 3px;
+	background-clip: padding-box;
+	-webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
+	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 10%);
+}
+
+.card-section {
+	border-top: 1px solid #dddbda;
+	padding: 0.25rem;
+}
+
+.flex-header {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+}
+
+.slds-card__header {
+	background-color: rgb(249 249 250);
+	margin: 1px !important;
+	padding: 0.75rem !important;
+}
+
+.thin-header {
+	padding: 0.3rem !important;
+}
+
+.slds-card__footer {
+	margin: 1px !important;
+	padding: 0.75rem !important;
+}
+
+.slds-page-header__name-meta {
+    white-space: unset !important;
+}

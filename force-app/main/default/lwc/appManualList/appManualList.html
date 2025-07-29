@@ -1,0 +1,12 @@
+<template>
+    <div class="slds-p-around_medium">
+        <template if:true={questions}>
+            <template for:each={questions} for:item="q">
+                <c-app-manual-item key={q.Id} pergunta={q.Titulo__c} resposta={q.Conteudo__c}></c-app-manual-item>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">Erro ao carregar: {error}</p>
+        </template>
+    </div>
+</template>

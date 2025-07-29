@@ -1,0 +1,173 @@
+<template>
+    <div class="acompanhantes-container">
+        <!-- Header -->
+        <div class="header-section">
+            <h1 class="section-title">Acompanhantes</h1>
+            <button class="add-button" onclick={handleAdicionar}>
+                <lightning-icon icon-name="utility:add" size="x-small"></lightning-icon>
+            </button>
+        </div>
+
+        <!-- Descrição -->
+        <div class="description-section">
+            <p class="description-text">
+                Aqui você pode autorizar uma pessoa de confiança a acessar suas informações, agendar ou alterar consultas, enviar suas informações de monitoramento e acompanhar seu prontuário.
+            </p>
+            <button class="link-button" onclick={handleEntendaComoFunciona}>
+                Entenda como funciona
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <template if:true={loading}>
+            <div class="loading-container">
+                <lightning-spinner alternative-text="Carregando acompanhantes..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Lista de Acompanhantes -->
+        <template if:false={loading}>
+            <template if:true={hasAcompanhantes}>
+                <div class="acompanhantes-list">
+                    <template for:each={acompanhantesFormatados} for:item="acompanhante">
+                        <div key={acompanhante.id} class="acompanhante-item">
+                            <div class="acompanhante-info">
+                                <div class="acompanhante-name">{acompanhante.nome}</div>
+                                <div class="acompanhante-details">
+                                    <span class="detail-item">CPF: {acompanhante.cpf}</span>
+                                    <span class="detail-item">Telefone: {acompanhante.telefone}</span>
+                                    <span class="detail-item">Email: {acompanhante.email}</span>
+                                    <span class="detail-item">Data Nascimento: {acompanhante.dataNascimentoFormatada}</span>
+                                    <span class="detail-item">Parentesco: {acompanhante.parentesco}</span>
+                                </div>
+                            </div>
+                            <div class="acompanhante-actions">
+                                <button class="action-button remove-button" 
+                                        data-id={acompanhante.id} 
+                                        onclick={handleRemover}>
+                                    <lightning-icon icon-name="utility:delete" size="x-small"></lightning-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Estado vazio -->
+            <template if:false={hasAcompanhantes}>
+                <div class="empty-state">
+                    <lightning-icon icon-name="utility:user" size="large" class="empty-icon"></lightning-icon>
+                    <p class="empty-text">Nenhum acompanhante cadastrado</p>
+                    <p class="empty-subtext">Adicione um acompanhante para compartilhar suas informações</p>
+                </div>
+            </template>
+        </template>
+    </div>
+
+    <!-- Modal de Adicionar Acompanhante - FORA DO CONTAINER -->
+    <template if:true={showModal}>
+        <section class="modal-backdrop">
+            <div class="modal-content">
+                <div class="header-modal">
+                    <h2 class="titulo-modal">Adicionar Acompanhante</h2>
+                    <lightning-icon icon-name="utility:close" size="x-small" class="fechar-modal" onclick={handleFecharModal}></lightning-icon>
+                </div>
+
+                <div class="form-container">
+                    <lightning-input 
+                        label="Nome completo" 
+                        name="nome" 
+                        value={novoAcompanhante.nome} 
+                        onchange={handleInputChange}
+                        required>
+                    </lightning-input>
+
+                    <lightning-input 
+                        label="CPF" 
+                        name="cpf" 
+                        value={novoAcompanhante.cpf} 
+                        onchange={handleInputChange}
+                        placeholder="000.000.000-00"
+                        required>
+                    </lightning-input>
+
+                    <lightning-input 
+                        label="Telefone" 
+                        name="telefone" 
+                        value={novoAcompanhante.telefone} 
+                        onchange={handleInputChange}
+                        placeholder="(00) 00000-0000"
+                        required>
+                    </lightning-input>
+
+                    <lightning-input 
+                        label="E-mail" 
+                        name="email" 
+                        type="email" 
+                        value={novoAcompanhante.email} 
+                        onchange={handleInputChange}
+                        placeholder="exemplo@email.com"
+                        required>
+                    </lightning-input>
+
+                    <lightning-input 
+                        label="Data de Nascimento" 
+                        name="dataNascimento" 
+                        type="date" 
+                        value={novoAcompanhante.dataNascimento} 
+                        onchange={handleInputChange}
+                        required>
+                    </lightning-input>
+
+                    <lightning-input 
+                        label="Parentesco" 
+                        name="parentesco" 
+                        value={novoAcompanhante.parentesco} 
+                        onchange={handleInputChange}
+                        placeholder="Ex: Esposa, Irmão, Filho"
+                        required>
+                    </lightning-input>
+                </div>
+
+                <div class="modal-linha"></div>
+
+                <div class="modal-actions">
+                    <button class="cancel-button" onclick={handleFecharModal}>
+                        Cancelar
+                    </button>
+                    <button class="confirm-button" onclick={handleSalvar}>
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Modal de Confirmação de Remoção - FORA DO CONTAINER -->
+    <template if:true={showRemoveModal}>
+        <section class="modal-backdrop">
+            <div class="modal-content">
+                <div class="header-modal">
+                    <h2 class="titulo-modal">Confirmar remoção</h2>
+                    <lightning-icon icon-name="utility:close" size="x-small" class="fechar-modal" onclick={handleFecharRemoveModal}></lightning-icon>
+                </div>
+
+                <div class="confirm-content">
+                    <p>Tem certeza que deseja remover o acompanhante <strong>{acompanhanteParaRemover.nome}</strong>?</p>
+                    <p>Esta ação irá revogar o acesso deste acompanhante às suas informações.</p>
+                </div>
+
+                <div class="modal-linha"></div>
+
+                <div class="modal-actions">
+                    <button class="cancel-button" onclick={handleFecharRemoveModal}>
+                        Cancelar
+                    </button>
+                    <button class="remove-button-modal" onclick={handleConfirmarRemocao}>
+                        Remover
+                    </button>
+                </div>
+            </div>
+        </section>
+    </template>
+</template>

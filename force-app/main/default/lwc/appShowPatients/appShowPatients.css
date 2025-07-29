@@ -1,0 +1,333 @@
+.maxContent {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+
+}
+
+.input-container {
+    padding: 0 0 16px 0;
+    font-family: Arial, sans-serif;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #606060;
+    padding-left: 16px;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.input-field {
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #B2B2B2;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+    background-color: #F9FAFB;
+    height: 56px;
+    transition: border-color 0.2s ease;
+    outline: none;
+
+}
+
+.input-field:focus {
+    border-color: #007D77;
+    box-shadow: 0 0 0 1px #0fefe4;
+}
+
+
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 30px 0;
+
+}
+
+.secondContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.peopleImage {
+    height: 44px;
+    width: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.patientCardContainer {
+    display: flex;
+    padding: 12px 12px 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* height: 82px; */
+    position: relative;
+    overflow: hidden;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.patientCardContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #007D77;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.patientCard {
+    display: flex;
+
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #2E2E2E;
+    padding: 0 12px 0 8px;
+}
+
+.infoTitleText {
+    padding-bottom: 4px;
+    color: #3F3E3E;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+
+}
+
+.infosText {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoText {
+    padding-left: 4px;
+    color: #717171;
+}
+
+.listOfResultsText {
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: 0%;
+    text-align: right;
+    vertical-align: middle;
+    color: #5C5C5C;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    padding-bottom: 12px;
+
+}
+
+.view-more-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 36px;
+    align-items: center;
+    color: #007D77;
+    background-color: #CEEFEE;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+    transition: background-color 0.3s;
+
+}
+
+.view-more-button:hover {
+    background-color: #06b6ae;
+    color: white;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 66px;
+    width: 71px;
+    opacity: 1;
+    border-radius: 8px;
+    border-width: 1px;
+    border: 1px solid #AFEEEA;
+    background-color: #E5F9F8;
+    transition: background-color 0.3s ease;
+
+    cursor: pointer;
+}
+
+.details.selected {
+    transition: background-color 0.3s ease;
+    background-color: #AFEEEA;
+}
+
+.patientInfos {
+    display: flex;
+    padding-bottom: 14px;
+}
+
+.detailsText {
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: #575757;
+}
+
+.details-icon {
+    padding-top: 8px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.showDetailsClass {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 12px;
+    line-height: 19px;
+    letter-spacing: 0%;
+    color: #747474;
+
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 12px 16px 28px 12px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    background-color: #ffffff;
+
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideDownFadeIn 0.3s ease forwards;
+
+}
+
+.details-wrapper {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Escondido */
+.details-wrapper.closed {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* Visível */
+.details-wrapper.open {
+    max-height: 500px;
+    /* ou algo suficiente */
+    opacity: 1;
+}
+
+@keyframes slideDownFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.showDetailsClassTextContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.showDetailsClassText {
+    color: #444444;
+    font-size: 14px;
+}
+
+.showDetailsRightCollumn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+}
+
+.showDetailsLeftCollumn {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+    .patientInfos {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .showDetailsRightCollumn {
+
+        flex-direction: column;
+        gap: 12px;
+
+    }
+
+    .showDetailsLeftCollumn {
+        flex-direction: column;
+        gap: 12px
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .showDetailsRightCollumn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

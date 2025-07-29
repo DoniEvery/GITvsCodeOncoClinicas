@@ -1,0 +1,50 @@
+<aura:component implements="lightning:availableForFlowScreens" access="global">
+    <aura:attribute name="ObjectName" type="String" access="public" required="true" description="Nome do objeto"/>
+    <aura:attribute name="Field1ApiName" type="String" access="public" required="true" description="Nome do campo" />
+    <aura:attribute name="Field2ApiName" type="String" access="public" required="false" description="Nome do campo" />
+    <aura:attribute name="Field3ApiName" type="String" access="public" required="false" description="Nome do campo" />
+    <aura:attribute name="StrObj" type="String"  access="public" required="false"/>
+    <aura:attribute name="FilterField" type="String"  access="public" required="false"/>
+    <aura:attribute name="FilterFieldParent" type="String"  access="public" required="false"/>
+    <aura:attribute name="FilterValue" type="String"  access="public" required="false"/>
+    <aura:attribute name="Spinner" type="Boolean" default="true"/>
+    <aura:attribute name="isSearch" type="Boolean" default="false"/>
+    <aura:attribute name="Required" type="Boolean" default="false" required="false"/>
+    <aura:attribute name="Label" type="String"  access="public"  description="Nome do componente" required="true"/>
+    <aura:attribute name="PlaceHolder" type="String" access="public" required="false" description="Place Holder"/>
+    <aura:attribute name="RecordTypeId" type="String"  access="public" required="false"/>
+    <aura:attribute name="RecordId" type="String"  access="public" required="false"/>
+    <aura:attribute name="Field1Result" type="String"  access="public" required="false"/>
+    <aura:attribute name="Field2Result" type="String"  access="public" required="false"/>
+    <aura:attribute name="Field3Result" type="String"  access="public" required="false"/>
+    <aura:attribute name="IdResult" type="String"  access="public" required="false"/>
+    <aura:attribute name="masterFilterValueOBJ" type="String" access="public" required="false"/>
+    <aura:attribute name="parentId" type="String" access="public" required="false" description="Parent component Id" />
+    <aura:attribute name="cmpId" type="String" access="public" default="{!globalId}" />
+    <aura:attribute name="iconName" type="String" access="public" default="standard:account" required="true"/>
+    <aura:attribute name="parentChild" type="String" access="public" required="true"/>
+    <aura:attribute name="validate" type="Aura.Action" />
+    <aura:handler name="change" value="{!v.masterFilterValueOBJ}" action="{!c.doInit}" />
+    <aura:handler event="c:CustomLookupContainerEvent" action="{!c.getMasterFilterValue}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!v.Spinner}">
+        <lightning:spinner variant="brand" size="large" alternativeText="Carregando..."/>
+    </aura:if>
+
+    <aura:if isTrue="{!!v.Spinner}">
+            <c:customLookup 
+                iconName="{!v.iconName}"
+                strObj="{!v.StrObj}"
+                label="{!v.Label}"
+                onlookupupdate="{!c.handleLookupUpdate}"
+                placeholder="{!v.PlaceHolder}"
+                required="{!v.Required}"
+                isSearch="{!v.isSearch}"
+                recordId="{!v.RecordId}"
+                parentChild="{!v.parentChild}"
+            > 
+            </c:customLookup>
+
+    </aura:if>
+</aura:component>

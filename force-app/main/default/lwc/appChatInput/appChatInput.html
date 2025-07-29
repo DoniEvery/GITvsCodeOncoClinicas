@@ -1,0 +1,26 @@
+<!-- <template>
+    <div class="input-area">
+        <input type="text" value={newMessage} onchange={handleChange} onkeydown={handleKeydown} placeholder="Digite uma mensagem..." />
+        <button onclick={send}>Enviar</button>
+    </div>
+</template> -->
+<template>
+    <div class="slds-grid slds-p-around_small">
+        <lightning-input
+            class="slds-col slds-size_10-of-12"
+            label="Mensagem"
+            value={newMessage}
+            onchange={handleInputChange}
+            onkeydown={handleKeydown}
+            variant="label-hidden"
+            placeholder="Digite sua mensagem...">
+        </lightning-input>
+
+        <lightning-button
+            class="slds-col slds-size_2-of-12"
+            label="Enviar"
+            disabled={disabled}
+            onclick={handleSend}>
+        </lightning-button>
+    </div>
+</template>

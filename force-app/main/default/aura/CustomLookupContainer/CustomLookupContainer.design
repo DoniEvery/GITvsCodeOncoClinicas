@@ -1,0 +1,21 @@
+<design:component >
+    <design:attribute name="ObjectName" label="Object Name" />
+    <design:attribute name="Field1ApiName" label="Field 1 Name" />
+    <design:attribute name="Field2ApiName" label="b. Field 2 Name" />
+    <design:attribute name="Field3ApiName" label="c. Field 3 Name" />
+    <design:attribute name="PlaceHolder" label="Place Holder" />
+    <design:attribute name="Label" label="Label" />
+    
+    <design:attribute name="Required" label="Required?" />
+    <design:attribute name="FilterField" label="d. Filter Field" />
+    <design:attribute name="FilterValue" label="e. Filter Value" />
+    <design:attribute name="FilterFieldParent" label="f. Filter Field Parent" />
+    <design:attribute name="RecordTypeId" label="g. Record Type Id" />
+    <design:attribute name="Field1Result" label="Result Field1" />
+    <design:attribute name="Field2Result" label="Result Field2" />
+    <design:attribute name="Field3Result" label="Result Field3" />
+    <design:attribute name="IdResult" label="Result Id" />
+    <design:attribute name="cmpId" label="a. Component ID" />
+    <design:attribute name="iconName" label="Icon Name" />
+    <design:attribute name="parentChild" label="'Parent' or 'Child' Lookup?" />
+</design:component>

@@ -1,0 +1,30 @@
+<template>
+    <div class="faq-item slds-m-bottom_medium">
+        <div class="slds-p-around_small slds-theme_shade slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+             onclick={toggle}
+             style="cursor: pointer;">
+            <div class="pergunta-richtext" lwc:dom="manual"></div>
+            
+            <template if:true={expanded}>
+                <lightning-icon
+                    icon-name="utility:chevronup"
+                    size="x-small"
+                    class="custom-icon">
+                </lightning-icon>
+            </template>
+            <template if:false={expanded}>
+                <lightning-icon
+                    icon-name="utility:chevrondown"
+                    size="x-small"
+                    class="custom-icon">
+                </lightning-icon>
+            </template>
+        </div>
+
+        <template if:true={expanded}>
+            <div class="slds-p-around_medium slds-text-body_regular">
+                <div class="resposta-richtext" lwc:dom="manual"></div>
+            </div>
+        </template>
+    </div>
+</template>

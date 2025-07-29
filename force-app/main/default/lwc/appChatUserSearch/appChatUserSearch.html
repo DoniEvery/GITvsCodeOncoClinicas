@@ -1,0 +1,39 @@
+<template>
+    <div class="slds-p-around_small">
+        <!-- Combobox condicional -->
+        <template if:false={isFixedPaciente}>
+            <lightning-combobox
+                name="userType"
+                label="Tipo de usuário"
+                value={userType}
+                options={userTypeOptions}
+                onchange={handleTypeChange}>
+            </lightning-combobox>
+        </template>
+
+        <!-- Campo de texto -->
+        <lightning-input 
+            type="text" 
+            label="Procurar usuário"
+            value={searchText}
+            onchange={handleInputChange}
+            onblur={handleBlur}
+            placeholder="Digite um nome..."
+            class="slds-m-top_small">
+        </lightning-input>
+
+        <!-- Sugestões -->
+        <template if:true={filteredUsers.length}>
+            <ul class="slds-box slds-m-top_x-small" style="max-height: 200px; overflow-y: auto;">
+                <template for:each={filteredUsers} for:item="user">
+                    <li key={user.id} 
+                        class="slds-p-vertical_x-small slds-p-horizontal_small suggestion"
+                        onclick={handleSelect} 
+                        data-id={user.id}>
+                        {user.name}
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </div>
+</template>

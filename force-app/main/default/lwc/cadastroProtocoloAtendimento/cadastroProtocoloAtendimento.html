@@ -1,0 +1,355 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="slds-var-p-around_x-large">
+            <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+        </div>
+    </template>    
+    <div style="position: relative">
+        <c-collapsable-card block-collapse icon-name="standard:record_create" icon-size="medium" show-body="true" show-footer="true" show-header="true" title="Novo Atendimento" hide-collapse>
+            <div slot="body" class="body">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_7-of-12">
+                        <lightning-card heading-level="6" class="slds-p-around_xx-small">               
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <div class={comboboxOrigemObj.class}>
+                                        <lightning-combobox
+                                            class={comboboxOrigemObj.class}
+                                            label="* Origem"
+                                            name="origem"
+                                            value={protocoloAtendimentoObj.caso.Origem__c}
+                                            options={comboboxOrigemObj.options}
+                                            onchange={handleInputChange}
+                                        ></lightning-combobox>
+                                        <template if:true={comboboxOrigemObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {comboboxOrigemObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <div class={comboboxMotivoObj.class}>
+                                        <lightning-combobox
+                                            class={comboboxMotivoObj.class}
+                                            label="* Motivo"
+                                            name="motivo"
+                                            value={protocoloAtendimentoObj.caso.MotivoCaso__c}
+                                            options={comboboxMotivoObj.options}
+                                            onchange={handleInputChange}
+                                        ></lightning-combobox>
+                                        <template if:true={comboboxMotivoObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {comboboxMotivoObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <template if:true={naoAgendamentoObj.isShow}>
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                        <div class={naoAgendamentoObj.class}>
+                                            <lightning-combobox
+                                                class={naoAgendamentoObj.class}
+                                                label="* Motivo Não Agendamento"
+                                                name="motivoNaoAgendamento"
+                                                value={protocoloAtendimentoObj.caso.MotivoNaoAgendamento__c}
+                                                options={naoAgendamentoObj.options}
+                                                onchange={handleInputChange}
+                                            ></lightning-combobox>
+                                            <template if:true={naoAgendamentoObj.errorMessage}>
+                                                <div class="slds-form-element__help ">
+                                                    {naoAgendamentoObj.errorMessage}
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <template if:true={naoAgendamentoObj.isConvenioObrigatorio}>
+                                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                            <!--CustomlookUp Convenio -->
+                                            <div class={customLookUpConvenioNaoAtendidoObj.class}>
+                                                <c-lwc-custom-lookup 
+                                                    name="customLookUpConvenioNaoAtendido" 
+                                                    icon-name="custom:custom29" 
+                                                    s-object-api-name={customLookUpConvenioNaoAtendidoObj.sObjectApiName}
+                                                    label="* Convênio Não Atendido"
+                                                    onlookupupdate={handleInputChange}                                                
+                                                    placeholder="Pesquisar Convênio..." 
+                                                    default-record-id={protocoloAtendimentoObj.convenio.Id}>
+                                                </c-lwc-custom-lookup>
+                                                <template if:true={customLookUpConvenioNaoAtendidoObj.errorMessage}>
+                                                    <div class="slds-form-element__help ">
+                                                        {customLookUpConvenioNaoAtendidoObj.errorMessage}
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>                                
+                                    <template if:true={naoAgendamentoObj.isEspecialidadeObrigatorio}>
+                                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                            <!-- CustomlookUp Especialidade -->
+                                            <div class={customLookUpEspecialidadeNaoAtendidaObj.class}>
+                                                <c-lwc-custom-lookup 
+                                                    name="customLookUpEspecialidadeNaoAtendida" 
+                                                    icon-name="custom:custom29" 
+                                                    s-object-api-name={customLookUpEspecialidadeNaoAtendidaObj.sObjectApiName}
+                                                    label="* Especialidade Não Atendida"
+                                                    onlookupupdate={handleInputChange} 
+                                                    placeholder="Pesquisar Especialidade..." 
+                                                    default-record-id={protocoloAtendimentoObj.especialidadeMedica.Id}>
+                                                </c-lwc-custom-lookup>
+                                                <template if:true={customLookUpEspecialidadeNaoAtendidaObj.errorMessage}>
+                                                    <div class="slds-form-element__help ">
+                                                        {customLookUpEspecialidadeNaoAtendidaObj.errorMessage}
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>                            
+                            </template>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <lightning-combobox
+                                        label="* Tipo Pessoa"
+                                        name="paciente"
+                                        value={tipoDePessoaComboboxObj.value}
+                                        options={tipoDePessoaComboboxObj.options}
+                                        onchange={handleInputChange}
+                                    ></lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <!--Customlook Contato Lead/conta-->
+                                    <div class={customLookUpContatoObj.class}>
+                                        <template if:true={protocoloAtendimentoObj.isNaoPaciente}>
+                                            <c-cadastro-protocolo-atendimento-contato
+                                                is-nao-paciente={protocoloAtendimentoObj.isNaoPaciente}
+                                                onlookupupdate={handleInputChange}
+                                                name="customLookUpContatoNaoPaciente" 
+                                            ></c-cadastro-protocolo-atendimento-contato>
+                                        </template>
+                                        <template if:false={protocoloAtendimentoObj.isNaoPaciente}>
+                                            <c-cadastro-protocolo-atendimento-contato
+                                                is-nao-paciente={protocoloAtendimentoObj.isNaoPaciente}
+                                                onlookupupdate={handleInputChange}
+                                                name="customLookUpContatoPaciente"
+                                            ></c-cadastro-protocolo-atendimento-contato>
+                                        </template>
+                                        <template if:true={customLookUpContatoObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {customLookUpContatoObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <!--CustomlookUp Unidade - conta - Unidade de Atendimento-->
+                                    <div class={customLookUpUnidadeObj.class}>
+                                        <c-lwc-custom-lookup 
+                                            class="lookupUnidadeClass" 
+                                            name="customLookUpUnidade" 
+                                            icon-name="standard:account" 
+                                            s-object-api-name={customLookUpUnidadeObj.sObjectApiName}
+                                            label="* Unidade"
+                                            condition={customLookUpUnidadeObj.condition}
+                                            fields-return-query={customLookUpUnidadeObj.fieldsReturnQuery}
+                                            onlookupupdate={handleInputChange} 
+                                            onlookupinit={handleLookupInit}
+                                            placeholder="Pesquisar Unidade..." 
+                                            default-record-id={protocoloAtendimentoObj.unidade.Id}>
+                                        </c-lwc-custom-lookup>
+                                        <template if:true={customLookUpUnidadeObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {customLookUpUnidadeObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+                                    
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <!--CustomlookUp contato - Medico -->
+                                    <div class={customLookUpNomeDoMedicoObj.class}>
+                                        <c-lwc-custom-lookup 
+                                            class="lookupMedicoClass" 
+                                            name="customLookUpNomeDoMedico" 
+                                            icon-name="standard:contact" 
+                                            s-object-api-name={customLookUpNomeDoMedicoObj.sObjectApiName}
+                                            label={getLabelLookUpNomeDoMedico}
+                                            condition={getCustomLookUpNomeDoMedicoObjCondition}
+                                            fields-return-query={customLookUpNomeDoMedicoObj.fieldsReturnQuery} 
+                                            onlookupupdate={handleInputChange} 
+                                            placeholder="Pesquisar Médico..." 
+                                            default-record-id={protocoloAtendimentoObj.medico.Id}
+                                            disabled={getIsDisabledLookUpNomeDoMedico}
+                                            helptext={getHelpTextLookUpNomeDoMedico}
+                                        >
+                                        </c-lwc-custom-lookup>
+                                        <template if:true={customLookUpNomeDoMedicoObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {customLookUpNomeDoMedicoObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div id="divAssunto" class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <!--CustomlookUp Assunto -->
+                                    <div class={customLookUpAssuntoObj.class}>
+                                        <c-lwc-custom-lookup 
+                                            class="lookupAssuntoUnidadeClass"
+                                            name="customLookUpAssunto" 
+                                            icon-name="standard:call" 
+                                            s-object-api-name={customLookUpAssuntoObj.sObjectApiName} 
+                                            label="* Assunto"
+                                            condition={getCustomLookUpAssuntoObjCondition}
+                                            fields-where-query={customLookUpAssuntoObj.fieldsWhereQuery}
+                                            fields-return-query={customLookUpAssuntoObj.fieldsReturnQuery}                                    
+                                            onlookupupdate={handleInputChange} 
+                                            placeholder="Pesquisar Assunto..." 
+                                            default-record-id={customLookUpAssuntoObj.value.Id}
+                                            field-custom-name-to-show={customLookUpAssuntoObj.fieldCustomNameToShow}
+                                            disabled={getIsDisabledLookUpAssunto}
+                                            helptext={getHelpTextLookUpAssunto}
+                                            is-map="true"
+                                            fild-filter-map={customLookUpAssuntoObj.fildFilterMap}
+                                            >
+                                        </c-lwc-custom-lookup>
+                                        <template if:true={customLookUpAssuntoObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {customLookUpAssuntoObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                                <template if:true={customLookUpAssuntoDetalheObj.isShow}>
+                                <div id="divAssuntoDetalhe" class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <!--CustomlookUp Assunto Detalhe-->
+                                    <div class={customLookUpAssuntoDetalheObj.class}>
+                                        <c-lwc-custom-lookup
+                                            class="lookupAssuntoDetalheClass"
+                                            name="customLookUpAssuntoDetalhe" 
+                                            icon-name="standard:call" 
+                                            label="* Assunto Detalhe"
+                                            onlookupupdate={handleInputChange} 
+                                            placeholder="Pesquisar Assunto Detalhe..." 
+                                            default-record-id={protocoloAtendimentoObj.assuntoUnidade.Id}
+                                            disabled={getIsDisabledLookUpAssuntoDetalhe}
+                                            helptext={getHelpTextLookUpAssuntoDetalhe}
+                                            s-object-api-name={customLookUpAssuntoDetalheObj.sObjectApiName}
+                                                condition={getCustomLookUpAssuntoDetalheObjCondition}
+                                            field-custom-name-to-show={customLookUpAssuntoDetalheObj.fieldCustomNameToShow}
+                                            fields-return-query={customLookUpAssuntoDetalheObj.fieldsReturnQuery}  
+                                        >
+                                        </c-lwc-custom-lookup>
+                                        <template if:true={customLookUpAssuntoDetalheObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {customLookUpAssuntoDetalheObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+
+                                </div>
+                                </template>
+
+                            </div>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                                    <div class={textAreaDescricaoObj.class}>
+                                        <lightning-textarea
+                                            class="descricao"
+                                            name="descricao"
+                                            label="* Descrição"
+                                            value={protocoloAtendimentoObj.caso.Description}
+                                            onchange={handleInputChange}
+                                        ></lightning-textarea>     
+                                        <template if:true={textAreaDescricaoObj.errorMessage}>
+                                            <div class="slds-form-element__help ">
+                                                {textAreaDescricaoObj.errorMessage}
+                                            </div>
+                                        </template>
+                                    </div>
+                                                               
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <lightning-input 
+                                        class="email" 
+                                        type="email" 
+                                        label="E-mail para envio de protocolo" 
+                                        name="email"
+                                        onblur={onBlurEmail}
+                                        onchange={handleInputChange} 
+                                        value={protocoloAtendimentoObj.caso.EmailAlternativo__c}
+                                    ></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 input-pad-fix">
+                                    <lightning-input
+                                        type="tel" 
+                                        class="numeroRetorno"
+                                        name="numeroRetorno" 
+                                        label="Número de retorno"
+                                        value={protocoloAtendimentoObj.caso.NumeroRetorno__c}
+                                        onchange={handleInputChange}
+                                        onblur={onBlurNumeroRetorno}
+                                        min-length="0" max-length="15"
+                                    ></lightning-input>
+                                </div>                               
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-5 input-pad-fix">
+                                </br>
+                                <div style="display: flex;">
+                                    <label class="slds-form-element__label" for="enviarProtocolo" style="font-weight: bolder;">Enviar protocolo?</label>
+                                    <lightning-input 
+                                        type="toggle" 
+                                        variant="label-hidden"
+                                        label="" 
+                                        checked={enviarProtocolo}
+                                        onchange={handleInputChange} 
+                                        name="enviarProtocolo">
+                                    </lightning-input>
+                                </div>
+                            </div>                            
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <hr>
+                                <div class="slds-align_absolute-center">
+                                    <div class="action">
+                                        <lightning-button class="slds-m-right_x-small slds-theme_neutral" variant="brand-outline"
+                                            label="Limpar" onclick={handleClearFields}>
+                                        </lightning-button>
+                                    </div>
+                                    <div class="action">
+                                        <lightning-button class="slds-theme_brand" variant="brand" label="Salvar"
+                                            onclick={handleSalvar}>
+                                        </lightning-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </lightning-card>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                        <div class="slds-m-bottom_medium">
+                            <c-cadastro-protocolo-atendimento-artigos
+                                assunto-unidade-id={knowledgeArticleAssuntoUnidadeId}
+                                is-assunto-unidade-selected=knowledgeArticleAssuntoUnidadeSelected} 
+                                motivo-assunto-unidade={knowledgeArticleMotivoAssuntoUnidade}
+                                is-visible-in-csp=true
+                                record-type-developername={knowledgeArticleObj.knowledgeRecordTypeName}
+                                name="componentArtigos" 
+                            ></c-cadastro-protocolo-atendimento-artigos>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c-collapsable-card>
+    </div>
+</template>

@@ -1,0 +1,86 @@
+<template>
+    <div class="container">
+        <!-- DESKTOP -->
+        <template if:false={mostrarConteudoMobile}>
+            <div class="left-panel desktop-only">
+                <div class="left-top-content">
+                    <img src={logoOnco} alt="Logo Oncoclinicas" class="logo" />
+                    <h1 class="headline">Estamos aqui para cuidar de você</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur <br />
+                        adipiscing elit, Quisque interdum, enim a interdum <br />
+                        varius, ex turpis pellentesque nunc.
+                    </p>
+                </div>
+                <img src={telaLogin} class="custom-icon" alt="Atendimento Médico" />
+            </div>
+
+            <div class="right-panel desktop-only">
+                <div class="right-content">
+                    <template if:true={mostrarPreLogin}>
+                        <c-app-pre-login-form onnext={handleNext}></c-app-pre-login-form>
+                    </template>
+
+                    <template if:true={mostrarLoginForm}>
+                        <c-app-login-form 
+                            tipo-usuario={tipoUsuarioSelecionado}
+                            onvoltar={handleVoltarParaPreLogin}
+                            onrecuperarsenha={handleRecuperarSenha}>
+                        </c-app-login-form>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- MOBILE -->
+        <div class="mobile-only">
+
+            <!-- HEADER FIXO: apenas para login -->
+            <template if:true={mostrarLoginForm}>
+                <div class="mobile-header">
+                    <img src={logoOnco} alt="Logo Oncoclinicas" class="mobile-logo" />
+                </div>
+            </template>
+
+            <!-- TELA INICIAL -->
+            <template if:false={mostrarConteudoMobile}>
+                <div class="mobile-content-inicial">
+                    <img src={logoOnco} alt="Logo Oncoclinicas" class="logo-inicio" />
+                    <img src={telaLogin} class="mobile-icon" alt="Atendimento Médico" />
+                    <div class="mobile-content">
+                        <h1 class="headline">Estamos aqui para cuidar de você</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur <br />
+                            adipiscing elit, Quisque interdum, enim a interdum <br />
+                            varius, ex turpis pellentesque nunc.
+                        </p>
+                    </div>
+                    <button class="start-button" onclick={handleIniciar}>Iniciar</button>
+                </div>
+            </template>
+
+            <!-- PRÉ-LOGIN -->
+            <template if:true={mostrarConteudoMobile}>
+                <template if:true={mostrarPreLogin}>
+                    <div class="mobile-content-prelogin">
+                        <c-app-pre-login-form onnext={handleNext}></c-app-pre-login-form>
+                    </div>
+                </template>
+
+                <!-- LOGIN (único que usa wrapper branco) -->
+                <template if:true={mostrarLoginForm}>
+                    <div class="mobile-content-wrapper">
+                        <div class="mobile-content">
+                            <c-app-login-form 
+                                tipo-usuario={tipoUsuarioSelecionado}
+                                onvoltar={handleVoltarParaPreLogin}
+                                onrecuperarsenha={handleRecuperarSenha}>
+                            </c-app-login-form>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+        </div>
+    </div>
+</template>

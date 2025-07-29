@@ -1,0 +1,33 @@
+:host {
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.header-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1;
+    overflow: hidden;
+    background: linear-gradient(to right, teal, blueviolet);
+    padding: 0;
+    margin: 0;
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .header-image-container {
+      display: none !important;
+    }
+  }

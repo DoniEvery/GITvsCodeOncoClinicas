@@ -1,0 +1,22 @@
+.faq-header-container {
+    padding: 1rem;
+}
+
+.header-title {
+    color: #06b6ae;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.text-container {
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .faq-subtitle-bold {
+        font-size: 1.1rem;
+    }
+    .faq-subtitle-light {
+        font-size: 0.95rem;
+    }
+}

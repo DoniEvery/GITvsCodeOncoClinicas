@@ -1,0 +1,62 @@
+<template>
+    <template for:each={conversations} for:item="conv">
+        <div key={conv.id} class="mensagens-home">
+            <div class="content">
+
+                <div class="dados">
+
+                    <div class="pessoa">
+
+                        <div class="left">
+                            <div class="foto">
+                                <span class="iniciais">{conv.initials}</span>
+                            </div>
+                        </div>
+
+                        <div class="dados-pessoa">
+                            <div class="txt">
+
+                                <div class="info-nome-cargo">
+                                    <div class="nome">{conv.name}</div>
+                                    <div class="cargo">{conv.role}</div>
+
+                                    <div class="icones">
+                                        <template if:true={conv.isPhoto}>
+                                            <img src={cameraIcon} alt="Foto" class="icon-conversation-photo" />
+                                            <span class="icone-label">Photo</span>
+                                        </template>
+
+                                        <template if:true={conv.isMensagem}>
+                                            <img src={vistoMensagemIcon} alt="Mensagem" class="icon-conversation-msg" />
+                                            <span class="icone-label">Mensagem</span>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <div class="data">
+                                    <span>{conv.date}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="foto-info">
+                                <div class="left">
+                                    <lightning-icon icon-name={conv.icon} size="xx-small" class="foto-icon"></lightning-icon>
+                                    <span class="foto-label">{conv.iconLabel}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="right">
+                            <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </template>
+</template>

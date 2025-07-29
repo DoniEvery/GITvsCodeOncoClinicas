@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="urn:metadata.tooling.soap.sforce.com" fqn="assuntoDetalheFlow">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>LWC Assunto</masterLabel>
+    <description>Expose Lightning Web Component in the App Builder</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name= "ValueAssunto" label= "ValueAssunto" type= "String" />
+            <property name="ValueDetalhe" label="ValueDetalhe" type="String"  />
+            <property name= "ValueAssuntoInput" label= "ValueAssuntoInput" type= "String" role="inputOnly"/>
+            <property name="ValueDetalheInput" label="ValueDetalheInput" type="String" role="inputOnly" />
+            <property name= "IdAssuntoInput" label= "IdAssuntoInput" type= "String" role="inputOnly"/>
+            <property name="IdDetalheInput" label="IdDetalheInput" type="String" role="inputOnly" />
+            <property name= "IdAssunto" label= "IdAssunto" type= "String"/>
+            <property name="IdDetalhe" label="IdDetalhe" type="String" />
+            <property name="Unidade" label="Unidade" type="String" role="inputOnly" />
+            <property name="MotivoCaso" label="MotivoCaso" type="String" role="inputOnly" />
+            <property name="objName" label="NomeObjeto" type="String" role="inputOnly" />
+            <property name="DisponivelPaciente" label="DisponivelPaciente" type="Boolean" role="inputOnly" />
+            <property name="recategorizado" label="recategorizado" type="Boolean" role="inputOnly" />
+            <property name="IdassuntoExistente" label="IdassuntoExistente" type="String" role="inputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

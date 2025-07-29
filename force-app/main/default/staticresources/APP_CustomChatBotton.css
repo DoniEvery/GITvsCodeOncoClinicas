@@ -1,0 +1,41 @@
+/* Torna o botão redondo */
+.embeddedServiceHelpButton .helpButton {
+    border-radius: 50% !important;
+    width: 60px !important;
+    height: 60px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    display: flex !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajusta o ícone dentro do botão */
+.embeddedServiceHelpButton .helpButton .uiButton {
+    border-radius: 50% !important;
+}
+
+/* Posição padrão para desktop e tablet */
+.embeddedServiceHelpButton {
+    bottom: 80px !important;
+    right: 30px !important;
+}
+
+/* Ajusta a posição no mobile */
+@media (max-width: 600px) {
+    .embeddedServiceHelpButton {
+        bottom: 120px !important; 
+    }
+}
+
+/* Remove o texto do botão */
+.embeddedServiceHelpButton .helpButton .uiButton .label {
+    font-size: 0 !important;
+}
+
+/* Define o ícone no centro */
+.embeddedServiceHelpButton .helpButton .uiButton::before {
+    content: "\2709"; 
+    font-size: 24px;
+    color: white;
+}

@@ -1,0 +1,16 @@
+<template>
+    <div class="layout-container">
+        <div class="sidebar-container">
+            <c-app-sidebar onmenuselected={handleMenuSelection}></c-app-sidebar>
+        </div>
+
+        <div class="right-container">
+            <div class="header-container">
+                <c-app-header page-name={currentPage}></c-app-header>
+            </div>
+            <div class="main-container">
+                <c-app-main-content current-page={currentPage}></c-app-main-content>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,153 @@
+<apex:page controller="CartCellPDFcontroller" renderAs="pdf" showHeader="false" applyBodyTag="false">
+
+    <head>
+        <style>
+            table { border-collapse:collapse;
+                border: .02em solid black;
+            }
+
+            td, th { 
+                border: .02em solid black;
+                padding: 5px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <apex:image url="{!$Resource.Logo}" />
+        </header>
+    
+        <br/><br/>
+
+        <table id="tableMedico" border="1" width="90%">
+            <tr colspan="4" id="theader" style="background-color:gray">
+                <th scope="col" colspan="4">Dados do Médico</th>                     
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Nome</td>
+                <td colspan="3" >{!data.physician_name}</td>                         
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Telefone</td>
+                <td colspan="1" >{!data.physician_contact}</td>   
+                <td colspan="1" style="font-weight: bold;">Celular</td>
+                <td colspan="1" > </td>                       
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">E-mail</td>
+                <td colspan="1" >{!data.physician_email}</td>   
+                <td colspan="1" style="font-weight: bold;">CRM</td>
+                <td colspan="1" >{!data.physician_crm}</td>                       
+            </tr>
+
+        </table> 
+
+        <br/>
+
+        <table id="tabePaciente" border="1" width="90%">
+            <tr colspan="6" id="theader" style="background-color:gray">
+                <th scope="col" colspan="6">Dados do Paciente t3</th>                     
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Nome</td>
+                <td colspan="5" >{!data.name}</td>                         
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">CPF</td>
+                <td colspan="2" >{!data.cpf}</td>  
+                <td colspan="1" style="font-weight: bold;">RG</td>
+                <td colspan="2" >{!data.rg}</td>                        
+            </tr>
+            
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Gênero</td>
+                <td colspan="2" >{!data.gender}</td>  
+                <td colspan="1" style="font-weight: bold;">Data de Nascimento</td>
+                <td colspan="2" >{!data.birthday}</td>                        
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">E-mail</td>
+                <td colspan="5" >{!data.email}</td> 
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Celular</td>
+                <td colspan="2" >{!data.contact}</td>  
+                <td colspan="1" style="font-weight: bold;">Telefone 2</td>
+                <td colspan="2" >{!data.secondary_contact}</td>                    
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">CEP</td>
+                <td colspan="5" >{!data.cep}</td>                         
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Estado</td>
+                <td colspan="1" >{!data.state}</td>
+                <td colspan="1" style="font-weight: bold;">Cidade</td>
+                <td colspan="1" >{!data.city}</td>
+                <td colspan="1" style="font-weight: bold;">Bairro</td>
+                <td colspan="1" >{!data.district}</td> 
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Endereço</td>
+                <td colspan="3" >{!data.street}</td>  
+                <td colspan="1" style="font-weight: bold;">Número</td>
+                <td colspan="1" >{!data.adressNumber}</td>                       
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">Complemento</td>
+                <td colspan="3" >{!data.complement}</td> 
+            </tr>
+
+        </table>
+
+        <br/>
+
+        <table id="tableHistorico" border="1" width="90%">
+            <tr colspan="4" id="theader" style="background-color:gray">
+                <th scope="col" colspan="4">Histórico do Paciente</th>                     
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">ECOG</td>
+                <td colspan="3" >{!data.ecog}</td>                         
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">CID</td>
+                <td colspan="3" >{!data.cid}</td>                         
+            </tr>
+
+            <tr> 
+                <td colspan="1" style="font-weight: bold;">OMS</td>
+                <td colspan="1" >{!data.oms}</td>   
+                <td colspan="1" style="font-weight: bold;">Tipo de procedimento</td>
+                <td colspan="1" >{!data.procedure_name}</td>                       
+            </tr>
+
+            <tr> 
+                <td colspan="2" style="font-weight: bold;">Anexos do paciente</td>
+                <td colspan="2" >
+                    <apex:repeat value="{!data.patientAttachments}" var="anexo">
+                        {!anexo.fileName}
+                        <br/>
+                    </apex:repeat>
+                </td>               
+            </tr>
+
+        </table> 
+    </body>
+    
+</apex:page>

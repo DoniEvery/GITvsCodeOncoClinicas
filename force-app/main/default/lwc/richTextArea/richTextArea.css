@@ -1,0 +1,11 @@
+.visibleLines {
+    --sds-c-textarea-sizing-min-height: var(--rta-visiblelines);
+}
+.read-only-container {
+    max-height: 16em; /* Aproximadamente 10 linhas */
+    overflow: auto;
+    padding: 0.5rem;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-color: #f8f8f8;
+}

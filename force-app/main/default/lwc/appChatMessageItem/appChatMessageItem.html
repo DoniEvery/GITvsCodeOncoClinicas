@@ -1,0 +1,30 @@
+<!-- <template>
+    <div class={messageClass}>
+        <div class="bubble">
+            <p class="text">{message.content}</p>
+            <p class="timestamp">{message.timestamp}</p>
+        </div>
+    </div>
+</template> -->
+
+<template>
+    <div class={messageClass} data-id={message.messageId} data-unread={message.isUnread} style="margin-bottom: 0.5rem;">
+        <div class="bubble">
+            <template if:true={isText}>
+                <p class="slds-text-body_regular">{message.content}</p>
+            </template>
+
+            <template if:true={isImage}>
+                <img src={imageUrl} alt="Imagem" style="max-width: 200px; border-radius: 4px;" />
+            </template>
+
+            <template if:true={isFile}>
+                <p>
+                    📎 <strong>{fileName}</strong> ({fileType}, {fileSize} bytes)
+                </p>
+            </template>
+
+            <p class="slds-text-body_x-small slds-text-color_weak">{timestamp}</p>
+        </div>
+    </div>
+</template>

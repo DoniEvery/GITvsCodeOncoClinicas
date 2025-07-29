@@ -1,0 +1,39 @@
+<template>
+    <div class="chat-container">
+        <div class="chat-sidebar">
+            <template if:false={recordId}>
+                <c-app-chat-user-search onuserselected={handleUserSelected}></c-app-chat-user-search>
+            </template>
+            <c-app-chat-session-history onsessionselected={handleSessionSelected}></c-app-chat-session-history>
+        </div>
+
+        <div class="chat-main">
+            <template if:true={isSending}>
+                <lightning-spinner
+                    alternative-text="Enviando mensagem..."
+                    size="small"
+                    class="chat-spinner">
+                </lightning-spinner>
+            </template>
+            <div class="chat-header">
+                <template if:true={selectedUser}>
+                    <div class="selected-user">{selectedUser.name}</div>
+                </template>
+            </div>
+
+            <!-- <div class="chat-messages-container">
+                <c-app-chat-messages messages={messages}></c-app-chat-messages>
+            </div> -->
+
+            <c-app-chat-messages
+                messages={messages}
+                onloadmore={handleLoadMore}
+                show-load-more>
+            </c-app-chat-messages>
+
+            <div class="chat-input-container">
+                <c-app-chat-input onsendmessage={handleSendMessage}></c-app-chat-input>
+            </div>
+        </div>
+    </div>
+</template>

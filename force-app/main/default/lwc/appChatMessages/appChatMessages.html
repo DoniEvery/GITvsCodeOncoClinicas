@@ -1,0 +1,52 @@
+<!-- <template>
+    <template for:each={messages} for:item="msg">
+        <c-app-chat-message-item key={msg.id} message={msg}></c-app-chat-message-item>
+    </template>
+</template> -->
+<template>
+    <!-- <div class="slds-p-around_small" style="overflow-y:auto; height: 100%;">
+        <template for:each={messages} for:item="msg">
+            <c-app-chat-message-item key={msg.messageId} message={msg}></c-app-chat-message-item>
+        </template>
+    </div> -->
+
+    <!-- <div class="chat-messages-container" style="overflow-y:auto; height:400px;">
+        <template for:each={messages} for:item="message">
+            <c-app-chat-message-item
+                key={message.messageId}
+                message={message}>
+            </c-app-chat-message-item>
+        </template>
+    </div> -->
+
+    <!-- <div class="chat-messages-container" style="overflow-y:auto; height:400px;">
+        <template if:true={showLoadMore}>
+            <div class="load-more" onclick={handleLoadMore}>Carregar mais</div>
+        </template>
+
+        <template for:each={messages} for:item="message">
+            <c-app-chat-message-item
+                key={message.messageId}
+                message={message}
+                data-unread={message.dataUnread}>
+            </c-app-chat-message-item>
+        </template>
+    </div> -->
+
+    <div class="chat-messages-container" style="overflow-y:auto; height: 400px;">
+        <template if:true={showLoadMore}>
+            <div class="load-more" onclick={handleLoadMore}>
+                Carregar mais
+            </div>
+        </template>
+
+        <template for:each={messages} for:item="message">
+            <c-app-chat-message-item
+                key={message.messageId}
+                message={message}
+                data-unread={message.dataUnread}>
+            </c-app-chat-message-item>
+        </template>
+    </div>
+
+</template>

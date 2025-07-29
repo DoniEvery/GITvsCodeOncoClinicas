@@ -1,0 +1,6 @@
+/* Arquivo: Ocultar Header */
+
+.hide-salesforce-header .themeHeader {
+    display: none !important;
+}
+

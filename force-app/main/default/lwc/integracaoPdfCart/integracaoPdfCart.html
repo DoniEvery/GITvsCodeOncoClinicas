@@ -1,0 +1,145 @@
+<template>
+    <lightning-modal-header 
+        label="Encaminhamento Cart Cell">
+    </lightning-modal-header>
+
+    <lightning-modal-body>
+        <template if:true={spinner}>
+            <lightning-spinner alternative-text="Carregando" size="x-small"></lightning-spinner>
+        </template>
+        
+        <template if:false={filepreview}>
+            <lightning-accordion active-section-name="X">
+                <lightning-accordion-section name="medico" label="Dados do Médico">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="text" label="Nome do médico solicitante" value={dadosPacienteMedico.physician_name} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="tel" label="Telefone" value={dadosPacienteMedico.physician_contact} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="tel" label="Celular" value="" disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="email" label="E-mail" value={dadosPacienteMedico.physician_email} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="CRM" value={dadosPacienteMedico.physician_crm} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="paciente" label="Dados do Paciente">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="text" label="Nome do paciente" value={dadosPacienteMedico.name} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="CPF" value={dadosPacienteMedico.cpf} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="RG" value={dadosPacienteMedico.rg} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Sexo" value={dadosPacienteMedico.gender}  disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Data de nascimento" value={dadosPacienteMedico.birthday} pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="email" label="E-mail" value={dadosPacienteMedico.email} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="tel" label="Celular" value={dadosPacienteMedico.contact} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Telefone 2" value={dadosPacienteMedico.secondary_contact} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="text" label="CEP" value={dadosPacienteMedico.cep} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="4">
+                            <lightning-input type="text" label="Estado" value={dadosPacienteMedico.state} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="4">
+                            <lightning-input type="text" label="Cidade" value={dadosPacienteMedico.city} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="4">
+                            <lightning-input type="text" label="Bairro" value={dadosPacienteMedico.district} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="10">
+                            <lightning-input type="text" label="Endereço" value={dadosPacienteMedico.street} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="2">
+                            <lightning-input type="text" label="Número" value={dadosPacienteMedico.adressNumber} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Complemento" value={dadosPacienteMedico.complement} disabled="true" ></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="historico" label="Histórico do Paciente">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="text" label="ECOG" value={dadosPacienteMedico.ecog} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <lightning-input type="text" label="CID" value={dadosPacienteMedico.cid} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="OMS" value={dadosPacienteMedico.oms} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Tipo de procedimento" value={dadosPacienteMedico.procedure_name} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="6">
+                            <lightning-input type="text" label="Data de recebimento do formulário" value={dadosPacienteMedico.created_at} disabled="true"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="horizontal-small" size="12">
+                            <label class="slds-form-element__label slds-no-flex">Anexos do paciente</label>
+                                <template for:each={fileList} for:item="file">
+                                    <tr key={file.Id}> 
+                                        <td>
+                                            <a onclick={previewHandler} data-link={file.urlcriptografa}>{file.label}</a>
+                                        </td>                       
+                                    </tr>
+                                </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>              
+            </lightning-accordion>
+        </template> 
+
+        <template if:true={filepreview}>
+            <iframe id="pdfFrame" src={urlCampos} width="100%" height="500px"></iframe>
+        </template>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button 
+            label="Fechar" 
+            variant="brand"
+            onclick={closeHandler}
+            class="slds-button slds-float_left">
+        </lightning-button>
+        <template if:true={filepreview}> 
+            <lightning-button 
+                label="Voltar" 
+                variant="brand"
+                onclick={previewHandlerPdfSalesforce}
+                class="slds-button slds-m-right_xx-small">
+            </lightning-button>
+        </template>
+        <template if:false ={filepreview}>
+            <lightning-button 
+                label="Gerar PDF" 
+                variant="brand"
+                value={urlCampos}
+                onclick={previewHandlerPdfSalesforce}
+                class="slds-button slds-m-right_xx-small">
+            </lightning-button>
+        </template>
+    </lightning-modal-footer>
+</template>

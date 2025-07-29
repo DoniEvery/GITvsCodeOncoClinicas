@@ -1,0 +1,723 @@
+.filter-bar {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    width: max-content;
+}
+
+.filter-bar button {
+    background: linear-gradient(to bottom, #FFFFFF, #CDEEED);
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #004D4D;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background-color 0.3s, background 0.3s;
+    border-right: 1px solid #C6ECE9;
+    width: 112.5px;
+}
+
+.filter-bar button:last-child {
+    border-right: none;
+}
+
+.filter-bar button:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.filter-bar button:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.filter-bar button:hover:not(.selected) {
+    background: #06B6AE;
+    color: white;
+}
+
+.selected {
+    background-color: #06B6AE !important;
+    color: white !important;
+    background-image: none !important;
+}
+
+.consultas-title {
+    color: #575757;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    margin: 0.75rem;
+}
+
+.linha {
+    height: 1px;
+    background-color: #E4E4E4;
+    margin-bottom: 1rem;
+    margin-right: 0.80rem;
+}
+
+.linha-card {
+    height: 1px;
+    background-color: #E4E4E4;
+    margin-bottom: 1rem;
+    margin-right: 0.80rem;
+    margin-left: 0.80rem;
+}
+
+.consulta-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    max-width: 450px;
+    margin-right: 0.80rem;
+}
+
+.consulta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.horario {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.doctor-photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.nome-medico {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.tipo-consulta {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 0.25rem;
+}
+
+lightning-icon.icone-event-color .slds-icon {
+    fill: #06B6AE;
+}
+
+.consulta-mode {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.icone-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.teleconsulta-text {
+    font-size: 12px;
+    color: #06b6ae;
+    margin-top: 0.25rem;
+}
+
+.icone-seta-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icone-seta {
+    color: #555;
+}
+
+.consulta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+button.cancel {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 0.25rem 4rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.confirm {
+    background-color: #06b6ae;
+    color: white;
+    padding: 0.25rem 4rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.group-header {
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 450px;
+    margin-right: 0.80rem;
+    color: #575757;
+}
+
+.group-left {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.group-date {
+    font-weight: bold;
+}
+
+
+/* Modal */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-height: 60vh;
+    max-width: 300px;
+    margin: 60px auto 0 auto;
+}
+
+.header-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.titulo-modal {
+    font-size: 20px;
+    color: #06B6AE;
+    margin: 0 0 15px 0;
+    text-align: left;
+}
+
+.modal-datas {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.modal-datas lightning-input {
+    flex: 1 1 45%;
+    min-width: 90px;
+}
+
+button.cancel-date {
+    background-color: white;
+    border: 1px solid #B2B2B2;
+    padding: 0.50rem 2.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.confirm-date {
+    background-color: #06B6AE;
+    color: white;
+    padding: 0.50rem 2.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center; 
+    gap: 0.5rem; 
+    margin-top: 16px;
+}
+
+.modal-linha {
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 0% !important;
+}
+
+.fechar-modal {
+    cursor: pointer;
+}
+
+/* Agenda Home */
+.consulta-home-card {
+    width: 100%;
+    padding: 0.5rem;
+    max-width: 300px;
+    margin-bottom: 0.6rem;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-sizing: border-box;
+}
+
+.consultas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+
+/* Cabeçalho */
+.header-home-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 0.3rem;
+}
+
+.data-hora {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Imagem do médico */
+.doctor-photo-home-quadrada {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* Conteúdo */
+.conteudo-home-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+}
+
+.info-home {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    justify-content: flex-start;
+}
+
+.linha-nome-tipo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    margin: 0;
+}
+
+/* Nome Médico */
+.nome-medico-home {
+    font-size: 0.80rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap; 
+    overflow: hidden;   
+    text-overflow: ellipsis; 
+    max-width: 100%;   
+}
+
+.tipo-consulta-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 1;
+    min-width: 65px;
+}
+
+.custom-icon-home {
+    width: 30px;
+    height: 30px;
+}
+
+.teleconsulta-text {
+    font-size: 0.65rem;
+    color: #06b6ae;
+    font-weight: 500;
+    margin-top: 0.15rem;
+}
+
+.sub-tipo-consulta {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 0;
+}
+
+/* Linha divisória menor */
+.linha-card {
+    height: 1px;
+    background-color: #E4E4E4;
+    margin: 0.6rem 0 0.4rem 0;
+}
+
+/* Botões menores */
+.consulta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-top: 0.1rem;
+}
+
+button.cancel-home,
+button.confirm-home {
+    padding: 0.4rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+button.cancel-home {
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+button.confirm-home {
+    background-color: #06b6ae;
+    color: white;
+    border: none;
+}
+
+
+@media (max-width: 1072px) {
+    .consulta-home-card {
+        min-width: 250px; /* garante tamanho mínimo do card */
+        max-width: 300px;
+        flex-shrink: 0;
+    }
+
+    .consultas-grid {
+        grid-auto-flow: column;
+        overflow-x: auto;
+        padding-bottom: 0.5rem; 
+        padding-right: 1rem;
+    }
+
+    .consultas-grid::-webkit-scrollbar {
+        display: none; 
+    }
+
+    .filter-bar {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 100%;
+        border: 0;
+        border-radius: 6px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 0.2rem;
+    }
+    
+    .filter-bar button {
+        flex: 1 1 0;
+        min-width: 60px;
+        padding: 0.4rem 0.4rem;
+        font-size: 0.7rem;
+        gap: 0.2rem;
+        border-right: 1px solid #C6ECE9;
+        box-sizing: border-box;
+    }
+    
+    .filter-bar button:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    
+    .filter-bar button:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-right: none;
+        margin-right: 0.5rem;
+    }
+
+    button.cancel,
+    button.confirm {
+        flex: 1 1 0;
+        padding: 0.3rem 0; 
+        width: auto; 
+        min-width: 60px; 
+    }
+
+    button.cancel-home,
+    button.confirm-home {
+        flex: 1 1 0;
+        padding: 0.3rem 0; 
+        width: auto; 
+        min-width: 60px; 
+    }
+
+    .consulta-card {
+        padding: 0.5rem;
+        margin-bottom: 0.75rem;
+        margin-right: 0.5rem;
+    }
+
+    .consulta-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .horario {
+        font-size: 0.8rem;
+    }
+
+    .doctor-photo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .nome-medico {
+        font-size: 0.9rem;
+    }
+
+    .tipo-consulta {
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+    }
+
+    .custom-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .teleconsulta-text {
+        font-size: 0.75rem;
+    }
+
+    .consulta-mode {
+        gap: 0.3rem;
+    }
+
+    .consulta-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .group-header {
+        padding: 12px;
+        margin-right: 0.5rem;
+    }
+
+    .group-date {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width:767px) {
+    .modal-backdrop {
+        padding-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .consulta-header {
+        display: grid;
+        grid-template-columns: auto auto 1fr auto;
+        align-items: start;
+        gap: 0.5rem;
+    }
+
+    .horario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 0.8rem;
+        color: #555;
+        min-width: 50px;
+    }
+
+    .horario lightning-icon {
+        margin-bottom: 4px;
+    }
+
+    .doctor-photo {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        min-width: 0;
+    }
+
+    .nome-medico {
+        font-size: 0.95rem;
+        font-weight: bold;
+        word-break: break-word;
+        overflow: visible;
+        white-space: normal;
+    }
+
+    .tipo-consulta {
+        font-size: 0.8rem;
+        color: #777;
+        word-break: break-word;
+        overflow: visible;
+        white-space: normal;
+        margin-top: 4px;
+    }
+
+    .consulta-mode {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        gap: 0.25rem;
+        min-width: 70px;
+        flex-direction: row; 
+    }
+
+    .icone-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custom-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+    }
+
+    .teleconsulta-text {
+        font-size: 11px;
+        color: #06b6ae;
+    }
+
+    .icone-seta-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .no-agenda-container {
+        padding-left: 8px;
+        padding-right: 16px;
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .no-agenda-message {
+        font-size: 1rem;
+    }
+}
+
+.no-agenda-container {
+    padding-left: 16px;
+    display: flex;
+    justify-content: left; 
+    align-items: left;     
+    height: 90px;           
+}
+  
+ .no-agenda-message {
+    font-weight: bold;
+    color: #606366;
+    font-size: 1.1rem;
+    text-align: left;
+ }
+
+ .no-agenda-container {
+    padding-left: 16px;
+    display: flex;
+    justify-content: left; 
+    align-items: left;     
+    height: 90px;           
+}
+  
+.no-agenda-message {
+    font-weight: bold;
+    color: #606366;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+.loading-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loading-text {
+    font-weight: bold;
+    margin-top: 1rem;
+    color: #706e6b;
+    font-size: 1.1rem;
+}

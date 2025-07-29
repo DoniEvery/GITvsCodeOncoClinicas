@@ -1,0 +1,102 @@
+<template>
+    <div class={sidebarClass}>
+
+         <template if:true={isMobile}>
+            <div class="close-button-mobile" onclick={handleClose}>
+                <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+            </div>
+        </template>
+    
+        <div class="user-info" onclick={handleProfileClick}>
+            <div class="user-main">
+                <img src={userPhotoUrl} alt="Foto do Usuário" class="user-photo" />
+                <div class="user-name-block">
+                    <span class="user-name">{userName}</span>
+                    <span class="user-role">Paciente</span>
+                </div>
+            </div>
+            <img src={engrenagemIcon} alt="Ícone do Usuário" class="user-static-icon" />            
+        </div>
+
+        <ul class="slds-list_vertical">
+            <li class="custom-nav-item" onclick={handleClick} data-name="inicio">
+                <img src={inicio} class="custom-icon" alt="Home"/>
+                <span class="custom-label">Início</span>
+            </li>
+            <hr class="divider"/>
+            
+            <li class="custom-nav-item" onclick={handleClick} data-name="prontuario">
+                <img src={prontuario} class="custom-icon" alt="Home" />
+                <span class="custom-label">Meu prontuário</span>
+            </li>
+            <hr class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="acompanhantes">
+                <img src={acompanhantes} class="custom-icon" alt="Acompanhantes" />
+                <span class="custom-label">Acompanhantes</span>
+            </li>
+            <hr class="divider"/>
+
+            <li if:false={isMobile} class="custom-nav-item" onclick={handleClick} data-name="conversas">
+                <img src={conversas} class="custom-icon" alt="Home" />
+                <span class="custom-label">Minhas conversas</span>
+            </li>
+            <hr if:false={isMobile} class="divider"/>
+
+            <li if:false={isMobile} class="custom-nav-item" onclick={handleClick} data-name="agenda">
+                <img src={agenda} class="custom-icon" alt="Home" />
+                <span class="custom-label">Minha agenda</span>
+            </li>
+            <hr if:false={isMobile} class="divider"/>
+
+            <li if:false={isMobile} class="custom-nav-item" onclick={handleClick} data-name="servicos">
+                <img src={servicos} class="custom-icon" alt="Home" />
+                <span class="custom-label">Nossos serviços</span>
+            </li>
+            <hr if:false={isMobile} class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="perguntas">
+                <img src={perguntas} class="custom-icon" alt="Home" />
+                <span class="custom-label">Perguntas frequentes</span>
+            </li>
+            <hr class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="saibamais">
+                <img src={saibamais} class="custom-icon" alt="Home" />
+                <span class="custom-label">Saiba mais sobre o APP</span>
+            </li>
+            <hr class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="suporte">
+                <img src={suporte} class="custom-icon" alt="Home" />
+                <span class="custom-label">Suporte ao APP</span>
+            </li>
+            <hr class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="politica">
+                <img src={politica} class="custom-icon" alt="Home" />
+                <span class="custom-label">Política de privacidade</span>
+            </li>
+            <hr class="divider"/>
+
+            <li class="custom-nav-item" onclick={handleClick} data-name="faleconosco">
+                <img src={faleconosco} class="custom-icon" alt="Home" />
+                <span class="custom-label">Fale conosco</span>
+            </li>
+        </ul>
+
+        <hr class="divider"/>
+
+        <div class="logout-container" if:true={isMobile} onclick={handleLogout}>
+            <span class="logout-label">Sair</span>
+            <lightning-icon
+                icon-name="utility:logout"
+                size="small"
+                alternative-text="Logout"
+                class="logout-icon">
+            </lightning-icon>
+        </div>
+
+    </div>
+
+</template>

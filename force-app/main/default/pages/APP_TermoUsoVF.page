@@ -1,0 +1,11 @@
+<apex:page showHeader="false" sidebar="false">
+    <h1>You are in VF Login Flow</h1>
+    <div id="auraContainer"></div>
+
+    <script src="/lightning/lightning.out.js"></script>
+    <script>
+        $Lightning.use("c:AppTermoUsoWrapperHost", function() {
+            $Lightning.createComponent("c:AppTermoUsoWrapper", {}, "auraContainer");
+        });
+    </script>
+</apex:page>

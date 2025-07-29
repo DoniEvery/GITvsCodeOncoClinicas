@@ -1,0 +1,9 @@
+<aura:component implements="lightning:actionOverride,flexipage:availableForRecordHome,force:hasRecordId,lightning:hasPageReference"
+    access="global">
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="pageReference" type="Object" />  
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.handlePageChange}" /> 
+    <aura:handler event="aura:locationChange" action="{!c.refresh}"/>
+
+    <c:newContactSelector aura:id="contactSelector" onclose="{!c.closeMethodInAuraController}"/>
+</aura:component>

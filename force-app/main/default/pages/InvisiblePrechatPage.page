@@ -1,0 +1,6 @@
+<apex:page showHeader="false" sidebar="false">
+    <script>
+        // Dispara o início automático do chat
+        embedded_svc.liveAgentAPI.startChat();
+    </script>
+</apex:page>

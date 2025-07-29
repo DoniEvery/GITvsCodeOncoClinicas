@@ -1,0 +1,58 @@
+<template>
+    <div class="slds-theme_default slds-p-around_medium slds-m-around_medium slds-align_absolute-center container">
+        <div class="form-box">
+            <template if:true={showLogin}>
+                <div class="login-header">
+                    <div class="login-header-row">
+                        <lightning-icon icon-name="utility:chevronleft"
+                                        onclick={handleVoltar}
+                                        size="xx-small"
+                                        class="back-icon">
+                        </lightning-icon>
+                        <h1 class="login-title">Escolher paciente</h1>
+                    </div>
+                    <p class="login-subtitle">Escolha o paciente que irá acompanhar.</p>
+                </div>
+
+                <template if:true={temPacientes}>
+                    <template for:each={pacientes} for:item="paciente">
+                        <label key={paciente.id}
+                               class="radio-label-custom slds-grid slds-align_absolute-center slds-m-bottom_small {paciente.checked ? 'radio-checked' : ''}">
+                            <div class="slds-col slds-size_1-of-12 slds-p-right_small">
+                                <input
+                                    type="radio"
+                                    name="pacienteSelecionado"
+                                    value={paciente.id}
+                                    checked={paciente.checked}
+                                    onchange={handleSelecionarPaciente}
+                                    class="custom-radio-visible"
+                                />
+                            </div>
+
+                            <div class="slds-col slds-size_11-of-12">
+                                <div class="paciente-card slds-grid slds-align_absolute-center">
+                                    <div class="slds-col slds-size_1-of-4">
+                                        <img src={paciente.icon} alt="Paciente" class="paciente-icon" />
+                                    </div>
+                                    <div class="slds-col slds-size_3-of-4 slds-p-left_small">
+                                        <div class="slds-text-title_bold">{paciente.nome}</div>
+                                        <div class="slds-text-body_small">CPF: {paciente.cpf}</div>
+                                        <div class="slds-text-body_small">Data Nasc.: {paciente.dataNascimento}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </template>
+                </template>
+
+                <template if:false={temPacientes}>
+                    <p class="slds-text-body_regular slds-m-top_medium">Nenhum paciente associado a este acompanhante.</p>
+                </template>
+
+                <div class="slds-m-top_medium">
+                    <button class="custom-button" onclick={handleLogin} disabled={botaoDesabilitado}>Seguir</button>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

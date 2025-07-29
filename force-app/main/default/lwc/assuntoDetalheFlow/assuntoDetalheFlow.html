@@ -1,0 +1,14 @@
+<template>
+    <lightning-combobox
+        name ="AssuntoList"
+        label="Assunto"
+        options={listAcc}
+        onchange={onSelectedListAcc}
+        value={ValueAssunto}
+        message-when-value-missing="Por favor escolha uma opção!"
+        required="true"
+    ></lightning-combobox>
+            <lightning-combobox name="DetalheList" label="Detalhe" options={listCont} value={ValueDetalhe}
+                onchange={onSelectedListCont} message-when-value-missing="Por favor escolha uma opção!"
+                required={showContact} disabled={disabled}></lightning-combobox>
+</template>

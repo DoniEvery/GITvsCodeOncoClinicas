@@ -1,0 +1,15 @@
+<template>
+    <div if:true={isReadOnly} class="read-only-container">
+        <div class="slds-rich-text-editor__output slds-text-color_weak" lwc:dom="manual"></div>
+    </div>
+
+    <template if:false={isReadOnly}>
+        <lightning-input-rich-text
+            label={fieldLabel}
+            value={fieldValue}
+            onchange={handleChange}
+            required={isRequired}
+            disabled={isDisabled}>
+        </lightning-input-rich-text>
+    </template>
+</template>

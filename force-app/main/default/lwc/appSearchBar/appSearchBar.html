@@ -1,0 +1,19 @@
+<template>
+    <div class="search-bar">
+        <input
+            type="text"
+            class="search-input"
+            placeholder="O que procura?"
+            value={searchValue}
+            oninput={handleInput}
+            onkeydown={handleKeyDown}
+        />
+        <span class="search-icon" onclick={handleSearch}>
+            <lightning-icon
+                icon-name="utility:search"
+                alternative-text="Buscar"
+                size="x-small"
+            ></lightning-icon>
+        </span>
+    </div>
+</template>

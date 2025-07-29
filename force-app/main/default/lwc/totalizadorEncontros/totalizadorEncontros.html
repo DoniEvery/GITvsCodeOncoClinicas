@@ -1,0 +1,370 @@
+<template>
+    <article class="slds-card" style="position: relative;">
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                    <button aria-controls="expando-unique-id4" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={toggleSectionClass}>
+                        <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"
+                            aria-hidden="true">
+                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                        </svg>
+                        <span class="" title="Section Title">Grandes Números - Período</span>
+                    </button>
+                </h3>
+                <template if:true={hasTooManyRows}>
+                    <div class="demo-only" style="height:4rem">
+                        <div class="slds-notify_container slds-is-relative">
+                            <div class="slds-notify slds-notify_toast slds-theme_warning" role="status">
+                                <span class="slds-assistive-text">warning</span>
+                                <span
+                                    class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                                    title="Description of icon when needed">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                    </svg>
+                                </span>
+                                <div class="slds-notify__content">
+                                    <h2 class="slds-text-heading_small ">Período muito abrangente, número de registros
+                                        limitado à {dados.nEncontros}.
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div aria-hidden="false" class="slds-section__content expando-unique-id slds-p-horizontal_small"
+                    id="expando-unique-id3">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input type="Date" label="De" value={dataInicial} class="dataInicial"
+                                onchange={handleDataInicialChange} min={setDateMin} max={setDateMax}>
+                            </lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <lightning-input type="Date" label="Até" value={dataFinal} class="dataFinal"
+                                onchange={handleDataFinalChange} min={setDateMin} max={setDateMax}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                    <button aria-controls="expando-unique-id4" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={toggleSectionClass}>
+                        <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"
+                            aria-hidden="true">
+                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                        </svg>
+                        <span class="" title="Section Title">{secaoRefPeriodo}</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content expando-unique-id slds-p-horizontal_small"
+                    id="expando-unique-id4">
+                    <div class="slds-grid slds-gutters slds-wrap">
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor Total</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorTotalRef}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Consultas</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasConsultasRef}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Consultas</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasConsultasRef}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Quimioterapias</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasQuimioterapiasRef}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Quimioterapias</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasQuimioterapiasRef}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Radioterapias</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasRadioterapiasRef}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Radioterapias</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasRadioterapiasRef}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Demais Procedimentos</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdDemaisProcedimentosRef}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor de Demais Procedimentos</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorDemaisProcedimentosRef}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                    <button aria-controls="expando-unique-id5" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={toggleSectionClass}>
+                        <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"
+                            aria-hidden="true">
+                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                        </svg>
+                        <span class="" title="Section Title">{secaoCCPeriodo}</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content expando-unique-id slds-p-horizontal_small"
+                    id="expando-unique-id5">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor Total</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorTotalCC}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Consultas</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasConsultasCC}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Consultas</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasConsultasCC}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Quimioterapias</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasQuimioterapiasCC}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Quimioterapias</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasQuimioterapiasCC}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Primeiras Radioterapias</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdPrimeirasRadioterapiasCC}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor das Primeiras Radioterapias</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorPrimeirasRadioterapiasCC}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Quantidade de Demais Procedimentos</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{dados.qtdDemaisProcedimentosCC}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={dados.viewAllData}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                    <span class="slds-form-element__label">Valor de Demais Procedimentos</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">R$&nbsp;
+                                            <lightning-formatted-number value={dados.valorDemaisProcedimentosCC}
+                                                maximum-fraction-digits="2"></lightning-formatted-number>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                    <button aria-controls="expando-unique-id6" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={toggleSectionClass}>
+                        <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"
+                            aria-hidden="true">
+                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                        </svg>
+                        <span class="" title="Section Title">{secaoUnidadePrincipal}</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content expando-unique-id slds-p-horizontal_small"
+                    id="expando-unique-id6">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                <span class="slds-form-element__label">Unidade Principal</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <div class="slds-form-element__static">
+                                            <template if:true={dados.unidadePrincipal}>
+                                                <a href="#" onclick={goToUnidade}>{dados.unidadePrincipal.Name}</a>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Carrregando" size="medium"></lightning-spinner>
+        </template>
+    </article>
+</template>

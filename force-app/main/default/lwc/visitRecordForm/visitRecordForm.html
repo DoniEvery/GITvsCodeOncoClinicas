@@ -1,0 +1,171 @@
+<template>
+    <div class="slds-box slds-is-relative">
+        <template if:true={isLoading}>
+            <div class="slds-p-around_x-large">
+                <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+ 
+        <lightning-card title="Evento Massivo" icon-name="standard:record">
+            <div class="slds-grid slds-wrap">
+
+                    <div class="slds-col slds-size_2-of-4">
+  
+                        <lightning-combobox
+                              class="adjust"
+                              name="subject"
+                              label="Tipo Assunto"
+                              value={subjectValue}
+                              required="true"
+                              placeholder="Selecione uma opção"
+                              options={subjectOptions}
+                              onchange={handleChangeSubject} >
+                          </lightning-combobox>
+      
+                    </div>
+    
+                    <div class="slds-col slds-size_2-of-4">
+                        <lightning-combobox
+                            class="adjust"
+                            name="meetingStatus"
+                            label="Status da Reunião"
+                            value={meetingStatusValues}
+                            placeholder="Selecione uma opção"
+                            options={meetingStatusOptions}
+                            onchange={handleChangeMeetingValue} >
+                        </lightning-combobox>
+    
+                    </div>
+
+
+                    <div class="slds-col slds-size_2-of-4">
+                    <lightning-input label="Data Início" type="datetime" name="startDate" value={startDate} onchange={changeStartDate}  class="slds-m-bottom_x-small adjust" required="true"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                    <lightning-input label="Data fim" type="datetime" name="endDate" value={endDate} onchange={changeEndDate}  class="slds-m-bottom_x-small adjust" required="true"></lightning-input>
+    
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <lightning-dual-listbox name="products"
+                        class="adjust"
+                    label="Produtos"
+                    source-label="Disponíveis"
+                    selected-label="Selecionados"
+                    field-level-help=""
+                    options={productOptions}
+                    onchange={handleChange}></lightning-dual-listbox>
+                    
+                    </div>
+
+
+
+                  <!--  <div class="slds-col slds-size_2-of-4">
+                        <lightning-combobox
+                        class="adjust"
+                                name="type"
+                                label="Tipo Convite"
+                                value={typeValue}
+                                placeholder="Selecione uma opção"
+                                options={typeOptions}
+                                onchange={handleChangeType} >
+                            </lightning-combobox>
+        
+                    </div>-->
+
+                    <div class="slds-col slds-size_2-of-4">
+                        <lightning-dual-listbox name="products"
+                            class="adjust"
+                            label="Grupos"
+                            source-label="Disponíveis"
+                            selected-label="Selecionados"
+                            field-level-help=""
+                            options={GroupContactOption}
+                            onchange={handleChangeContacts}>
+                        </lightning-dual-listbox>                       
+                    </div>
+
+                    <div class="slds-col slds-size_2-of-4">
+    
+                        <lightning-combobox
+                        class="adjust"
+                                name="communicationChannel"
+                                label="Canal de comunicação"
+                                id="communicationChannel"
+                                disabled={disableButton}
+                                value={communicationChannelValue}
+                                required="true"
+                                placeholder="Selecione uma opção"
+                                options={communicationChannelOptions}
+                                onchange={handleChangeCommunicationChannel} >
+                            </lightning-combobox>
+        
+                    </div>
+
+                    <div class="slds-col slds-size_2-of-4">
+  
+                      <lightning-combobox
+                      class="adjust"
+                                name="action"
+                                label="Ação"
+                                value={actionValue}
+                                placeholder="Selecione uma opção"
+                                options={actionOptions}
+                                onchange={handleChangeAction} >
+                            </lightning-combobox>
+        
+                    </div>
+
+                    <div class="slds-col slds-size_2-of-4">
+  
+                    <!-- <lightning-layout>
+                          <lightning-layout-item flexibility="auto" padding="around-small" class="adjust"> --> 
+  
+                              
+                            <!--  <div class="slds-box">  --> 
+                                <div class="slds-p-around_small">
+                                  <c-lwc-lookup lookup-label="Contatos" object-api-name="Contact" icon-name="standard:account"  
+                                    onrecordselection={onAccountSelection}></c-lwc-lookup> 
+                                </div> 
+                               <!-- </div>  --> 
+                             <!--  <div class="slds-box">  --> 
+                                <div class="slds-p-around_small">   
+                                  <template for:each={labelItems} for:item="pillItem" for:index="index">               
+                                      <lightning-pill label={pillItem.label} onremove={removePillItem} 
+                                          key={pillItem.label} name={index}>
+                                      </lightning-pill>
+                                  </template>
+                                </div>
+                           <!--     </div>  --> 
+                              
+                      <!--    </lightning-layout-item>
+                      </lightning-layout> --> 
+  
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <lightning-combobox
+                        class="adjust"
+                                name="type"
+                                label="Tipo Convite"
+                                value={typeValue}
+                                placeholder="Selecione uma opção"
+                                options={typeOptions}
+                                onchange={handleChangeType} >
+                            </lightning-combobox>
+        
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <lightning-input label="Descrição" value={description} name="description" onchange={descriptionOnChange} class="slds-m-bottom_x-small adjust"></lightning-input>
+        
+                    </div>
+                    
+                    <div class="slds-col slds-size_2-of-4">
+                    </div>
+                    
+                    <div class="slds-col slds-size_2-of-4">
+                      <lightning-button label="Salvar" variant="brand" title="Salvar" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                    </div>
+            </div>
+        </lightning-card>
+    </div>
+
+  </template>

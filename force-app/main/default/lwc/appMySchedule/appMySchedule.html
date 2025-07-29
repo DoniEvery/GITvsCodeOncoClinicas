@@ -1,0 +1,175 @@
+<template>
+    <!-- Spinner de carregamento -->
+    <template if:true={isLoading}>
+        <div class="loading-spinner-container">
+            <div class="loading-text">Aguarde o carregamento da agenda...</div>
+        </div>
+    </template>
+
+    <!-- Conteúdo principal (só mostra quando não estiver carregando) -->
+    <template if:false={isLoading}>
+        <template if:false={modoHome}>
+            <!-- Filtros e título só aparecem fora do modo home -->
+            <div class="filter-bar">
+                <button class={todayButtonClass} onclick={filterToday}>Hoje</button>
+                <button class={sevenDaysButtonClass} onclick={filter7Days}>7 Dias</button>
+                <button class={thirtyDaysButtonClass} onclick={filter30Days}>30 Dias</button>
+                <button class={escolherButtonClass} onclick={abrirModalData}>
+                    <img src={dateIcon2} alt="Calendário" style="width:16px; height:16px;">Escolher
+                </button>
+            </div>
+        
+            <div class="consultas-title">
+                <lightning-icon icon-name="utility:event" size="xx-small" class="icone-event-color"></lightning-icon>
+                <span> Consultas: {selectedLabel}</span>
+            </div>
+            <div class="linha"></div>
+        </template>
+        
+        <!-- Lista de consultas -->
+        <template if:true={hasAgenda}>
+            
+            <!-- Modo Home: exibe todos os cards diretamente -->
+            <template if:true={modoHome}>
+                
+                <div class="consultas-grid">
+                <template for:each={consultasParaExibir} for:item="consulta">
+                    
+                        <div key={consulta.pacienteId} class="consulta-card consulta-home-card">
+                            <div class="header-home-card">
+                                <div class="data-hora">
+                                    <lightning-icon icon-name="utility:event" size="xx-small"></lightning-icon>
+                                    <span>{consulta.dataFormatada}</span>
+                                    <lightning-icon icon-name="utility:clock" size="xx-small" style="margin-left: 0.5rem;"></lightning-icon>
+                                    <span>{consulta.horaFormatada}</span>
+                                </div>
+                
+                                <div class="icone-seta-wrapper" data-id={consulta.id} onclick={abrirModal}>
+                                    <lightning-icon icon-name="utility:chevronright" size="xx-small" class="icone-seta"></lightning-icon>
+                                </div>
+                            </div>
+                
+                            <div class="conteudo-home-card">
+                                <img src={consulta.fotoMedicoUrl} alt="Foto Médico" class="doctor-photo-home-quadrada" />
+                
+                                <div class="info-home">
+                                    <div class="linha-nome-tipo">
+                                        <div>
+                                            <strong class="nome-medico-home" title={consulta.nomeMedico}>{consulta.nomeMedicoFormatado}</strong></br>
+                                            <span class="sub-tipo-consulta" title={consulta.tipoAgenda}>{consulta.tipoConsultaFormatado}</span>
+                                        </div>
+                
+                                        <template if:true={consulta.isRemoto}>
+                                            <div class="tipo-consulta-home">
+                                                <img src={teleconsulta} class="custom-icon-home" alt="Teleconsulta" />
+                                                <span class="teleconsulta-text">Telemedicina</span>
+                                            </div>
+                                        </template>
+                                        <template if:false={consulta.isRemoto}>
+                                            <div class="tipo-consulta-home">
+                                                <img src={consultaPresencial} class="custom-icon-home" alt="Consulta Presencial" />
+                                                <span class="teleconsulta-text">Presencial</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="linha-card"></div>
+                
+                            <div class="consulta-actions">
+                                <button class="cancel-home">Cancelar</button>
+                                <button class="confirm-home" onclick={abrirModalConfirmacao}>Confirmar</button>
+                            </div>
+                        </div>
+                </template>
+            </div>
+            </template>
+            
+            <!-- Modo completo com agrupamento e expand -->
+            <template if:false={modoHome}>
+                <template for:each={agendaAgrupada} for:item="grupo">
+                    <div key={grupo.dataLabel} class="group-container">
+        
+                        <template if:false={isHoje}>
+                        <div class="group-header" onclick={toggleExpand} data-label={grupo.dataLabel}>
+                            <div class="group-left">
+                                <lightning-icon icon-name="utility:event" size="x-small"></lightning-icon>
+                                <span class="group-date">{grupo.dataLabel}</span>
+                            </div>
+        
+                            <template if:true={grupo.exibirSeta}>
+                                <lightning-icon icon-name={grupo.iconeSeta} size="x-small"></lightning-icon>
+                            </template>
+                        </div>
+                        </template>
+        
+                        <template if:true={grupo.expanded}>
+                            <template for:each={grupo.consultas} for:item="consulta">
+                                <div key={consulta.pacienteId} class="consulta-card">
+                                    <div class="consulta-header">
+                                        <div class="horario">
+                                            <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
+                                            <span>{consulta.horaFormatada}</span>
+                                        </div>
+        
+                                        <img src={consulta.fotoMedicoUrl} alt="Foto Médico" class="doctor-photo" />
+        
+                                        <div class="info">
+                                            <div class="nome-medico">
+                                                <strong>{consulta.nomeMedico}</strong>
+                                            </div>
+                                            <div class="tipo-consulta">
+                                                <span>{consulta.tipoConsultaFormatado}</span>
+                                            </div>
+                                        </div>
+        
+                                        <div class="consulta-mode">
+                                            <template if:true={consulta.isRemoto}>
+                                                <div class="icone-container">
+                                                    <img src={teleconsulta} class="custom-icon" alt="Teleconsulta" />
+                                                    <span class="teleconsulta-text">Telemedicina</span>
+                                                </div>
+                                            </template>
+                                            <template if:false={consulta.isRemoto}>
+                                                <div class="icone-container">
+                                                    <img src={consultaPresencial} class="custom-icon" alt="Consulta Presencial" />
+                                                    <span class="teleconsulta-text">Presencial</span>
+                                                </div>
+                                            </template>
+        
+                                            <div class="icone-seta-wrapper" data-id={consulta.id} onclick={abrirModal}>
+                                                <lightning-icon icon-name="utility:chevronright" size="xx-small" class="icone-seta"></lightning-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="linha-card"></div>
+        
+                                    <div class="consulta-actions">
+                                        <button class="cancel">Cancelar</button>
+                                        <button class="confirm" onclick={abrirModalConfirmacao}>Confirmar</button>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        
+        </template>
+        
+        <!-- Caso não tenha agenda -->
+        <template if:true={showNoAgendaAndModoHome}>
+            <div class="no-agenda-container">
+              <p class="no-agenda-message">Não há consultas agendadas.</p>
+            </div>
+        </template>
+          
+        <template if:true={showNoAgendaAndNotModoHome}>
+            <div class="no-agenda-container">
+              <p class="no-agenda-message">Nenhuma consulta encontrada para o período selecionado.</p>
+            </div>
+        </template>
+    </template>
+</template>

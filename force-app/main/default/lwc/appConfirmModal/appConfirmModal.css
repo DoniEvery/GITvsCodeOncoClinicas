@@ -1,0 +1,122 @@
+.detalhes-modal {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    margin: 60px auto 0 auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    max-height: 80vh; 
+    overflow-y: auto;  
+}
+
+.header-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.fechar-modal {
+    cursor: pointer;
+}
+
+.titulo-modal {
+    font-size: 16px;
+    color: #06B6AE;
+    margin-top: 0;
+}
+
+.status-container {
+    background: #f4f4f4;
+    padding: 6px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-badge {
+    background: #06B6AE;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.info-grid strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.botoes-modal {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+button.cancel {
+    background-color: white;
+    border: 1px solid #B2B2B2;
+    padding: 0.50rem 2.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.confirm {
+    background-color: #06B6AE;
+    color: white;
+    padding: 0.50rem 2.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.custom-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+
+    .detalhes-modal {
+        width: 90%;
+        max-width: 90%;
+        margin: 40px auto 0 auto;
+        padding: 16px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .botoes-modal {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+
+    button.cancel,
+    button.confirm {
+        flex: 1 1 0;
+        padding: 0.5rem 0; 
+        width: auto; 
+        min-width: 80px;
+    }
+
+    .titulo-modal {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,6 @@
+.table-container {
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-top: 1px solid rgb(221, 219, 218) !important;
+    display: relative;
+}

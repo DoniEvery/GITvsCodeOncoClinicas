@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-m-bottom_medium">
+        <!--h3 class="gray-brackground slds-section__title slds-theme_shade slds-align_absolute-center">
+            <span class="slds-truncate slds-p-horizontal_small slds-text-title_bold" title="Section Title">Artigos Relacionados</span>
+        </h3-->
+        <c-cadastro-protocolo-atendimento-artigos
+            assunto-unidade-id={assuntoUnidadeSelecionada}
+            is-assunto-unidade-selected=true
+            motivo-assunto-unidade={motivoAssuntoUnidade}
+            is-visible-in-csp=true
+            record-type-developername={knowledgeRecordTypeName}
+            name="componentArtigos" 
+            record-id={recordId}
+        ></c-cadastro-protocolo-atendimento-artigos>                          
+    </div>
+</template>

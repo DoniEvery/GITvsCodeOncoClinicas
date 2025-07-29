@@ -1,0 +1,44 @@
+<template>
+    <header class={headerClasses}>
+        <div class="header-background">
+            <div class="slds-grid slds-align-center">
+
+                <!-- Botão visível apenas para usuários comuns no mobile -->
+                <template if:true={isMobileOnlyUser}>
+                    <lightning-button-icon 
+                        icon-name="utility:chevronleft" 
+                        alternative-text="Voltar"
+                        variant="bare"
+                        class="chevron-button"
+                        onclick={handleBack}
+                    ></lightning-button-icon>
+                </template>
+
+                <!-- Botão visível apenas para médicos/admins no desktop -->
+                <template if:true={isDesktopAdminUser}>
+                    <lightning-button-icon 
+                        icon-name="utility:chevronleft" 
+                        alternative-text="Voltar para Início"
+                        variant="bare"
+                        class="chevron-button"
+                        onclick={handleNavigateInicio}
+                    ></lightning-button-icon>
+                </template>
+
+                <!-- Botão visível apenas para médicos/admins no mobile -->
+                <template if:true={isMobileAdminUser}>
+                    <lightning-button-icon 
+                        icon-name="utility:chevronleft" 
+                        alternative-text="Voltar para Início"
+                        variant="bare"
+                        class="chevron-button"
+                        onclick={handleNavigateInicio}
+                    ></lightning-button-icon>
+                </template>
+
+                <img src={iconName} class="custom-icon" alt="Home" />
+                <h1 class="header-title">{pageName}</h1>
+            </div>
+        </div>
+    </header>
+</template>

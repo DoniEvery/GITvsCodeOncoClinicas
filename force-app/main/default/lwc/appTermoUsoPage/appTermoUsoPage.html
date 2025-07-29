@@ -1,0 +1,73 @@
+<template>
+    <template if:false={exibirTermoUso}></template>
+    <template if:true={exibirTermoUso}>
+    <div class="termo-container slds-is-relative">
+        <!-- HEADER DEGRADE FIXO -->
+        <div class="mobile-header slds-p-around_medium slds-align_absolute-center slds-grid slds-grid_align-spread slds-border_bottom slds-theme_shade">
+            <div class="mobile-logo-container slds-col">
+                <img src={logoOnco} alt="Logo" class="mobile-logo" />
+            </div>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="termo-wrapper mobile-content-wrapper slds-p-around_medium slds-scrollable_y">
+            <div class="termo-card slds-box slds-theme_default slds-p-around_medium slds-m-top_medium">
+
+                <template if:true={mostrarTermoUso}>
+                    <lightning-tabset>
+                        <lightning-tab label="Termos e cond. uso" value="Termo e Condições de Uso" onactive={handleTabActive}>
+                            <div class="termo-content termo-uso" lwc:dom="manual"></div>
+                        </lightning-tab>
+
+                        <template if:true={mostrarPoliticaPrivacidade}>
+                            <lightning-tab label="Política de Privacidade" value="Política de Privacidade" onactive={handleTabActive}>
+                                <div class="termo-content politica-privacidade" lwc:dom="manual"></div>
+                            </lightning-tab>
+                        </template>
+                    </lightning-tabset>
+                </template>
+
+                <template if:false={mostrarTermoUso}>
+                    <template if:true={mostrarPoliticaPrivacidade}>
+                        <lightning-tabset>
+                            <lightning-tab label="Política de Privacidade" value="Política de Privacidade" onactive={handleTabActive}>
+                                <div class="termo-content politica-privacidade" lwc:dom="manual"></div>
+                            </lightning-tab>
+                        </lightning-tabset>
+                    </template>
+                </template>
+
+                <template if:false={mostrarTermoUso}>
+                    <template if:false={mostrarPoliticaPrivacidade}>
+                        <p class="slds-text-body_regular slds-m-top_medium">Todos os termos foram aceitos.</p>
+                    </template>
+                </template>
+
+                <div class="slds-m-top_medium">
+                    <lightning-input
+                        type="checkbox"
+                        label={checkboxLabel}
+                        onchange={handleCheckboxChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-grid slds-gutters_small slds-p-top_medium">
+                    <div class="slds-col">
+                        <button class="custom-button secondary" onclick={handleLogout}>
+                            Sair
+                        </button>
+                    </div>
+                    <div class="slds-col">
+                        <button
+                            class={acessarButtonClass}
+                            onclick={handleAceite}
+                            disabled={desabilitarBotao}
+                        >
+                            Acessar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>
+</template>

@@ -1,0 +1,82 @@
+.header {
+    background-color: #F4FAF8;
+    height: 4rem;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.header-background {
+    width: 100%;
+}
+
+/* Ícone aparece só no mobile */
+.mobile-only {
+    display: none;
+}
+
+.chevron-button {
+    margin-right: 0.5rem;
+}
+
+/* Título */
+.header-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: #3F3E3E;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Ícone da imagem */
+.custom-icon {
+    margin-right: 0.75rem;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.header-with-margin { /* Exibe o header dentro do salesforce */
+    margin-top: 8.2rem;
+    padding-left: 1.5rem;
+}
+
+/* Regras responsivas para mobile */
+@media (max-width: 768px) {
+    .header-with-margin {
+        margin-top: 0;
+    }
+
+    .mobile-only {
+        display: inline-block;
+    }
+
+    .header {
+        background-color: #FCFCFC;
+    }
+
+    .custom-icon {
+        margin-right: 0.25rem;
+    }
+
+    .chevron-button {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin-right: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .chevron-button .slds-button__icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .header-title {
+        font-size: 16px;
+    }
+    
+}

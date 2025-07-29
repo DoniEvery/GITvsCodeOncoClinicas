@@ -1,0 +1,82 @@
+<template>
+    <div class="slds-grid slds-grid_align-center slds-grid_vertical-align-start full-container">
+        <div class="form-box">
+            <!-- TELA DE SUCESSO -->
+            <template if:true={successMessage}>
+                <div class="success-wrapper">
+                    <p class="success-subtitle">Sua nova senha foi criada com sucesso!</p>
+                    <div class="spinner"></div>
+                </div>
+            </template>
+
+            <!-- TELA PADRÃO -->
+            <template if:false={successMessage}>
+                <div class="login-header">
+                    <div class="login-header-row">
+                        <lightning-icon icon-name="utility:chevronleft" onclick={handleVoltar} size="x-small" class="back-icon"></lightning-icon>
+                        <h1 class="login-title">Recuperar Senha</h1>
+                    </div>
+                    <p class="login-subtitle">Informe os dados abaixo para prosseguir:</p>
+                </div>
+
+                <template if:true={errorMessage}>
+                    <div class="custom-error-box slds-m-top_medium">
+                        <lightning-icon
+                            icon-name="utility:info_alt"
+                            size="x-small"
+                            class="error-icon">
+                        </lightning-icon>
+                        <span class="error-text">{errorMessage}</span>
+                    </div>
+                </template>  
+
+                <template if:true={mostrarCamposDocumento}>
+                    <div class="custom-input">
+                        <label for="tipoDocumento">Tipo de Documento</label>
+<select id="tipoDocumento" name="tipoDocumento" value={tipoDocumento} onchange={handleTipoDocumentoChange} required>
+    <option value="" disabled class="placeholder-option">Selecione</option>
+    <template for:each={tiposDocumento} for:item="option">
+        <option key={option.value} value={option.value}>{option.label}</option>
+    </template>
+</select>
+
+                    </div>
+
+                    <div class="custom-input slds-m-top_small">
+                        <label for="numeroDocumento">Número do Documento</label>
+                        <input type="text" id="numeroDocumento" name="numeroDocumento" placeholder="Digite o número do seu documento" value={numeroDocumento} oninput={handleNumeroDocumentoChange} required />
+                    </div>
+
+                    <div class="slds-m-top_medium">
+                        <button class={botaoSeguirClass} onclick={handleSeguir} disabled={botaoDesabilitado}>Seguir</button>
+                    </div>
+                </template>
+
+                <template if:true={mostrarNovaSenha}>
+                    <div class="custom-input">
+                        <label for="novaSenha">Nova Senha</label>
+                        <input type="password" id="novaSenha" placeholder="Digite a sua nova senha" value={novaSenha} oninput={handleNovaSenhaChange} />
+                    </div>
+
+                    <ul class="regra-lista slds-m-bottom_small">
+                        <template for:each={regrasSenha} for:item="regra">
+                            <li key={regra.id} class={regra.itemClass}>
+                                <span class="icon">{regra.iconChar}</span>
+                                {regra.label}
+                            </li>
+                        </template>
+                    </ul>
+
+                    <div class="custom-input">
+                        <label for="confirmaSenha">Confirme a Senha</label>
+                        <input type="password" id="confirmaSenha" placeholder="Digite novamente a sua nova senha" value={confirmaSenha} oninput={handleConfirmaSenhaChange} />
+                    </div>
+
+                    <div class="slds-m-top_medium">
+                        <button onclick={handleSalvar} class="custom-button">Salvar</button>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

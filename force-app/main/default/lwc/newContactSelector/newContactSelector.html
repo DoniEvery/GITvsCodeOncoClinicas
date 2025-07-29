@@ -1,0 +1,158 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+        aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button onclick={handleCancelar}
+                    class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Novo Contato</h2>
+            </header>
+            <template if:false={showConsultaCRMForm}>
+                <div class="slds-modal__content slds-p-around_medium slds-grid">
+                    <p class="slds-col slds-size_1-of-4" style="margin-left:auto;">Selecione um tipo de registro</p>
+                    <div class="slds-col slds-size_2-of-3" style="margin-top:20px">
+                        <lightning-radio-group name="tipoRegistroContato" options={tiposRegistrosContato}
+                            value={tipoRegistroSelecionado} type="radio" onchange={handleTipoRegistroChange}
+                            variant="label-stacked">
+                        </lightning-radio-group>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCancelar}>Cancelar</button>
+                    <button class="slds-button slds-button_brand" onclick={handleAvancar}>Avançar</button>
+                </footer>
+            </template>
+            <template if:true={showConsultaCRMForm}>
+                <div class="slds-modal__content modalBody slds-p-around_small"
+                    style="overflow: initial !important; overflow-y: unset !important;">
+                    <template if:true={isLoadingBuscaMedico}>
+                        <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass">
+                        </lightning-spinner>
+                    </template>
+                    <div class="slds-section slds-is-open" style="display: relative;">
+                        <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Section Title">Pesquisa por
+                                CRM</span>
+                        </h3>
+                        <div aria-hidden="false" class="slds-section__content form-body">
+                            <lightning-record-edit-form object-api-name="Contact" onload={onloadCrmForm}
+                                record-type-id={tipoRegistroSelecionado}>
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input required type="number" label="CRM" value={crmMedico}
+                                            onchange={handleInputChange} name="crmMedico"></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field variant="label-stacked" required
+                                            field-name="UF_do_CRM__c" value={ufCrmMedico} onchange={handleInputChange}
+                                            name="ufCrmMedico"></lightning-input-field>
+                                    </div>
+                                </div>
+                            </lightning-record-edit-form>
+                        </div>
+                    </div>
+                    <template if:true={novoMedicoEncontrado}>
+                        <div class="slds-section slds-is-open">
+                            <h3 class="slds-section__title slds-theme_shade gray-brackground">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Section Title">Médico
+                                    Encontrado</span>
+                            </h3>
+                            <div aria-hidden="false" class="slds-section__content form-body">
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">Nome</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">{novoMedicoEncontrado.FirstName}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">Sobrenome</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">{novoMedicoEncontrado.LastName}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">Especialidade CRM</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    {novoMedicoEncontrado.Especialidade_CRM__c}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">CRM</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">{novoMedicoEncontrado.CRM__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">UF do CRM</span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    {novoMedicoEncontrado.UF_do_CRM__c}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">Tipo Inscrição CRM
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    {novoMedicoEncontrado.Tipo_Inscricao_CRM__c}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-form-element slds-form-element_readonly">
+                                            <span class="slds-form-element__label">Situação do CRM
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    {novoMedicoEncontrado.Situacao_do_CRM__c}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCancelar}>Cancelar</button>
+                    <button class="slds-button slds-button_brand" disabled={isLoadingBuscaMedico}
+                        onclick={handleSearchMedico}>Buscar Médico</button>
+
+                    <template if:true={novoMedicoEncontrado}>
+                        <button class="slds-button slds-button_brand" disabled={isSavingMedico}
+                            onclick={handleSalvarMedico}>Salvar</button>
+                    </template>
+                </footer>
+            </template>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

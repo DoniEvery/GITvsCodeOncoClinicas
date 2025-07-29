@@ -1,0 +1,63 @@
+/* Esconde o tab-bar em desktop */
+@media screen and (min-width: 1185px) {
+    .tab-bar {
+        display: none !important;
+    }
+}
+
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.tab-item {
+    text-align: center;
+    flex: 1;
+    padding: 2px 0;
+}
+
+.custom-icon {
+    width: 20px; 
+    height: 20px;
+    object-fit: contain;
+}
+
+.active {
+    color: teal;
+    font-weight: bold;
+}
+
+.tab-item div {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+
+
+@media (max-width: 767px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    .sidebar-mobile-container {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-sizing: border-box;
+    }
+
+    .sidebar-mobile-container * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}

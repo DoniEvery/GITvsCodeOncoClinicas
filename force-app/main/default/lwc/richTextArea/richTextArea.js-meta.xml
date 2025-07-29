@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="fieldLabel" type="String" label="Field Label" required="true"/>
+            <property name="fieldValue" type="String" label="Field Value"/>
+            <property name="required" type="Boolean" label="Required" required="true" default="false"/>
+            <property name="visibleLines" type="Integer" label="Visible Lines" required="true" default="10"/>
+            <property name="fieldLenght" type="Integer" label="Field Length" required="true" default="131072"/>
+            <property name="isReadOnly" type="Boolean" label="Read Only" required="true" default="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

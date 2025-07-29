@@ -1,0 +1,9 @@
+<template>
+    <div class="slds-p-around_medium">
+        <template for:each={artigos} for:item="artigo">
+            <div key={artigo.Id} class="assunto-item slds-m-bottom_medium" onclick={handleClick} data-id={artigo.Id} style="cursor: pointer;">
+                <div lwc:dom="manual" class="assunto-richtext" data-html-id={artigo.Id}></div>
+            </div>
+        </template>
+    </div>
+</template>

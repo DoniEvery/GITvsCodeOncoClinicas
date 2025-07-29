@@ -1,0 +1,126 @@
+<template>    
+    <br>
+    <template if:false={showModalCadastro}>
+        <c-lwc-custom-lookup 
+            name="customLookUp" 
+            icon-name={customLookUpObj.iconName} 
+            s-object-api-name={customLookUpObj.sObjectApiName}
+            onlookupupdate={handleInputChange} 
+            placeholder={customLookUpObj.placeholder}
+            default-record-id={customLookUpObj.recordIdSelect}
+            is-contact={isContact}
+            is-show-field-account={customLookUpObj.isShowFieldAccount}
+            is-show-field-lead={customLookUpObj.isShowFieldLead}
+            fields-where-query={customLookUpObj.fieldsWhereQuery}
+            fields-return-query={customLookUpObj.fieldsReturnQuery}
+            condition={customLookUpObj.recordTypeCondition}
+        ></c-lwc-custom-lookup>
+    </template>
+    <template if:true={showModalCadastro}>
+        <c-multi-modal-template onclosemodal={handleCloseModal} back-on-close=true title={modalObj.title} class="slds-scrollable_x">
+            <div slot="body" class="body">                
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                        <div class={nomeCompletoObj.class}>
+                            <lightning-input
+                                class="nomeCompleto" 
+                                name="nomeCompleto"
+                                type="text"
+                                label='* Nome Completo'
+                                onchange={handleInputChange} 
+                                value={modalObj.nomeCompleto}
+                            ></lightning-input>
+                            <template if:true={nomeCompletoObj.errorMessage}>
+                                <div class="slds-form-element__help ">
+                                    {nomeCompletoObj.errorMessage}
+                                </div>
+                            </template>
+                        </div>
+                        
+                    </div>
+                    <template if:false={isNaoPaciente}>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                            <div class={cpfObj.class}>
+                                <lightning-input
+                                    class="cpf"
+                                    name="cpf"
+                                    type="text" 
+                                    label='* CPF'
+                                    onchange={handleInputChange} 
+                                    value={modalObj.CPF}
+                                    minlength="14" maxlength="14"
+                                ></lightning-input>
+                                <template if:true={cpfObj.errorMessage}>
+                                    <div class="slds-form-element__help ">
+                                        {cpfObj.errorMessage}
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                        <div class={celularObj.class}>
+                            <lightning-input
+                                class="celular" 
+                                name="celular"
+                                type="text" 
+                                label='* Celular'
+                                onchange={handleInputChange}
+                                onblur={validarCelularOnBlur}
+                                value={modalObj.celular}
+                                mmin-length="0" max-length="15"
+                            ></lightning-input>
+                            <template if:true={celularObj.errorMessage}>
+                                <div class="slds-form-element__help ">
+                                    {celularObj.errorMessage}
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                        <lightning-input
+                            class="email" 
+                            name="email"
+                            type="email" 
+                            label='Email'
+                            onblur={onBlurEmail}
+                            placeholder="paciente@exemplo.com"
+                            onchange={handleInputChange} 
+                            value={modalObj.email}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 input-pad-fix">
+                        <div class={dataNascimentoObj.class}>
+                            <lightning-input
+                                class="dataNascimento" 
+                                name="dataNascimento"
+                                type="date" 
+                                label='* Data de Nascimento'
+                                onchange={handleInputChange} 
+                                value={modalObj.dataNascimento}
+                            ></lightning-input>
+                            <template if:true={dataNascimentoObj.errorMessage}>
+                                <div class="slds-form-element__help ">
+                                    {dataNascimentoObj.errorMessage}
+                                </div>
+                            </template>
+                        </div>
+                        
+                    </div>
+                </div>               
+            </div>
+            <div slot="footer">
+                <!-- Spinner Section -->
+                <template if:true={isLoading}>
+                    <div class="spinner-overlay">
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+                </template>                 
+                <lightning-button label="Fechar" variant="brand-outline" onclick={handleCloseModal}> </lightning-button>
+                <lightning-button label="Salvar" variant="brand" onclick={handleSalvarRegistro} class="slds-p-left_x-small"></lightning-button>
+            </div>
+        </c-multi-modal-template>
+
+    </template>
+</template>

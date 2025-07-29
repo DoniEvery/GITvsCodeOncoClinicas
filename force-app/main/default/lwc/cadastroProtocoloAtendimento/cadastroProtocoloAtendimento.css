@@ -1,0 +1,9 @@
+.gray-brackground{
+    background-color: #F9F9FA !important;
+}
+span.slds-checkbox_off{
+    display: none !important;
+}
+span.slds-checkbox_on{
+    display: none !important;
+}

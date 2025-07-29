@@ -1,0 +1,47 @@
+<template>
+    <div class="full-container">
+        <div class="slds-theme_default slds-p-around_medium slds-m-around_medium card-container">
+            <div class="slds-text-heading_medium slds-text-align_center slds-m-bottom_medium">
+                <img src={logoOnco} alt="Logo Oncoclinicas" class="logo" />
+                <h1 class="titulo">Como deseja acessar?</h1>
+                <h3 class="subtitulo">Escolha uma das opções abaixo.</h3>
+            </div>
+
+            <template for:each={computedOpcoes} for:item="opcao">
+                <label key={opcao.value} class="radio-label-custom slds-m-bottom_small">
+                    <!-- Rádio oculto, mas funcional -->
+                    <input
+                        type="radio"
+                        name="tipoUsuario"
+                        value={opcao.value}
+                        checked={opcao.checked}
+                        onchange={handleChange}
+                        class="input-radio-hidden"
+                    />
+
+                    <!-- Rádio visual customizado -->
+                    <span class={opcao.customClass}></span>
+
+                    <!-- Texto da opção -->
+                    <div class="label-text">
+                        <div class="slds-text-title_bold">{opcao.label}</div>
+                        <div class="slds-text-body_small">
+                            <p>Lorem ipsum dolor sit amet.</p>
+                            <p>Dignissim sit amet.</p>
+                            <p>Aenean commodo ligula eget dolor.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ícone à direita -->
+                    <div class="icon-container slds-m-left_medium">
+                        <img src={opcao.icon} alt={opcao.label} class="icon-img" />
+                    </div>
+                </label>
+            </template>
+
+            <div class="slds-m-top_medium slds-align_absolute-center full-width-button-container">
+                <button onclick={handleSubmit} class="custom-button">Seguir ></button>
+            </div>
+        </div>
+    </div>
+</template>
