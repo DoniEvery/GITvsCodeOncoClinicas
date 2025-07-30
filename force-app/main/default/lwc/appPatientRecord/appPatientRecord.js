@@ -5,7 +5,7 @@ import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
 export default class AppPatientRecord extends LightningElement {
 
     details = `${iconsZip}/APP_IconsPatientRecord/docs_add_on.svg`;
-    
+
     @track detailsClick = false;
     @track showDetails = false;
     @track openInfos = false;
@@ -28,6 +28,7 @@ export default class AppPatientRecord extends LightningElement {
             icon: `${iconsZip}/APP_IconsPatientRecord/` + 'conditions.svg'
         }
     ]
+
     menuProntuario = [
         {
             label: 'Tratamentos',
@@ -102,27 +103,54 @@ export default class AppPatientRecord extends LightningElement {
             composed: true
         }));
     }
+
+    // handleClickVewDetailTratamentos(event) {
+    //     const id = event.currentTarget.dataset.id;
+    //     console.log('ID clicado:', id);
+
+    //     if (!id || !this.patient?.prontuarios) return;
+    //     console.log('depois do return', id);
+
+    //     const clonedPatient = { ...this.patient };
+
+    //     clonedPatient.prontuarios = clonedPatient.prontuarios.map(p => {
+    //         const isOpen = p.uniqueKey === id ? !p.isOpen : false;
+
+    //         return {
+    //             ...p,
+    //             isOpen,
+    //             className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
+    //         };
+    //     });
+
+    //     console.log('depois do clonedPatient');
+    //     console.log(clonedPatient.prontuarios[0].className);
+
+    //     this.patient = clonedPatient;
+    // }
+
     handleClickVewDetailTratamentos(event) {
         const id = event.currentTarget.dataset.id;
-        console.log('ID clicado:', id);
+        console.log(
+            'ID clicado:', id);
 
-        if (!id || !this.patient?.prontuarios) return;
-        console.log('depois do return', id);
+        const clonedPatient = JSON.parse(JSON.stringify(this.patient));
+        clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
+            const updatedPlans = (treatment.plans || []).map(plan => {
+                const isOpen = plan.protocolKey === id ? !plan.isOpen : false;
 
-        const clonedPatient = { ...this.patient };
-
-        clonedPatient.prontuarios = clonedPatient.prontuarios.map(p => {
-            const isOpen = p.uniqueKey === id ? !p.isOpen : false;
+                return {
+                    ...plan,
+                    isOpen,
+                    className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
+                };
+            });
 
             return {
-                ...p,
-                isOpen,
-                className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
+                ...treatment,
+                plans: updatedPlans
             };
         });
-
-        console.log('depois do clonedPatient');
-        console.log(clonedPatient.prontuarios[0].className);
 
         this.patient = clonedPatient;
     }
@@ -156,14 +184,13 @@ export default class AppPatientRecord extends LightningElement {
 
 
     // css 
-    get openInfosClass() {
-        return this.openInfos ? 'protocoloTextInfoSecondContainer open' : 'protocoloTextInfoSecondContainer closed';
-    }
+ 
     get detailsClass() {
         return this.detailsClick ? 'details selected' : 'details';
     }
     get showDetailsWrapperClass() {
         return this.showDetails ? 'details-wrapper open' : 'details-wrapper closed';
     }
+
 
 }

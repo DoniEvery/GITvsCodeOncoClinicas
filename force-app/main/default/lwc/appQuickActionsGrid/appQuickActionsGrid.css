@@ -18,8 +18,8 @@
 
 .custom-icon {
     transform: scale(0.85);
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
 }
 
 .button-group-top {
@@ -28,10 +28,10 @@
 }
 
 .quick-actions-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0.8rem;     
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    display: grid;
 }
 
 .edit-button-group {
@@ -52,13 +52,19 @@
         align-items: center;
     }
 
+    .custom-icon {
+        transform: scale(0.85);
+        width: 24px;
+        height: 24px;
+    }
+
     .quick-actions-grid {
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 0.5rem;     
+        justify-content: flex-start; */
+        gap: 0.5rem;
         padding: 0rem;
-        padding-right: 0rem; 
+        padding-right: 0rem;
     }
 
     .title {
@@ -90,9 +96,9 @@
     }
 
     .quick-actions-grid {
-        gap: 1rem;  
-        padding-right: 0.35rem;   
-        padding-left: 0.35rem;
+        gap: 1rem;
+        padding-right: 0.35rem;
+        padding-left: 0rem;
     }
 
     .title {
@@ -130,6 +136,7 @@
 }
 
 @media (min-width: 1024px) {
+
     .button-inline-toggle,
     .button-below-toggle {
         display: flex;
@@ -139,6 +146,6 @@
 
 @media (min-width: 375px) and (max-width: 383px) {
     .quick-actions-grid {
-        gap: 0.6rem;     
+        gap: 0.6rem;
     }
 }

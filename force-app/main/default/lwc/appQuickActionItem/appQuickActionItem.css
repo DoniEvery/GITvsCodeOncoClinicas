@@ -7,7 +7,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     cursor: pointer;
-    width: 180px; 
     height: 100px;
     padding: 0.5rem;
     padding-right: 0rem;
@@ -26,7 +25,6 @@
     padding: 0.5rem;
     padding-right: 0rem;
     transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-    width: 290px; 
     height: 100px;
 }
 
@@ -90,7 +88,7 @@
 }
 
 /* Grid responsivo */
-@media (max-width: 328px) {
+/* @media (max-width: 328px) {
     .card {
         width: 135px;
         height: 90px;
@@ -216,7 +214,7 @@
 }
 
 /* Importante */
-@media (min-width: 1046px) and (max-width: 1085px){
+/* @media (min-width: 1046px) and (max-width: 1085px){
     .card {
         width: 170px; 
         height: 90px;
@@ -374,5 +372,5 @@
     .card-full {
         width: 600px; 
         height: 100px;
-    }
-}
+    } */
+/* }  */

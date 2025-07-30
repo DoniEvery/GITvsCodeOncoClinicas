@@ -43,7 +43,7 @@ export default class AppQuickActionsGrid extends LightningElement {
     
 
     get visibleCards() {
-        return this.showAll ? this.cards : this.cards.slice(0, 4);
+        return this.showAll ? this.cards : this.cards.slice(0, 5);
     }
 
     get temMuitosCards() {
