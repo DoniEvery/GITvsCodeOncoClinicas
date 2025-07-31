@@ -18,6 +18,7 @@ export default class AppLayoutDoctor extends LightningElement {
     @track showDetalhesModal = false;
     @track showDateFilterModal = false;
     @track selectedConsulta;
+
     isMobile = false;
     alturaCalculada;
     connectedCallback() {
@@ -25,10 +26,6 @@ export default class AppLayoutDoctor extends LightningElement {
 
         const storedPage = localStorage.getItem('currentPage');
         if (storedPage) {
-            console.log(
-                'Valor de storedPage:',
-                storedPage);
-            
             this.currentPage = storedPage;
             localStorage.removeItem('currentPage');
         }
@@ -44,6 +41,7 @@ export default class AppLayoutDoctor extends LightningElement {
             if (container) {
                 const rect = container.getBoundingClientRect();
                 this.alturaCalculada = rect.height - rect.top;
+                console.log('top', rect.top);
                 console.log('Altura enviada para o neto:', this.alturaCalculada);
             }
         }, 0);
@@ -53,12 +51,10 @@ export default class AppLayoutDoctor extends LightningElement {
         const ua = navigator.userAgent || '';
         // Detecta Salesforce Mobile App ou dispositivo móvel
         this.isMobile = /SalesforceMobileApp|SalesforceMobile|iOS|Android/i.test(ua) || window.innerWidth < 768;
-        console.log('🧭 Ambiente: ', this.isMobile ? 'Mobile' : 'Desktop');
     }
 
     definirPaginaPorUrl() {
         const urlPath = window.location.pathname;
-        console.log('🌐 URL Desktop >>', urlPath);
 
         switch (true) {
             case urlPath.includes('/n/APP_Inicio'):
@@ -84,7 +80,6 @@ export default class AppLayoutDoctor extends LightningElement {
                 if (currentPageReference && currentPageReference.attributes) {
                     const pageRef = currentPageReference.attributes;
                     const pagePath = pageRef.apiName || pageRef.pageName || '';
-                    console.log('📱 Page Reference Mobile:', pagePath);
 
                     switch (true) {
                         case pagePath.includes('APP_Inicio'):
@@ -100,15 +95,12 @@ export default class AppLayoutDoctor extends LightningElement {
                             this.currentPage = 'Início';
                     }
                 } else {
-                    // Fallback se @wire falhar ou atrasar
-                    console.warn('⚠️ PageReference não carregou, aplicando fallback...');
                     this.definirPaginaPorUrl();
                 }
             }, 200); // tempo ajustado para mobile
         });
     }
 
-    
     handleNavigate(event) {
         // Adonikan >>> fromPage
         const { fromPage, pageName } = event.detail;
