@@ -547,63 +547,59 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <template if:true={isHistoricoSaude}>
-            <div class="">
-                Histórico do paciente
-            </div>
-            Não achei esse
-            <div class="">
-                Alergias
-                <template for:each={patient.allergies} for:item="alerg">
-                    <div key={alerg.id}>
-                        <span class="">
-                            {alerg.substance}
-                            <span class="">
-                            </span>
-                        </span>
-                        <span class="">
-                            Reações?
-                            <span class="">
-                                {alerg.reaction}
-                            </span>
-                        </span>
+            <div class="card">
+
+                <div class="subCard">
+                    <div class="cardTitle">
+                        Histórico do paciente
                     </div>
-                </template>
-            </div>
-            <div class="">
-                Medicação de uso contínuo
-                <template for:each={patient.medications} for:item="med">
-                    <div key={med.id}>
-                        <span class="">
-                            <span class="">
-                                {med.description}
-                            </span>
-                        </span>
-                        <span class="">
-                            Reações?
-                            <span class="">
-                                {med.dosageQuantity}
-                                {med.dosageUnit}
-                            </span>
-                        </span>
+                    <div class="cardText">
+                        Não achei esse
                     </div>
-                </template>
+                </div>
+
+                <div class="subCardHis">
+                    <div class="cardTitle">
+                        Alergias
+                    </div>
+                    <div class="cardSubTitle">
+                        O paciente tem alergia?
+                    </div>
+
+                    <template for:each={patient.allergies} for:item="alerg">
+                        <div key={alerg.id}>
+                            <span class="cardText">
+                                {alerg.substance} - {alerg.reaction}
+                            </span>
+                        </div>
+                    </template>
+                </div>
+
+
+
+
+                <div class="">
+                    Medicação de uso contínuo
+                    <template for:each={patient.medications} for:item="med">
+                        <div key={med.id}>
+                            <span class="">
+                                <span class="">
+                                    {med.description}
+                                </span>
+                            </span>
+                            <span class="">
+                                Reações?
+                                <span class="">
+                                    {med.dosageQuantity}
+                                    {med.dosageUnit}
+                                </span>
+                            </span>
+                        </div>
+                    </template>
+                </div>
             </div>
+
         </template>
 
 

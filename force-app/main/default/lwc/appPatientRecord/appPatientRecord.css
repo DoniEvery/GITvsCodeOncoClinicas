@@ -565,8 +565,60 @@
 
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+
+}
+
+.cardTitle {
+    font-weight: 590;
+    font-style: Semibold;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #5C5C5C;
+}
+
+.cardText {
+    font-family: font/family/base;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: f14px;
+    line-height: 19px;
+    letter-spacing: 0%;
+    color: #575757;
+
+}
+
+.cardSubTitle {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    font-weight: 590;
+    font-style: Semibold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0%;
+    color: #575757;
+
+}
+
+.subCardHis {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    padding-top: 12px;
+    border-top: 1px solid #F0F0F0;
+
+}
 
 .subCard {
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
     padding: 12px 0;
 }
 
