@@ -573,6 +573,7 @@
 }
 
 .cardTitle {
+    display: flex;
     font-weight: 590;
     font-style: Semibold;
     font-size: 16px;
@@ -583,10 +584,9 @@
 }
 
 .cardText {
-    font-family: font/family/base;
     font-weight: 400;
     font-style: Regular;
-    font-size: f14px;
+    font-size: 14px;
     line-height: 19px;
     letter-spacing: 0%;
     color: #575757;
@@ -603,23 +603,25 @@
     line-height: 19px;
     letter-spacing: 0%;
     color: #575757;
+    padding-top: 8px;
 
 }
 
 .subCardHis {
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     display: flex;
-    padding-top: 12px;
+    padding: 12px 0;
     border-top: 1px solid #F0F0F0;
+    flex-direction: column;
 
 }
 
 .subCard {
-    align-items: center;
     justify-content: flex-start;
     display: flex;
     padding: 12px 0;
+    flex-direction: column;
 }
 
 .subCardBody {

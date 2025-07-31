@@ -567,35 +567,56 @@
                         O paciente tem alergia?
                     </div>
 
-                    <template for:each={patient.allergies} for:item="alerg">
-                        <div key={alerg.id}>
-                            <span class="cardText">
-                                {alerg.substance} - {alerg.reaction}
-                            </span>
-                        </div>
+                    <template if:true={patient.allergies.length}>
+                        <span class="cardText">
+                            Sim
+                        </span>
+                        <span class="cardSubTitle">
+                            Quais?
+                        </span>
+                        <template for:each={patient.allergies} for:item="alerg">
+                            <div key={alerg.id}>
+                                <span class="cardText">
+                                    {alerg.substance}
+                                </span>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:false={patient.allergies.length}>
+
+                        <span class="cardText">
+                            Nenhuma alergia referida.
+                        </span>
+
+
                     </template>
                 </div>
 
 
 
 
-                <div class="">
-                    Medicação de uso contínuo
-                    <template for:each={patient.medications} for:item="med">
-                        <div key={med.id}>
-                            <span class="">
-                                <span class="">
-                                    {med.description}
-                                </span>
-                            </span>
-                            <span class="">
-                                Reações?
-                                <span class="">
-                                    {med.dosageQuantity}
-                                    {med.dosageUnit}
-                                </span>
-                            </span>
-                        </div>
+                <div class="subCardHis">
+
+                    <div class="cardTitle">
+                        Medicação de uso contínuo
+                    </div>
+                    <template if:true={patient.medications.length}>
+
+
+                        <template for:each={patient.medications} for:item="med">
+                            <div key={med.id} class="cardText">
+                                {med.description} - {med.dosageQuantity} / {med.dosageUnit}
+                            </div>
+                        </template>
+
+                    </template>
+                    <template if:false={patient.medications.length}>
+
+                        <span class="cardText">
+                            Medicamento de uso contínuo não referido.
+                        </span>
+
+
                     </template>
                 </div>
             </div>

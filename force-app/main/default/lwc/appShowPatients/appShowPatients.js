@@ -43,8 +43,6 @@ export default class AppShowPatients extends LightningElement {
 
     }
 
-
-
     handleInputChange(event) {
         this.currentTerm = event.target.value.trim().toLowerCase();
 
@@ -69,7 +67,6 @@ export default class AppShowPatients extends LightningElement {
 
 
     }
-
 
     loadPatientData(json) {
         console.log(1);
