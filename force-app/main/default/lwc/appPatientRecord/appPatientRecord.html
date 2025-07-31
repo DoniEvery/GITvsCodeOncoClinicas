@@ -125,39 +125,24 @@
         </template>
         <template if:true={isTratamentos}>
             <template for:each={patient.treatments} for:item="treatment">
-                <template for:each={treatment.plans} for:item="pront">
+                <template for:each={treatment.plans} for:item="plan">
 
-                    <div key={pront.protocolKey} class="menusContainer" onclick={handleClickVewDetailTratamentos} data-id={pront.protocolKey}>
+                    <div key={plan.protocolKey} class="menusContainer">
 
-                        <div class="menuCardContainerProtocolos">
+                        <div class="menuCardContainerProtocolos" onclick={handleClickVewDetailTratamentos} data-id={plan.protocolKey}>
                             <div class="infoTextCardTitle">
                                 Nome do protocolo
-                                <template if:true={pront.isOpen}>
 
-                                    <lightning-icon
-                                    icon-name="utility:chevrondown"
-                                    alternative-text="chevrondown"
-                                    size="x-small"
-                                    title="large size"
-                                    variant="default"
-                                    class={getChevronClass}
-                                    ></lightning-icon>
-                                    
-                                </template>
-                                <template if:false={pront.isOpen}>
 
-                                    <lightning-icon
-                                    icon-name="utility:chevronUp"
-                                    alternative-text="chevrondUp"
-                                    size="x-small"
-                                    title="large size"
-                                    variant="default"
-                                    class={getChevronClass}
-                                    ></lightning-icon>
-                                    
-                                </template>
+                                <lightning-icon
+                                                icon-name="utility:chevrondown"
+                                                alternative-text="chevrondown"
+                                                size="x-small"
+                                                title="large size"
+                                                variant="default"
+                                                class={getChevronClass}></lightning-icon>
 
-                         
+
 
                             </div>
 
@@ -169,7 +154,13 @@
                                         Data de início
                                     </div>
                                     <div class="cardProtocoloValue">
-                                        {pront.startDate}
+
+                                        <lightning-formatted-date-time
+                                                                       value={plan.startDate}
+                                                                       year="numeric"
+                                                                       month="2-digit"
+                                                                       day="2-digit">
+                                        </lightning-formatted-date-time>
                                     </div>
                                 </div>
 
@@ -180,14 +171,19 @@
 
                                     </div>
                                     <div class="cardProtocoloValue">
-                                        {pront.lastSessionDate}
 
+                                        <lightning-formatted-date-time
+                                                                       value={plan.lastSessionDate}
+                                                                       year="numeric"
+                                                                       month="2-digit"
+                                                                       day="2-digit">
+                                        </lightning-formatted-date-time>
                                     </div>
                                 </div>
 
 
                             </div>
-                            <div class={pront.className}>
+                            <div class={plan.className}>
 
                                 <div class="protocoloTextInfoSecondContainer">
 
@@ -197,14 +193,14 @@
                                             Nome do tratamento
                                         </div>
                                         <div class="cardProtocoloValue">
-                                            {pront.summary}
+                                            {plan.summary}
                                         </div>
 
                                         <div class="cardProtocoloInfoSecondContainer">
                                             Progresso do tratamento
 
                                         </div>
-                                        <div class="cardProtocoloValueLink slds-current-color">
+                                        <div class="cardProtocoloValueLink slds-current-color" onclick={handleClickViewProgress} data-id={plan.protocolKey}>
                                             Visualizar progresso <lightning-icon
                                                             icon-name="utility:chevronRight"
                                                             alternative-text="chevronRight"
@@ -213,6 +209,9 @@
                                                             variant="default"></lightning-icon>
 
                                         </div>
+
+
+
                                     </div>
 
 
@@ -221,107 +220,396 @@
 
                             </div>
 
-
-
                         </div>
                     </div>
+                    <div key={plan.protocolKey}>
+                        <template if:true={plan.isModalOpen}>
+                            <div class="modal-overlay">
+                                <div class="modal-container">
+
+                                    <div class="modal-header">
+                                        <div class="iconModalCircle">
+
+                                            <img src={menuSessions} class="iconModal" alt="Ícone" />
+
+                                        </div>
+                                        <button class="close-button"
+                                                data-id={plan.protocolKey}
+                                                onclick={handleClickViewProgress}>
+
+                                            <img src={fechar} style="height:13px" alt="Ícone" />
+
+                                        </button>
+
+
+
+
+                                    </div>
+                                    <div class="modalTitle">
+                                        {plan.summary}
+                                    </div>
+
+
+
+                                    <template for:each={plan.sessions} for:item="session">
+                                        <div key={session.id} class="bodyModal">
+
+
+                                            <div class="modalCollumn">
+                                                <span class="showDetailsClassTextContainer">
+                                                    Ciclo
+                                                    <span class="showDetailsClassText"> {session.cycle} </span>
+                                                </span>
+                                                <span class="showDetailsClassTextContainer">
+                                                    Dia do ciclo
+                                                    <span class="showDetailsClassText"> {session.day} </span>
+                                                </span>
+                                                <span class="showDetailsClassTextContainer">
+                                                    Data e hora
+                                                    <span class="showDetailsClassText">
+
+
+
+                                                        <lightning-formatted-date-time
+                                                                                       value={session.realDate}
+                                                                                       year="numeric"
+                                                                                       month="2-digit"
+                                                                                       day="2-digit">
+                                                        </lightning-formatted-date-time>&nbsp;-&nbsp;
+                                                        <lightning-formatted-date-time
+                                                                                       value={session.realDate}
+                                                                                       hour="2-digit"
+                                                                                       minute="2-digit"
+                                                                                       time-zone="America/Sao_Paulo">
+                                                        </lightning-formatted-date-time>
+
+
+
+                                                    </span>
+                                                </span>
+                                                <span class="showDetailsClassTextContainer">
+                                                    Status
+                                                    <span class={session.stateClass}> {session.state}</span>
+                                                </span>
+
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                    </template>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
                 </template>
             </template>
         </template>
         <template if:true={isDiagnostico}>
 
             <template for:each={patient.treatments} for:item="treatment">
-                <template for:each={treatment.plans} for:item="pront">
 
-                    <div key={pront.protocolKey} class="menusContainer" onclick={handleClickVewDetailTratamentos} data-id={pront.protocolKey}>
+                <div key={treatment.id} class="menusContainer" onclick={handleClickDiagnostico} data-id={treatment.id}>
 
-                        <div class="menuCardContainerProtocolos">
-                            <div class="infoTextCardTitle">
-                                Descrição da CID
-                                <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
-                                                size="x-small"
-                                                title="large size"
-                                                variant="default"></lightning-icon>
-
-                            </div>
-
-                            <div class="protocoloTextInfo">
-
-                                <div class="protocoloTextInfoCollum">
-
-                                    <div class="cardProtocoloInfo">
-                                        Data do diagnóstico
-                                    </div>
-                                    <div class="cardProtocoloValue">
-                                        {pront.startDate}
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class={pront.className}>
-
-                                <div class="showCIDClass">
-                                    <div class="showDetailsRightCollumn">
-                                        <span class="showDetailsClassTextContainer">
-                                            {pront.physician.name}
-                                            Altura
-                                            <span class="showDetailsClassText"> {patient.altura}m </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Peso
-                                            <span class="showDetailsClassText"> {patient.peso}Kg </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Sexo
-                                            <span class="showDetailsClassText"> {patient.sexo} </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Prontuário
-                                            <span class="showDetailsClassText"> {patient.prontuario} </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Filiação 1
-                        <span class="showDetailsClassText"> {patient.filiacao1} </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Filiação 2
-                                            <span class="showDetailsClassText"> {patient.filiacao2} </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Telefone
-                                            <span class="showDetailsClassText"> {patient.telefone} </span>
-                                        </span>
-                                        <span class="showDetailsClassTextContainer">
-                                            Email
-                                            <span class="showDetailsClassText"> {patient.email} </span>
-                                        </span>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
-                            </div>
-
-
+                    <div class="menuCardContainerProtocolos">
+                        <div class="infoTextCardTitle">
+                            Descrição da CID
+                            <lightning-icon
+                                            icon-name="utility:chevrondown"
+                                            alternative-text="chevrondown"
+                                            size="x-small"
+                                            title="large size"
+                                            variant="default"></lightning-icon>
 
                         </div>
+
+                        <div class="protocoloTextInfo">
+
+                            <div class="protocoloTextInfoCollum">
+
+                                <div class="cardProtocoloInfo">
+                                    Data do diagnóstico
+                                </div>
+                                <div class="cardProtocoloValue">
+
+                                    <lightning-formatted-date-time
+                                                                   value={treatment.diagnosis.date}
+                                                                   year="numeric"
+                                                                   month="2-digit"
+                                                                   day="2-digit">
+                                    </lightning-formatted-date-time>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class={treatment.className}>
+
+                            <div class="showCIDClass">
+                                <div class="showDetailsRightCollumn">
+                                    <span class="showDetailsClassTextContainer">
+                                        Médico atendente
+                                        <span class="showDetailsClassText">
+                                            {treatment.diagnosis.physician.name}
+                                        </span>
+                                    </span>
+                                    <span class="showDetailsClassTextContainer">
+                                        Unidade
+                                        <span class="showDetailsClassText">
+                                            {treatment.diagnosis.unitCare.description}
+                                        </span>
+                                    </span>
+                                    <span class="showDetailsClassTextContainer">
+                                        Topografia código
+                                        <span class="showDetailsClassText">
+                                            {treatment.diagnosis.topografy.code}
+                                        </span>
+                                    </span>
+                                    <span class="showDetailsClassTextContainer">
+                                        Morfologia nome <span class="showDetailsClassText">
+                                            {treatment.diagnosis.topografy.description}
+                                        </span>
+                                    </span>
+                                    <span class="showDetailsClassTextContainer">
+                                        Morfologia código
+                                        <span class="showDetailsClassText">
+                                            {treatment.diagnosis.morfology.code}
+                                        </span>
+                                    </span>
+                                    <span class="showDetailsClassTextContainer">
+                                        Topografia nome <span class="showDetailsClassText">
+                                            {treatment.diagnosis.morfology.description}
+                                        </span>
+                                    </span>
+
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
 
-                </template>
+
+            </template>
+        </template>
+        <template if:true={isHistoricoCconsultas}>
+            <template for:each={patient.treatments} for:item="treatment">
+
+                <div key={treatment.id} class="menusContainer" onclick={handleClickDiagnostico} data-id={treatment.id}>
+
+                    <div class="menuCardContainerProtocolos">
+                        <div class="infoTextCardTitle">
+                            Consulta
+                            <lightning-icon
+                                            icon-name="utility:chevrondown"
+                                            alternative-text="chevrondown"
+                                            size="x-small"
+                                            title="large size"
+                                            variant="default"></lightning-icon>
+
+                        </div>
+
+                        <div class="protocoloTextInfo">
+
+                            <div class="protocoloTextInfoCollum">
+
+                                <div class="cardProtocoloInfo">
+                                    Data da consulta
+                                </div>
+                                <div class="cardProtocoloValue">
+
+                                    <lightning-formatted-date-time
+                                                                   value={treatment.diagnosis.date}
+                                                                   year="numeric"
+                                                                   month="2-digit"
+                                                                   day="2-digit">
+                                    </lightning-formatted-date-time>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class={treatment.className}>
+
+                            <div class="showCIDClass">
+                                <div class="">
+                                    <span class="showDetailsClassTextContainer">
+                                        Nome do médico
+                                        <span class="showDetailsClassText">
+                                            {treatment.diagnosis.physician.name}
+                                        </span>
+                                    </span>
+
+                                    <!-- Anamnese -->
+                                    <template for:each={treatment.anamnesis} for:item="anan" for:index="index">
+
+
+
+                                        <div key={anan.index} class="subCard">
+                                            <span class="subCardTitle">Anamnese</span>
+                                            <div class="subCardBody">
+                                                <span class="showDetailsClassTextContainer">
+                                                    Queixa principal
+                                                    <span class="showDetailsClassText">
+                                                        {anan.complaint}
+                                                    </span>
+                                                </span>
+                                                <span class="showDetailsClassTextContainer">
+                                                    HPMA (história pregressa da Doença Atual)
+                                                    <span class="showDetailsClassText">
+                                                        {anan.hpma}
+                                                    </span>
+                                                </span>
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                    </template>
+
+                                    <!-- evuluation -->
+
+                                    <template for:each={treatment.evolution} for:item="evo" for:index="index">
+
+                                        <div key={evo.index} class="subCard">
+                                            <span class="subCardTitle">Evolução</span>
+                                            <div class="subCardBody">
+                                                <span class="showDetailsClassTextContainer">
+                                                    Resumo do caso
+                                                    <span class="showDetailsClassText">
+                                                        <!-- {treatment.evo.description}  -->
+                                                        PRECISO DE JSON COM ESSE VALOR
+
+                                                    </span>
+                                                </span>
+                                                <span class="showDetailsClassTextContainer">
+                                                    Evolução
+                                                    <span class="showDetailsClassText">
+                                                        PRECISO DE JSON COM ESSE VALOR
+                                                    </span>
+                                                </span>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </template>
+
+                                    <!-- impressão -->
+                                    <template for:each={treatment.diagnosticImpression} for:item="imp">
+
+
+                                        <div key={imp.index}>
+
+                                            <span class="showDetailsClassTextContainer">
+                                                Impressão diagnóstica <span class="showDetailsClassText">
+                                                    {imp.description}
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                    </template>
+                                    <!-- conduta -->
+                                    <template for:each={treatment.conducts} for:item="cond">
+
+
+                                        <div key={cond.index}>
+
+
+                                            <span class="showDetailsClassTextContainer">
+                                                Conduta <span class="showDetailsClassText">
+                                                    {cond.description}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </template>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </template>
         </template>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <template if:true={isHistoricoSaude}>
+            <div class="">
+                Histórico do paciente
+            </div>
+            Não achei esse
+            <div class="">
+                Alergias
+                <template for:each={patient.allergies} for:item="alerg">
+                    <div key={alerg.id}>
+                        <span class="">
+                            {alerg.substance}
+                            <span class="">
+                            </span>
+                        </span>
+                        <span class="">
+                            Reações?
+                            <span class="">
+                                {alerg.reaction}
+                            </span>
+                        </span>
+                    </div>
+                </template>
+            </div>
+            <div class="">
+                Medicação de uso contínuo
+                <template for:each={patient.medications} for:item="med">
+                    <div key={med.id}>
+                        <span class="">
+                            <span class="">
+                                {med.description}
+                            </span>
+                        </span>
+                        <span class="">
+                            Reações?
+                            <span class="">
+                                {med.dosageQuantity}
+                                {med.dosageUnit}
+                            </span>
+                        </span>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+
+
     </template>
     <template if:false={patient}>
-        <p>Carregando paciente...</p>
+        <p>Sem dados para mostrar...</p>
     </template>
 </template>

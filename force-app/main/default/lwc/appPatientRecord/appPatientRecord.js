@@ -5,10 +5,13 @@ import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
 export default class AppPatientRecord extends LightningElement {
 
     details = `${iconsZip}/APP_IconsPatientRecord/docs_add_on.svg`;
+    menuSessions = `${iconsZip}/APP_IconsPatientRecord/menuSessions.svg`;
+    fechar = `${iconsZip}/APP_IconsPatientRecord/fechar.svg`;
 
     @track detailsClick = false;
     @track showDetails = false;
     @track openInfos = false;
+    @track isModalOpen = false;
 
 
     menuPatient = [
@@ -104,30 +107,25 @@ export default class AppPatientRecord extends LightningElement {
         }));
     }
 
-    // handleClickVewDetailTratamentos(event) {
-    //     const id = event.currentTarget.dataset.id;
-    //     console.log('ID clicado:', id);
 
-    //     if (!id || !this.patient?.prontuarios) return;
-    //     console.log('depois do return', id);
+    handleClickDiagnostico(event) {
+        const id = event.currentTarget.dataset.id;
+        console.log(
+            'ID clicado:', id);
 
-    //     const clonedPatient = { ...this.patient };
+        const clonedPatient = JSON.parse(JSON.stringify(this.patient));
+        clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
+            const isOpen = treatment.id === id ? !treatment.isOpen : false;
 
-    //     clonedPatient.prontuarios = clonedPatient.prontuarios.map(p => {
-    //         const isOpen = p.uniqueKey === id ? !p.isOpen : false;
+            return {
+                ...treatment,
+                isOpen,
+                className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
+            };
+        });
 
-    //         return {
-    //             ...p,
-    //             isOpen,
-    //             className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
-    //         };
-    //     });
-
-    //     console.log('depois do clonedPatient');
-    //     console.log(clonedPatient.prontuarios[0].className);
-
-    //     this.patient = clonedPatient;
-    // }
+        this.patient = clonedPatient;
+    }
 
     handleClickVewDetailTratamentos(event) {
         const id = event.currentTarget.dataset.id;
@@ -142,7 +140,7 @@ export default class AppPatientRecord extends LightningElement {
                 return {
                     ...plan,
                     isOpen,
-                    className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
+                    className: `details-wrapper ${isOpen ? 'open' : 'closed'}`
                 };
             });
 
@@ -155,8 +153,45 @@ export default class AppPatientRecord extends LightningElement {
         this.patient = clonedPatient;
     }
 
-    // pages
+    handleClickViewProgress(event) {
+        event.stopPropagation();
+        const id = event.currentTarget.dataset.id;
+        console.log(
+            'ID clicado:', id);
 
+
+        const clonedPatient = JSON.parse(JSON.stringify(this.patient));
+        clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
+            const updatedPlans = (treatment.plans || []).map(plan => {
+                const isModalOpen = plan.protocolKey === id ? !plan.isModalOpen : false;
+
+
+                plan.isModalOpen = isModalOpen
+
+                return {
+                    ...plan,
+                    isModalOpen
+                };
+            });
+            return {
+                ...treatment,
+                plans: updatedPlans
+            };
+        });
+
+        this.patient = clonedPatient;
+
+    }
+
+    closeModal(event) {
+        console.log(4);
+        event.stopPropagation();
+        console.log(5);
+        this.isModalOpen = false;
+        console.log(6);
+    }
+
+    // pages
     get isPatientPage() {
         return this.currentPage === 'Paciente';
     }
@@ -182,9 +217,8 @@ export default class AppPatientRecord extends LightningElement {
         return this.currentPage === 'Histórico de saúde';
     }
 
-
     // css 
- 
+
     get detailsClass() {
         return this.detailsClick ? 'details selected' : 'details';
     }

@@ -10,7 +10,6 @@ export default class AppShowPatients extends LightningElement {
 
 
 
-    @track fistScreen = true;
     @track patient = {
         nome: '',
         photo: '',
@@ -25,7 +24,6 @@ export default class AppShowPatients extends LightningElement {
         email: '',
         prontuario: ''
     };
-
 
     @track listOfResults = [];
     @track results = false;
@@ -74,28 +72,74 @@ export default class AppShowPatients extends LightningElement {
 
 
     loadPatientData(json) {
-        json.treatments = (json.treatments || []).map(treatment => {
-            const updatedPlans = (treatment.plans || []).map(plan => ({
-                ...plan,
-                className: 'details-wrapper closed',
-                isOpen: false,
-            }));
+        console.log(1);
+
+        json.treatments = (json.treatments || []).map((treatment, treatmentIndex) => {
+            const addIndex = (arr) =>
+                Array.isArray(arr) && arr.length > 0
+                    ? arr.map((item, index) => ({ ...item, index }))
+                    : arr;
+
+            const updatedPlans = (treatment.plans || []).map(plan => {
+                const updatedSessions = (plan.sessions || []).map(session => {
+                    const firstState = Array.isArray(session.state) ? session.state[0] : session.state;
+
+                    const stateClass = firstState === 'pending-prescription'
+                        ? 'stateClasspending'
+                        : 'stateClassCompleted';
+
+                    const translatedState = firstState === 'pending-prescription'
+                        ? 'Pendente'
+                        : firstState;
+
+                    return {
+                        ...session,
+                        stateClass,
+                        state: translatedState
+                    };
+                });
+
+                return {
+                    ...plan,
+                    sessions: updatedSessions,
+                    className: 'details-wrapper closed',
+                    isModalOpen: false,
+                };
+            });
 
             return {
                 ...treatment,
-                plans: updatedPlans
+                className: 'details-wrapper closed',
+                isOpen: false,
+                plans: updatedPlans,
+                anamnesis: addIndex(treatment.anamnesis),
+                evolution: addIndex(treatment.evolution),
+                conducts: addIndex(treatment.conducts),
+                diagnosticImpression: addIndex(treatment.diagnosticImpression),
+                diagnosis: treatment.diagnosis || {
+                    physician: {
+                        code: '',
+                        name: ''
+                    },
+                    date: ''
+                }
             };
         });
+
+
         this.patient = {
             ...this.patient,
             observations: json.observations || [],
             allergies: json.allergies || [],
             medications: json.medications || [],
             treatments: json.treatments || [],
-
         };
 
+        console.log("doni ", JSON.stringify(this.patient));
+
     }
+
+
     renderedCallback() {
 
         // a pagina estava sempre sendo carregada na metade, e nao me permitua dar o scroll, ai fui no avo e dei o scroll
@@ -178,10 +222,7 @@ export default class AppShowPatients extends LightningElement {
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
-    // APAGAR DEPOIS DE INTEGRARM, DADOS SOMENTE DE TESTE
-
-
-
+    // APAGAR DEPOIS DE INTEGRAR, DADOS SOMENTE DE TESTE
 
 
 
@@ -533,7 +574,7 @@ export default class AppShowPatients extends LightningElement {
                                 "cycle": 3,
                                 "day": "D1",
                                 "state": [
-                                    "pending-prescription"
+                                    "Completed"
                                 ],
                                 "expectedDate": "2025-07-25T15:00:00",
                                 "realDate": "2025-07-25T10:00:00"
