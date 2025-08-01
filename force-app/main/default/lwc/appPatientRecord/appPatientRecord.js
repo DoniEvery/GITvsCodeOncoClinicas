@@ -74,6 +74,16 @@ export default class AppPatientRecord extends LightningElement {
         }
     ]
 
+    tableSessions = {
+        
+        ciclo: 'Ciclo',
+        dia: 'Dia do ciclo',
+        data: 'Data e hora',
+        session: 'Status'
+    }
+
+
+
     _currentPage;
     _patient;
     @api

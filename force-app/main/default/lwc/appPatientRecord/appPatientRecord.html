@@ -21,7 +21,15 @@
                         <span>
                             Data Nasc.:
                             <span class="infoText">
-                                {patient.dataNascimento}
+
+                                <lightning-formatted-date-time
+                                                               value={patient.dataNascimento}
+                                                               year="numeric"
+                                                               month="2-digit"
+                                                               day="2-digit">
+                                </lightning-formatted-date-time>
+
+
                             </span>
                         </span>
                     </div>
@@ -142,103 +150,147 @@
                     <div key={plan.protocolKey} class="menusContainer">
 
                         <div class="menuCardContainerProtocolos" onclick={handleClickVewDetailTratamentos} data-id={plan.protocolKey}>
-                            <div class="infoTextCardTitle">
-                                Nome do protocolo
+                            <div class="firstCollum">
+                                <span class="infoTextCardTitle">
 
-                                <template if:true={plan.isOpen}>
+                                    Nome do protocolo
 
-                                    <lightning-icon
-                                                    icon-name="utility:chevrondown"
-                                                    alternative-text="chevrondown"
-                                                    size="x-small"
-                                                    title="large size"
-                                                    variant="default"></lightning-icon>
+                                    <template if:true={plan.isOpen}>
 
-                                </template>
-                                <template if:false={plan.isOpen}>
+                                        <lightning-icon
+                                                        icon-name="utility:chevronup"
+                                                        alternative-text="chevronup"
+                                                        size="x-small"
+                                                        title="large size"
+                                                        variant="default"></lightning-icon>
 
-                                    <lightning-icon
-                                                    icon-name="utility:chevrondown"
-                                                    alternative-text="chevrondown"
-                                                    size="x-small"
-                                                    title="large size"
-                                                    class="rotatedChevron "
-                                                    variant="default"></lightning-icon>
+                                    </template>
+                                    <template if:false={plan.isOpen}>
 
-                                </template>
-                            </div>
+                                        <lightning-icon
+                                                        icon-name="utility:chevronup"
+                                                        alternative-text="chevronup"
+                                                        size="x-small"
+                                                        title="large size"
+                                                        class="rotatedChevron "
+                                                        variant="default"></lightning-icon>
 
-                            <div class="protocoloTextInfo">
-
-                                <div class="protocoloTextInfoCollum">
-
-                                    <div class="cardProtocoloInfo">
-                                        Data de início
-                                    </div>
-                                    <div class="cardProtocoloValue">
-
-                                        <lightning-formatted-date-time
-                                                                       value={plan.startDate}
-                                                                       year="numeric"
-                                                                       month="2-digit"
-                                                                       day="2-digit">
-                                        </lightning-formatted-date-time>
-                                    </div>
-                                </div>
-
-                                <div class="protocoloTextInfoCollum">
-
-                                    <div class="cardProtocoloInfo">
-                                        última sessão
-
-                                    </div>
-                                    <div class="cardProtocoloValue">
-
-                                        <lightning-formatted-date-time
-                                                                       value={plan.lastSessionDate}
-                                                                       year="numeric"
-                                                                       month="2-digit"
-                                                                       day="2-digit">
-                                        </lightning-formatted-date-time>
-                                    </div>
-                                </div>
+                                    </template>
+                                </span>
 
 
-                            </div>
-                            <div class={plan.className}>
 
-                                <div class="protocoloTextInfoSecondContainer">
+
+                                <div class="protocoloTextInfo">
 
                                     <div class="protocoloTextInfoCollum">
 
                                         <div class="cardProtocoloInfo">
-                                            Nome do tratamento
+                                            Data de início
                                         </div>
                                         <div class="cardProtocoloValue">
-                                            {plan.summary}
+
+                                            <lightning-formatted-date-time
+                                                                           value={plan.startDate}
+                                                                           year="numeric"
+                                                                           month="2-digit"
+                                                                           day="2-digit">
+                                            </lightning-formatted-date-time>
                                         </div>
+                                    </div>
 
-                                        <div class="cardProtocoloInfoSecondContainer">
-                                            Progresso do tratamento
+                                    <div class="protocoloTextInfoCollum">
 
-                                        </div>
-                                        <div class="cardProtocoloValueLink slds-current-color" onclick={handleClickViewProgress} data-id={plan.protocolKey}>
-                                            Visualizar progresso <lightning-icon
-                                                            icon-name="utility:chevronRight"
-                                                            alternative-text="chevronRight"
-                                                            size="xx-small"
-                                                            title="large size"
-                                                            variant="default"></lightning-icon>
+                                        <div class="cardProtocoloInfo">
+                                            última sessão
 
                                         </div>
+                                        <div class="cardProtocoloValue">
 
-
-
+                                            <lightning-formatted-date-time
+                                                                           value={plan.lastSessionDate}
+                                                                           year="numeric"
+                                                                           month="2-digit"
+                                                                           day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </div>
                                     </div>
 
 
                                 </div>
 
+                            </div>
+
+
+                            <div style="padding-top: 10px;" class={plan.className}>
+
+                                <div class="protocoloTextInfoCollum">
+
+                                    <div class="cardProtocoloInfo">
+                                        Nome do tratamento
+                                    </div>
+                                    <div class="cardProtocoloValue">
+                                        {plan.summary}
+                                    </div>
+
+                                    <div class="cardProtocoloInfoSecondContainer">
+                                        Progresso do tratamento
+                                    </div>
+                                    <div class="cardProtocoloValueLink slds-current-color" onclick={handleClickViewProgress} data-id={plan.protocolKey}>
+                                        Visualizar progresso <lightning-icon
+                                                        icon-name="utility:chevronRight"
+                                                        alternative-text="chevronRight"
+                                                        size="xx-small"
+                                                        title="large size"
+                                                        variant="default"></lightning-icon>
+
+                                    </div>
+                                    <div class="cardProtocoloInfoTable">
+                                        <div class="custom-table">
+                                            <span class="tableGrid headerRow">
+                                                <span class="">
+                                                    {tableSessions.ciclo}
+                                                </span>
+                                                <span class="">
+                                                    {tableSessions.dia}
+                                                </span>
+                                                <span class="">
+                                                    {tableSessions.data}
+                                                </span>
+                                                <span class="">
+                                                    {tableSessions.session}
+                                                </span>
+                                            </span>
+                                            <div class="">
+
+                                                <template for:each={plan.sessions} for:item="session">
+                                                    <div key={session.id} class="tableGrid dataRow">
+                                                        <span class=""> {session.cycle} </span>
+                                                        <span class=""> {session.day} </span>
+                                                        <span class="">
+                                                            <lightning-formatted-date-time
+                                                                                           value={session.realDate}
+                                                                                           year="numeric"
+                                                                                           month="2-digit"
+                                                                                           day="2-digit">
+                                                            </lightning-formatted-date-time>&nbsp;-&nbsp;
+                                                            <lightning-formatted-date-time
+                                                                                           value={session.realDate}
+                                                                                           hour="2-digit"
+                                                                                           minute="2-digit"
+                                                                                           time-zone="America/Sao_Paulo">
+                                                            </lightning-formatted-date-time>
+                                                        </span>
+                                                        <span class={session.stateClass}> {session.state}</span>
+                                                    </div>
+                                                </template>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
 
                             </div>
 
@@ -251,32 +303,19 @@
 
                                     <div class="modal-header">
                                         <div class="iconModalCircle">
-
                                             <img src={menuSessions} class="iconModal" alt="Ícone" />
-
                                         </div>
                                         <button class="close-button"
                                                 data-id={plan.protocolKey}
                                                 onclick={handleClickViewProgress}>
-
                                             <img src={fechar} style="height:13px" alt="Ícone" />
-
                                         </button>
-
-
-
-
                                     </div>
                                     <div class="modalTitle">
                                         {plan.summary}
                                     </div>
-
-
-
                                     <template for:each={plan.sessions} for:item="session">
                                         <div key={session.id} class="bodyModal">
-
-
                                             <div class="modalCollumn">
                                                 <span class="showDetailsClassTextContainer">
                                                     Ciclo
@@ -289,9 +328,6 @@
                                                 <span class="showDetailsClassTextContainer">
                                                     Data e hora
                                                     <span class="showDetailsClassText">
-
-
-
                                                         <lightning-formatted-date-time
                                                                                        value={session.realDate}
                                                                                        year="numeric"
@@ -351,8 +387,8 @@
                             <template if:true={treatment.isOpen}>
 
                                 <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
+                                                icon-name="utility:chevronup"
+                                                alternative-text="chevronup"
                                                 size="x-small"
                                                 title="large size"
                                                 variant="default"></lightning-icon>
@@ -361,8 +397,8 @@
                             <template if:false={treatment.isOpen}>
 
                                 <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
+                                                icon-name="utility:chevronup"
+                                                alternative-text="chevronup"
                                                 size="x-small"
                                                 title="large size"
                                                 class="rotatedChevron "
@@ -460,8 +496,8 @@
                             <template if:true={treatment.isOpen}>
 
                                 <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
+                                                icon-name="utility:chevronup"
+                                                alternative-text="chevronup"
                                                 size="x-small"
                                                 title="large size"
                                                 variant="default"></lightning-icon>
@@ -470,8 +506,8 @@
                             <template if:false={treatment.isOpen}>
 
                                 <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
+                                                icon-name="utility:chevronup"
+                                                alternative-text="chevronup"
                                                 size="x-small"
                                                 title="large size"
                                                 class="rotatedChevron "

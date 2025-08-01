@@ -559,7 +559,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689262,
                                 "cycle": 2,
-                                "day": "D1",
+                                "day": "D2",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -569,7 +569,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689263,
                                 "cycle": 3,
-                                "day": "D1",
+                                "day": "D3",
                                 "state": [
                                     "Completed"
                                 ],
@@ -579,7 +579,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689264,
                                 "cycle": 4,
-                                "day": "D1",
+                                "day": "D4",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -589,7 +589,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689265,
                                 "cycle": 5,
-                                "day": "D1",
+                                "day": "D5",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -599,7 +599,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689266,
                                 "cycle": 6,
-                                "day": "D1",
+                                "day": "D6",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -609,7 +609,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689267,
                                 "cycle": 7,
-                                "day": "D1",
+                                "day": "D7",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -619,7 +619,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689268,
                                 "cycle": 8,
-                                "day": "D1",
+                                "day": "D8",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -629,7 +629,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689269,
                                 "cycle": 9,
-                                "day": "D1",
+                                "day": "D9",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -639,7 +639,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689270,
                                 "cycle": 10,
-                                "day": "D1",
+                                "day": "D10",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -649,7 +649,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689271,
                                 "cycle": 11,
-                                "day": "D1",
+                                "day": "D11",
                                 "state": [
                                     "pending-prescription"
                                 ],
@@ -659,7 +659,7 @@ export default class AppShowPatients extends LightningElement {
                             {
                                 "id": 5689272,
                                 "cycle": 12,
-                                "day": "D1",
+                                "day": "D12",
                                 "state": [
                                     "pending-prescription"
                                 ],

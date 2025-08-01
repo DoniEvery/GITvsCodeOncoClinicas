@@ -252,16 +252,13 @@
     transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
-/* Escondido */
 .details-wrapper.closed {
     max-height: 0;
     opacity: 0;
 }
 
-/* Visível */
 .details-wrapper.open {
-    max-height: 500px;
-    /* ou algo suficiente */
+    max-height: 100vh;
     opacity: 1;
 }
 
@@ -360,10 +357,13 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #F0F0F0;
+
 
     overflow: hidden;
-    transition:
-        max-height 0.4s ease-in-out,
+    transition: max-height 0.4s ease-in-out,
         opacity 0.3s ease-in-out,
         padding 0.3s ease-in-out,
         margin 0.3s ease-in-out;
@@ -403,6 +403,11 @@
     padding-bottom: 4.5px;
 }
 
+.firstCollum {
+    display: flex;
+    flex-direction: column;
+}
+
 .cardProtocoloInfo {
     font-weight: 400;
     font-style: Regular;
@@ -415,6 +420,7 @@
 }
 
 .cardProtocoloInfoSecondContainer {
+    display: block;
     font-weight: 400;
     font-style: Regular;
     font-size: 12px;
@@ -437,6 +443,7 @@
 }
 
 .cardProtocoloValueLink {
+    display: block;
     font-weight: 400;
     font-style: Regular;
     font-size: 14px;
@@ -445,6 +452,10 @@
     color: #0B5CAB;
 
 
+}
+
+.cardProtocoloInfoTable {
+    display: none;
 }
 
 .modal-overlay {
@@ -473,8 +484,7 @@
     background: white;
     border-radius: 20px;
     max-width: 343px;
-    max-height: 60vh;
-    top: 20px;
+    max-height: 80vh;
     overflow-y: auto;
     position: relative;
 }
@@ -657,6 +667,7 @@
     letter-spacing: 0%;
     border-bottom: 3px solid transparent;
     transition: border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
 
 }
 
@@ -706,10 +717,38 @@
 
     }
 
-
-
-
 }
+
+.tableGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.headerRow {
+    font-weight: 590;
+    font-style: Semibold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0%;
+    color: #575757;
+    border-bottom: 1px solid #5C5C5C;
+}
+
+.dataRow {
+
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+
+
+    border-bottom: 1px solid #E5E5E5;
+}
+
 
 @media screen and (min-width: 768px) {
     .showDetailsRightCollumn {
@@ -750,9 +789,15 @@
         height: 156px;
         justify-content: center;
         align-items: center;
-
-
     }
+
+    .menuCardContainer:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+
+
 
     .details-icon-card {
         height: 30px;
@@ -769,5 +814,24 @@
         margin: 24px 0;
 
     }
+
+    .cardProtocoloInfoSecondContainer {
+        display: none;
+    }
+
+    .cardProtocoloValueLink {
+        display: none;
+    }
+
+    .cardProtocoloInfoTable {
+        padding-top: 12px;
+        display: flex;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: slideDownFadeIn 0.3s ease forwards;
+        flex-direction: column;
+    }
+
 
 }
