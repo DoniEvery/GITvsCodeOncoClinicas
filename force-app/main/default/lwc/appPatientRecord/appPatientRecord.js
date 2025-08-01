@@ -140,24 +140,6 @@ export default class AppPatientRecord extends LightningElement {
     }
 
 
-    handleClickDiagnostico(event) {
-        const id = event.currentTarget.dataset.id;
-        console.log(
-            'ID clicado:', id);
-
-        const clonedPatient = JSON.parse(JSON.stringify(this.patient));
-        clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
-            const isOpen = treatment.id === id ? !treatment.isOpen : false;
-
-            return {
-                ...treatment,
-                isOpen,
-                className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
-            };
-        });
-
-        this.patient = clonedPatient;
-    }
 
     handleClickVewDetailTratamentos(event) {
         const id = event.currentTarget.dataset.id;
@@ -171,7 +153,7 @@ export default class AppPatientRecord extends LightningElement {
 
                 return {
                     ...plan,
-                    isOpen,
+                    isOpen: isOpen,
                     className: `details-wrapper ${isOpen ? 'open' : 'closed'}`
                 };
             });
@@ -179,6 +161,24 @@ export default class AppPatientRecord extends LightningElement {
             return {
                 ...treatment,
                 plans: updatedPlans
+            };
+        });
+
+        this.patient = clonedPatient;
+    }
+    handleClickDiagnostico(event) {
+        const id = event.currentTarget.dataset.id;
+        console.log(
+            'ID clicado:', id);
+
+        const clonedPatient = JSON.parse(JSON.stringify(this.patient));
+        clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
+            const isOpen = treatment.id === id ? !treatment.isOpen : false;
+
+            return {
+                ...treatment,
+                isOpen: isOpen,
+                className: `protocoloTextInfoSecondContainer ${isOpen ? 'open' : 'closed'}`
             };
         });
 

@@ -660,6 +660,11 @@
 
 }
 
+.rotatedChevron {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease-in-out;
+}
+
 .navMenuItem.selected {
     border-bottom: 3px solid black;
     color: #08353D;

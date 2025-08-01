@@ -126,8 +126,6 @@
         <template if:true={isSolicitarExames}>
             Sem tela
         </template>
-
-        <!-- xxxxx -->
         <template if:true={isTratamentos}>
 
 
@@ -147,17 +145,27 @@
                             <div class="infoTextCardTitle">
                                 Nome do protocolo
 
+                                <template if:true={plan.isOpen}>
 
-                                <lightning-icon
-                                                icon-name="utility:chevrondown"
-                                                alternative-text="chevrondown"
-                                                size="x-small"
-                                                title="large size"
-                                                variant="default"
-                                                class={getChevronClass}></lightning-icon>
+                                    <lightning-icon
+                                                    icon-name="utility:chevrondown"
+                                                    alternative-text="chevrondown"
+                                                    size="x-small"
+                                                    title="large size"
+                                                    variant="default"></lightning-icon>
 
+                                </template>
+                                <template if:false={plan.isOpen}>
 
+                                    <lightning-icon
+                                                    icon-name="utility:chevrondown"
+                                                    alternative-text="chevrondown"
+                                                    size="x-small"
+                                                    title="large size"
+                                                    class="rotatedChevron "
+                                                    variant="default"></lightning-icon>
 
+                                </template>
                             </div>
 
                             <div class="protocoloTextInfo">
@@ -340,12 +348,27 @@
                     <div class="menuCardContainerProtocolos">
                         <div class="infoTextCardTitle">
                             Descrição da CID
-                            <lightning-icon
-                                            icon-name="utility:chevrondown"
-                                            alternative-text="chevrondown"
-                                            size="x-small"
-                                            title="large size"
-                                            variant="default"></lightning-icon>
+                            <template if:true={treatment.isOpen}>
+
+                                <lightning-icon
+                                                icon-name="utility:chevrondown"
+                                                alternative-text="chevrondown"
+                                                size="x-small"
+                                                title="large size"
+                                                variant="default"></lightning-icon>
+
+                            </template>
+                            <template if:false={treatment.isOpen}>
+
+                                <lightning-icon
+                                                icon-name="utility:chevrondown"
+                                                alternative-text="chevrondown"
+                                                size="x-small"
+                                                title="large size"
+                                                class="rotatedChevron "
+                                                variant="default"></lightning-icon>
+
+                            </template>
 
                         </div>
 
@@ -434,12 +457,27 @@
                     <div class="menuCardContainerProtocolos">
                         <div class="infoTextCardTitle">
                             Consulta
-                            <lightning-icon
-                                            icon-name="utility:chevrondown"
-                                            alternative-text="chevrondown"
-                                            size="x-small"
-                                            title="large size"
-                                            variant="default"></lightning-icon>
+                            <template if:true={treatment.isOpen}>
+
+                                <lightning-icon
+                                                icon-name="utility:chevrondown"
+                                                alternative-text="chevrondown"
+                                                size="x-small"
+                                                title="large size"
+                                                variant="default"></lightning-icon>
+
+                            </template>
+                            <template if:false={treatment.isOpen}>
+
+                                <lightning-icon
+                                                icon-name="utility:chevrondown"
+                                                alternative-text="chevrondown"
+                                                size="x-small"
+                                                title="large size"
+                                                class="rotatedChevron "
+                                                variant="default"></lightning-icon>
+
+                            </template>
 
                         </div>
 
