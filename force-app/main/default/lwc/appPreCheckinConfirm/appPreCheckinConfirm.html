@@ -1,0 +1,16 @@
+<template>
+    <div class="checkin-confirm-container slds-p-around_large">
+        <div class="slds-text-heading_medium slds-m-bottom_large">
+            Deseja confirmar o check-in?
+        </div>
+
+        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-m-bottom_large">
+            <img src={nurseImage} alt="Profissional de saúde" class="checkin-image" />
+        </div>
+
+        <div class="slds-grid slds-grid_align-center slds-gutters">
+            <lightning-button label="Cancelar" variant="neutral" onclick={handleCancel}></lightning-button>
+            <lightning-button label="Confirmar" variant="brand" class="slds-m-left_small" onclick={handleConfirm}></lightning-button>
+        </div>
+    </div>
+</template>

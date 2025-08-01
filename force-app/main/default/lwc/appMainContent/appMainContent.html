@@ -112,7 +112,9 @@
         </template>
         <template if:true={showHistoricoSaude}>
             <c-app-patient-record patient={selectedPatient} current-page={currentPage}></c-app-patient-record>
-
+        </template>
+        <template if:true={showCheckin}>
+            <c-app-dados-cadastrais></c-app-dados-cadastrais>
         </template>
 
     </div>

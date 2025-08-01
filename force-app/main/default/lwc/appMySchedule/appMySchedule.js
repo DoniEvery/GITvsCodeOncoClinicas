@@ -2,11 +2,12 @@ import { LightningElement, wire, track, api } from 'lwc';
 import teleconsultaIcon from '@salesforce/resourceUrl/APP_TeleConsultaIcon';
 import consultaPresencialIcon from '@salesforce/resourceUrl/APP_ConsultaPresencialIcon';
 import medicoImagem from '@salesforce/resourceUrl/APP_MedicoImagem';
+import perfilSemFoto from '@salesforce/resourceUrl/APP_PerfilSemFoto';
 import dateIcon from '@salesforce/resourceUrl/APP_DateIcon';
 import dateIcon2 from '@salesforce/resourceUrl/APP_DateIcon2';
 import detalhesConsultaIcon from '@salesforce/resourceUrl/APP_DetalhesConsultaIcon';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import buscarParametros from '@salesforce/apex/APP_MockAgendaPacienteService.buscarParametros';
+import buscarParametros from '@salesforce/apex/APP_PatientController.buscarParametros';
 import listarAgendaPacienteLogado from '@salesforce/apex/APP_PatientController.listarAgendaPacienteLogado';
 import registrarErroLog from '@salesforce/apex/APP_PatientController.registrarErroLog';
 
@@ -23,6 +24,7 @@ export default class AppMySchedule extends LightningElement {
     teleconsulta = teleconsultaIcon;
     consultaPresencial = consultaPresencialIcon;
     medico = medicoImagem;
+    perfilSemFoto = perfilSemFoto;
     dateIcon = dateIcon;
     dateIcon2 = dateIcon2;
     detalhesConsulta = detalhesConsultaIcon;
@@ -52,11 +54,11 @@ export default class AppMySchedule extends LightningElement {
     
                     return {
                         ...item,
-                        dataFormatada: data ? data.toLocaleDateString('pt-BR') : 'Data inválida',
+                        dataFormatada: data? (this.ehHoje(data) ? 'Hoje' : data.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' })): 'Data inválida',
                         horaFormatada: data ? data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : 'Hora inválida',
                         nomeMedico: item.actor?.[0]?.nomeMedico,
                         nomeMedicoFormatado: this.formatarNomeMedico(item.actor?.[0]?.nomeMedico),
-                        fotoMedicoUrl: item.actor?.[0]?.fotoMedicoUrl || 'Sem foto',
+                        fotoMedicoUrl: item.actor?.[0]?.fotoMedicoUrl || perfilSemFoto,
                         tipoConsultaFormatado: item.appointmentType?.display || 'Tipo não informado',
                         dataConsulta: data 
                     };
@@ -70,9 +72,9 @@ export default class AppMySchedule extends LightningElement {
         
             let erroJson = {
                 endpoint: '',
-                statusCode: 500,
-                mensagem: 'Erro inesperado ao buscar agenda',
-                body: ''
+                statusCode: 0,
+                mensagem: 'Erro inesperado ao buscar agenda - Salesforce',
+                body: error
             };
         
             try {
@@ -85,13 +87,15 @@ export default class AppMySchedule extends LightningElement {
         
             const endpoint = erroJson.endpoint || '';
             const statusCode = isNaN(parseInt(erroJson.statusCode)) ? 0 : parseInt(erroJson.statusCode);
-            const mensagem = erroJson.mensagem || 'Erro desconhecido';
+            const mensagem = erroJson.mensagem || error;
             const body = erroJson.body || '';
         
-            registrarErroLog({ endpoint, statusCode, mensagem, body })
-                .catch(logError => {
-                    console.error('Erro ao registrar o log de erro:', logError);
-                });
+            if (mensagem !== 'Erro inesperado ao buscar agenda - Salesforce') {
+                registrarErroLog({ endpoint, statusCode, mensagem, body })
+                    .catch(logError => {
+                        console.error('Erro ao registrar o log de erro:', logError);
+                    });
+            }
         } finally {
             this.isLoading = false;
         }
@@ -120,12 +124,18 @@ export default class AppMySchedule extends LightningElement {
                 if (result) {
                     this.maximumRetroactivePeriodMonths = result.MaximumRetroactivePeriodMonths__c ?? 0;
                     this.maximumFuturePeriodMonths = result.MaximumFuturePeriodMonths__c ?? 0;
-                    console.log('Parâmetros carregados:', this.maximumRetroactivePeriodMonths, this.maximumFuturePeriodMonths);
                 }
             })
             .catch(error => {
                 console.error('Erro ao buscar parâmetros:', error);
             });
+    }
+
+    ehHoje(data) {
+        const hoje = new Date();
+        return data.getDate() === hoje.getDate() &&
+            data.getMonth() === hoje.getMonth() &&
+            data.getFullYear() === hoje.getFullYear();
     }
 
     //método responsável por enviar as datas para a integração
@@ -137,8 +147,8 @@ export default class AppMySchedule extends LightningElement {
         let dateEnd = new Date(hoje);
     
         if (this.modoHome) {
-            //exibe próximas consultas que o usuário tem em um intervalo de 2 anos no modo home
-            dateEnd.setMonth(dateStart.getMonth() + 24); 
+            dateStart.setHours(0, 0, 0, 0);
+            dateEnd.setHours(23, 59, 59, 999);
         } 
         else if (this.selectedFilter === '7days') {
             dateEnd.setDate(dateStart.getDate() + 7);
@@ -197,7 +207,7 @@ export default class AppMySchedule extends LightningElement {
                 const ano = dataObj.getFullYear();
     
                 const dataFormatada = dataConsulta.getTime() === hoje.getTime()
-                    ? `Hoje, ${dia}/${mes}/${ano}`
+                    ? `Hoje`
                     : `${diaSemana}, ${dia}/${mes}/${ano}`;
     
                 return {
@@ -206,7 +216,6 @@ export default class AppMySchedule extends LightningElement {
                     dataConsulta,
                     hora: horaFormatada,
                     dataFormatada,
-                    //nomeMedicoFormatado: this.formatarNomeMedico(item.actor?.[0]?.display),
                     tipoConsutaFormatado: this.formatarTipoAgenda(item.appointmentType?.display)
                 };
             });
@@ -215,12 +224,12 @@ export default class AppMySchedule extends LightningElement {
                 this.filteredAgenda = this.filteredAgenda
                     .filter(item => {
                         if (!item.dataConsulta) return false;
-                        return item.dataConsulta >= hoje;
+                        return item.dataConsulta.getTime() === hoje.getTime();
                     })
                     .sort((a, b) => a.dataConsulta - b.dataConsulta); 
                 
                 if (!this.exibirTodas) {
-                    this.filteredAgenda = this.filteredAgenda.slice(0, 3); 
+                    this.filteredAgenda = this.filteredAgenda.slice(0, 4); 
                 }
                 return;
             }
@@ -517,7 +526,7 @@ export default class AppMySchedule extends LightningElement {
             if (this.exibirTodas) {
                 return this.filteredAgenda;
             }
-            return this.filteredAgenda.slice(0,3);
+            return this.filteredAgenda.slice(0,4);
         }
         return [];
     }  

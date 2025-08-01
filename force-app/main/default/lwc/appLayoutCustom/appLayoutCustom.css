@@ -142,7 +142,6 @@ html, body {
 
 @media only screen and (min-width: 1024px) {
     .right-container {
-        max-width: 800px; 
         width: 100%;
     }
 }

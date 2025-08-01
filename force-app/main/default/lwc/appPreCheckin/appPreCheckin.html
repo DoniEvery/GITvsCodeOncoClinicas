@@ -1,35 +1,64 @@
 <template>
-    <div class="checkin-card">
-        <div class="checkin-content">
-            <div class="text-content">
-                <h2>Realize seu check-in!</h2>
-                <p>Ao realizar o check-in, você agilizará o seu atendimento.</p>
+    <!-- Tela de Check-in -->
+    <template if:true={showCheckin}>
+        <div class="checkin-card">
+            <div class="checkin-content">
+                <div class="text-content">
+                    <h2>Realize seu check-in!</h2>
+                    <p>Ao realizar o check-in, você agilizará o seu atendimento.</p>
 
-                <div class="info">
-                    <lightning-icon icon-name="utility:event" size="x-small"></lightning-icon>
-                    <span>27/12/25</span>
+                    <div class="info">
+                        <lightning-icon icon-name="utility:event" size="x-small"></lightning-icon>
+                        <span>27/12/25</span>
 
-                    <lightning-icon icon-name="utility:clock" size="x-small"></lightning-icon>
-                    <span>08h30</span>
-                </div>
-
-                <div class="professional">
-                    <div>
-                        <strong>Dr. Paulo Campelo</strong>
-                        <p>Unidade A</p>
+                        <lightning-icon icon-name="utility:clock" size="x-small"></lightning-icon>
+                        <span>08h30</span>
                     </div>
+
+                    <div class="professional">
+                        <div>
+                            <strong>Dr. Paulo Campelo</strong>
+                            <p>Unidade A</p>
+                        </div>
+                    </div>
+
+                    <lightning-button
+                        label="Realizar check-in"
+                        variant="brand"
+                        onclick={handleCheckin}>
+                    </lightning-button>
                 </div>
 
-                <lightning-button
-                    label="Realizar check-in"
-                    variant="brand"
-                    onclick={handleCheckin}>
-                </lightning-button>
-            </div>
-
-            <div class="image-content">
-                <img src={nurseImage} alt="Enfermeira" class="nurse-illustration" />
+                <div class="image-content">
+                    <img src={nurseImage} alt="Enfermeira" class="nurse-illustration" />
+                </div>
             </div>
         </div>
-    </div>
+    </template>
+
+    <!-- Modal LGPD -->
+    <template if:true={showLgpd}>
+        <c-app-lgpd
+            is-open={showLgpd}
+            onclose={handleModalClose}
+            onaccept={handleModalAccept}>
+        </c-app-lgpd>
+    </template>
+
+
+    <!-- Tela de Dados Cadastrais -->
+    <template if:true={showDadosCadastrais}>
+        <c-app-dados-cadastrais onvoltar={handleVoltarParaCheckin} oncontinuar={handleContinuarCadastrais} ></c-app-dados-cadastrais>
+    </template>
+
+    <!-- Tela de Dados Residenciais -->
+    <template if:true={showDadosResidenciais}>
+        <c-app-dados-residenciais onvoltar={handleModalAccept} oncontinuar={showConfirmCheckin}></c-app-dados-residenciais>
+    </template> 
+
+    <!--Tela de confirmar modal -->
+    <template if:true={showConfirmCheckin}>
+        <c-app-pre-checkin-confirm> </c-app-pre-checkin-confirm>
+    </template>
+
 </template>

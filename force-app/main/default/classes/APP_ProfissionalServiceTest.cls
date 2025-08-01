@@ -85,7 +85,7 @@ private class APP_ProfissionalServiceTest {
         Test.setMock(HttpCalloutMock.class, new MockProntuarioResponse200());
         
         Test.startTest();
-        APP_PatientRecordsResponseDTO prontuario = APP_ProfissionalService.buscarProntuarioPacientePorId('paciente123', 1, 10, '2025-07-01', '2025-07-31');
+        APP_PatientRecordsResponseDTO prontuario = APP_ProfissionalService.buscarProntuarioPacientePorId('paciente123');
         Test.stopTest();
     
         System.assertNotEquals(null, prontuario, 'Deve retornar um DTO válido de prontuário');

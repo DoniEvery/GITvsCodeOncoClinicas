@@ -76,7 +76,6 @@
     margin-bottom: 0.75rem;
     background-color: white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    max-width: 450px;
     margin-right: 0.80rem;
 }
 
@@ -161,30 +160,6 @@ lightning-icon.icone-event-color .slds-icon {
     color: #555;
 }
 
-.consulta-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-button.cancel {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 0.25rem 4rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button.confirm {
-    background-color: #06b6ae;
-    color: white;
-    padding: 0.25rem 4rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .group-header {
     background: #f4f4f4;
     padding: 15px;
@@ -192,7 +167,6 @@ button.confirm {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 450px;
     margin-right: 0.80rem;
     color: #575757;
 }
@@ -302,7 +276,6 @@ button.confirm-date {
 .consulta-home-card {
     width: 100%;
     padding: 0.5rem;
-    max-width: 300px;
     margin-bottom: 0.6rem;
     background-color: white;
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
@@ -414,34 +387,6 @@ button.confirm-date {
     margin: 0.6rem 0 0.4rem 0;
 }
 
-/* Botões menores */
-.consulta-actions {
-    display: flex;
-    justify-content: center;
-    gap: 0.7rem;
-    margin-top: 0.1rem;
-}
-
-button.cancel-home,
-button.confirm-home {
-    padding: 0.4rem 1.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 400;
-    cursor: pointer;
-}
-
-button.cancel-home {
-    background-color: white;
-    border: 1px solid #ccc;
-}
-
-button.confirm-home {
-    background-color: #06b6ae;
-    color: white;
-    border: none;
-}
-
 
 @media (max-width: 1072px) {
     .consulta-home-card {
@@ -496,22 +441,6 @@ button.confirm-home {
         margin-right: 0.5rem;
     }
 
-    button.cancel,
-    button.confirm {
-        flex: 1 1 0;
-        padding: 0.3rem 0; 
-        width: auto; 
-        min-width: 60px; 
-    }
-
-    button.cancel-home,
-    button.confirm-home {
-        flex: 1 1 0;
-        padding: 0.3rem 0; 
-        width: auto; 
-        min-width: 60px; 
-    }
-
     .consulta-card {
         padding: 0.5rem;
         margin-bottom: 0.75rem;
@@ -552,13 +481,6 @@ button.confirm-home {
 
     .consulta-mode {
         gap: 0.3rem;
-    }
-
-    .consulta-actions {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 0.75rem;
     }
 
     .group-header {

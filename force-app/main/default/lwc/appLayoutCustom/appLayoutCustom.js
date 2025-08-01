@@ -4,6 +4,7 @@ import dateIcon from '@salesforce/resourceUrl/APP_DateIcon';
 import dateIcon2 from '@salesforce/resourceUrl/APP_DateIcon2';
 import detalhesConsultaIcon from '@salesforce/resourceUrl/APP_DetalhesConsultaIcon';
 import precisaAceitarTermo from '@salesforce/apex/APP_TermoUsoPageController.precisaAceitarTermo';
+import identificarCliente from '@salesforce/apex/APP_ApiIdentificacaoClienteController.identificarCliente';
 
 export default class AppLayoutCustom extends LightningElement {
     currentPage = 'Início';
@@ -44,6 +45,9 @@ export default class AppLayoutCustom extends LightningElement {
             .catch(error => {
                 console.error('Erro ao verificar aceite do termo:', error);
             });
+
+        this.buscaIdPlusoft();
+            
     }
 
 
@@ -174,6 +178,16 @@ export default class AppLayoutCustom extends LightningElement {
         } else {
             document.body.classList.remove('ocultar-header');
         }
+    }
+
+    buscaIdPlusoft() {
+       
+        identificarCliente()
+        .then(result => {          
+        })
+        .catch(error => {
+            console.error('Erro ao identificar cliente:', error);           
+        });
     }
     
 }

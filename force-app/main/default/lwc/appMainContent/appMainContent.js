@@ -77,9 +77,8 @@ export default class AppMainContent extends LightningElement {
             'Tratamentos',
             'Diagnóstico e estadiamento',
             'Histórico de consultas',
-            'Histórico de saúde'
-
-
+            'Histórico de saúde',
+            'Pré checkin'
         ];
 
         return this.currentPage && !validPages.includes(this.currentPage);
@@ -177,6 +176,9 @@ export default class AppMainContent extends LightningElement {
     get showHistoricoSaude() {
         return this.currentPage === 'Histórico de saúde';
     }
+    get showCheckin() {
+        return this.currentPage === 'Pré checkin';
+    }
 
     handleNavigate(event) {
         this.dispatchEvent(new CustomEvent('navigate', {
@@ -206,10 +208,17 @@ export default class AppMainContent extends LightningElement {
     }
 
     @api aplicarFiltroCustomRange(dataInicial, dataFinal) {
-        const agenda = this.template.querySelector('c-app-my-schedule');
-        if (agenda) {
-            return agenda.aplicarFiltroCustomRange(dataInicial, dataFinal);
+        const agendaPaciente = this.template.querySelector('c-app-my-schedule');
+        
+        if (agendaPaciente) {
+            return agendaPaciente.aplicarFiltroCustomRange(dataInicial, dataFinal);
         }
+        const agendaMedico = this.template.querySelector('c-app-my-schedule-doctor');
+    
+        if (agendaMedico) {
+            return agendaMedico.aplicarFiltroCustomRange(dataInicial, dataFinal);
+        }
+    
         return false;
     }
 

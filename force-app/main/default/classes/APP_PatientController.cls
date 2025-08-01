@@ -30,32 +30,29 @@ public without sharing class APP_PatientController {
     public static List<APP_ProfissionalListResponseDTO> listarAgendaMedicoLogado(String dateStart, String dateEnd) {
         try {
             String cpf = getCpfDoMedicoLogado();
-            System.debug('cpf >>' + cpf);
             
             List<APP_PatientResponseDTO> medicos = APP_ProfissionalService.buscarPacientePorCpf(cpf, 1, 3);
             if (medicos == null || medicos.isEmpty()) {
-                System.debug('Médico não encontrado >>' + medicos);
                 throw new AuraHandledException('Médico não encontrado com CPF fornecido.');
             }
 
             String prontuario = medicos[0].id;
-            List<APP_ProfissionalListResponseDTO> agendamentos = APP_ProfissionalService.listarAgendamentosFiltrados(1, 10, dateStart, dateEnd, prontuario);
-            
+            List<APP_ProfissionalListResponseDTO> agendamentos = APP_ProfissionalService.listarAgendamentosFiltradosMedicos(1, 10, dateStart, dateEnd, prontuario);
+
             if (agendamentos != null) {
                 for (APP_ProfissionalListResponseDTO agendamento : agendamentos) {
-                    if (agendamento.actor != null && !agendamento.actor.isEmpty() && String.isNotBlank(agendamento.actor[0].reference)) {
-                        Map<String, String> dadosMedico = getDadosMedicoPorProntuario(agendamento.actor[0].reference);
-                        if (dadosMedico != null) {
+                    if (agendamento.actor != null && !agendamento.actor.isEmpty() && String.isNotBlank(agendamento.actor[1].reference)) {
+                        Map<String, String> dadosPaciente = getDadosPacientesPorProntuario(agendamento.actor[1].reference);
+                        if (dadosPaciente != null) {
                             // Adiciona os dados do médico ao DTO
-                            agendamento.actor[1].nomeMedico = dadosMedico.get('nome'); //nome paciente
-                            agendamento.actor[1].fotoMedicoUrl = dadosMedico.get('fotoUrl'); //foto paciente
+                            agendamento.actor[0].nomeMedico = dadosPaciente.get('nome'); //nome paciente
+                            agendamento.actor[0].fotoMedicoUrl = dadosPaciente.get('fotoUrl'); //foto paciente
                         }
                     }
                 }
             }
             return agendamentos;
         } catch (AuraHandledException aex) {
-            // Já é uma exceção lançada no formato correto, repassa para o JS sem modificar
             throw aex;
         }
     }
@@ -87,12 +84,43 @@ public without sharing class APP_PatientController {
             Map<String, String> dadosMedico = new Map<String, String>();
             dadosMedico.put('nome', usuarios[0].Name);
             dadosMedico.put('fotoUrl', usuarios[0].SmallPhotoUrl); // Ou FullPhotoUrl para foto maior
-            
-            System.debug('Controller dadosMedico>> ' + dadosMedico);
             return dadosMedico;
             
         } catch (AuraHandledException aex) {
-            // Já é uma exceção lançada no formato correto, repassa para o JS sem modificar
+            throw aex;
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static Map<String, String> getDadosPacientesPorProntuario(String prontuarioPaciente) {
+        try {
+            List<APP_PatientResponseDTO> pacientes = APP_ProfissionalService.buscarPorPronturario(prontuarioPaciente, 1, 1);
+            
+            if (pacientes == null || pacientes.isEmpty() || String.isBlank(pacientes[0].cpf)) {
+                return null;
+            }
+            
+            String cpfPaciente = pacientes[0].cpf;
+            List<Contact> contatos = [SELECT Id, Account.CNPJ__c FROM Contact WHERE Account.CNPJ__c = :cpfPaciente LIMIT 1];
+            
+            if (contatos.isEmpty()) {
+                return null;
+            }
+            
+            String contatoId = contatos[0].Id;
+            Contact contatoName = [SELECT Id, Name FROM Contact WHERE Id = :contatoId];
+            List<User> usuarios = [SELECT Id, Name, FullPhotoUrl, SmallPhotoUrl FROM User WHERE ContactId = :contatoId LIMIT 1];
+            
+            if (usuarios.isEmpty()) {
+                return null;
+            }
+            
+            Map<String, String> dadosPaciente = new Map<String, String>();
+            dadosPaciente.put('nome', usuarios[0].Name);
+            dadosPaciente.put('fotoUrl', usuarios[0].SmallPhotoUrl); // Ou FullPhotoUrl para foto maior
+            return dadosPaciente;
+            
+        } catch (AuraHandledException aex) {
             throw aex;
         }
     }
@@ -124,7 +152,6 @@ public without sharing class APP_PatientController {
             }
             return agendamentos;
         } catch (AuraHandledException aex) {
-            // Já é uma exceção lançada no formato correto, repassa para o JS sem modificar
             throw aex;
         }
     }
@@ -132,5 +159,49 @@ public without sharing class APP_PatientController {
     @AuraEnabled
     public static void registrarErroLog(String endpoint, Integer statusCode, String mensagem, String body) {
         APP_Logger.logErro(endpoint, statusCode, mensagem, body);
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static APP_Parametro__c buscarParametros() { 
+        return [
+            SELECT MaximumRetroactivePeriodMonths__c, MaximumFuturePeriodMonths__c 
+            FROM APP_Parametro__c 
+            WHERE RecordType.DeveloperName = 'Agenda'
+            LIMIT 1
+        ];
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getPatientInfo(String identificacao, Integer intOffset, Integer intLimit) { 
+        String searchKey = '%' + identificacao + '%';
+        return [
+            SELECT Id,
+                Name,
+                CNPJ__c,
+                RNE__c,
+                PersonBirthdate,
+                HealthCloudGA__Gender__pc,
+                APP_NumeroProntuario__c,
+                APP_Filiacao1__c,
+                APP_Filiacao2__c,
+                Phone,
+                PersonEmail                 
+            FROM Account 
+            WHERE RecordType.DeveloperName = 'PersonAccount'
+            AND (
+                Name LIKE :searchKey
+                OR CNPJ__c LIKE :searchKey
+                OR RNE__c LIKE :searchKey
+                OR APP_NumeroProntuario__c LIKE :searchKey
+            )
+            LIMIT :intLimit
+            OFFSET :intOffset
+        ];
+    }
+
+    // Retorna os dados do prontuário por id
+    @AuraEnabled(cacheable=false)
+    public static APP_PatientRecordsResponseDTO buscarProntuarioPacientePorId(String idProntuario) {
+        return APP_ProfissionalService.buscarProntuarioPacientePorId(idProntuario);
     }
 }

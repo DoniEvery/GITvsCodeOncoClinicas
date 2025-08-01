@@ -1,11 +1,15 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import detalhesConsultaIcon from '@salesforce/resourceUrl/APP_DetalhesConsultaIcon';
+import { getRecord } from 'lightning/uiRecordApi';
+import USER_ID from '@salesforce/user/Id';
+import PROFILE_NAME_FIELD from '@salesforce/schema/User.Profile.Name';
+import ALIAS_FIELD from '@salesforce/schema/User.Alias';
 
 export default class AppScheduleDetails extends LightningElement {
     @api consulta;
     detalhesConsulta = detalhesConsultaIcon;
-
     @track showConfirmModal = false;
+    isMedico = false;
 
     fecharModal() {
         const fecharEvent = new CustomEvent('fechar');
@@ -47,6 +51,9 @@ export default class AppScheduleDetails extends LightningElement {
     }
 
     get nomeMedico() {
+        if (this.isMedico) {
+            return this.consulta?.actor?.[0]?.nomeMedico || this.consulta?.actor?.[1]?.display;
+        }
         return this.consulta?.actor?.[0]?.nomeMedico || 'Nome não informado';
     }
 
@@ -86,5 +93,21 @@ export default class AppScheduleDetails extends LightningElement {
 
     get possuiObservacoes() {
         return this.consulta?.description || this.consulta?.comment;
+    }
+
+    @wire(getRecord, { recordId: USER_ID, fields: [PROFILE_NAME_FIELD, ALIAS_FIELD] })
+    userProfileHandler({ error, data }) {
+        if (data) {
+            const profileName = data.fields.Profile.displayValue || data.fields.Profile.value;
+            const alias = data.fields.Alias.value;
+
+            if (profileName === 'APP_Medico') {
+                this.isMedico = true;
+            } else {
+                this.isMedico = false;
+            }
+        } else if (error) {
+            console.error('Erro ao buscar perfil:', error);
+        }
     }
 }
