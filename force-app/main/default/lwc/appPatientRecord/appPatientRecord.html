@@ -76,33 +76,34 @@
             </div>
         </div>
         <template if:true={isPatientPage}>
-            <template for:each={menuPatient} for:item="itemMenu">
-
-                <div key={itemMenu.label} class="menusContainer" onclick={handleClickPatientMenu} data-name={itemMenu.label}>
-
-                    <div class="menuCardContainer">
-                        <div class="infoTextCard">
+            <div class="menusContainer">
+                <template for:each={menuPatient} for:item="itemMenu">
+                    <div key={itemMenu.label} class="menuCardContainer" onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                        <div class="infoTextCard desktopChanges">
                             <img src={itemMenu.icon} class="details-icon-card" alt="Ícone" />{itemMenu.label}
-
                         </div>
                         <lightning-icon
                                         icon-name="utility:chevronright"
                                         alternative-text="chevronright"
                                         size="x-small"
                                         title="large size"
-                                        variant="default"></lightning-icon>
+                                        variant="default"
+                                        class="iconDesktop"></lightning-icon>
                     </div>
-                </div>
 
-            </template>
+                </template>
+            </div>
+
+
         </template>
         <template if:true={isProntuario}>
-            <template for:each={menuProntuario} for:item="itemMenu">
 
-                <div key={itemMenu.label} class="menusContainer" onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
 
-                    <div class="menuCardContainer">
-                        <div class="infoTextCard">
+            <div class="menusContainer">
+
+                <template for:each={menuProntuario} for:item="itemMenu">
+                    <div key={itemMenu.label} class="menuCardContainer" onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
+                        <div class="infoTextCard desktopChanges">
                             <img src={itemMenu.icon} class="details-icon-card" alt="Ícone" />{itemMenu.label}
 
                         </div>
@@ -111,11 +112,13 @@
                                         alternative-text="chevronright"
                                         size="x-small"
                                         title="large size"
-                                        variant="default"></lightning-icon>
+                                        variant="default"
+                                        class="iconDesktop"></lightning-icon>
                     </div>
-                </div>
 
-            </template>
+                </template>
+            </div>
+
         </template>
         <template if:true={isEnviarArquivos}>
             Sem tela
@@ -123,10 +126,22 @@
         <template if:true={isSolicitarExames}>
             Sem tela
         </template>
+
+
+        <!-- xxxxx -->
         <template if:true={isTratamentos}>
+
+
+            <div class="navMenu">
+                <template for:each={menuProntuario} for:item="itemMenu">
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu2} data-name={itemMenu.label}>
+                        <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
+                    </div>
+                </template>
+            </div>
+
             <template for:each={patient.treatments} for:item="treatment">
                 <template for:each={treatment.plans} for:item="plan">
-
                     <div key={plan.protocolKey} class="menusContainer">
 
                         <div class="menuCardContainerProtocolos" onclick={handleClickVewDetailTratamentos} data-id={plan.protocolKey}>
@@ -544,9 +559,6 @@
 
             </template>
         </template>
-
-
-
         <template if:true={isHistoricoSaude}>
             <div class="card">
 

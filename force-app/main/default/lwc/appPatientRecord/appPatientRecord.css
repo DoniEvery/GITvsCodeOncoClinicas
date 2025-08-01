@@ -6,6 +6,10 @@
 
 }
 
+.navMenu {
+    display: none;
+}
+
 .secondContainer {
     display: flex;
     flex-direction: column;
@@ -631,7 +635,11 @@
     padding-left: 12px;
 }
 
-
+.menusContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
 
 @media screen and (max-width: 768px) {
     .patientInfos {
@@ -670,5 +678,91 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .menusContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .iconDesktop {
+        display: none;
+    }
+
+    .desktopChanges {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-palette: center;
+        width: 100%;
+        align-items: center
+    }
+
+    .menuCardContainer {
+        width: 100%;
+        height: 156px;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    .details-icon-card {
+        height: 30px;
+    }
+
+    .infoTextCard {
+        font-size: 20px;
+    }
+
+    .navMenu {
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid #C9C9C9;
+        margin-bottom: 24px;
+
+    }
+
+    .navMenuItem {
+        padding: 0 12px 8px 12px;
+        gap: 12px;
+        display: flex;
+        text-wrap: nowrap;
+        font-weight: 590;
+        font-style: Semibold;
+        line-height: 19px;
+        letter-spacing: 0%;
+        color: #5C5C5C;
+
+    }
+
+    .navMenuItem.selected {
+        padding: 0 12px 8px 0;
+        gap: 12px;
+        display: flex;
+        text-wrap: nowrap;
+        font-weight: 590;
+        font-style: Semibold;
+        line-height: 19px;
+        letter-spacing: 0%;
+        border-bottom: 3px solid black;
+        color: #08353D;
+
+    }
+
+    .navMenuItem:hover {
+        border-bottom: 3px solid black;
+        color: #08353D;
+
+    }
+
+    .details-icon-card-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 17px;
     }
 }
