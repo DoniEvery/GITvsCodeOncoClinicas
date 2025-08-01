@@ -134,7 +134,7 @@
 
             <div class="navMenu">
                 <template for:each={menuProntuario} for:item="itemMenu">
-                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu2} data-name={itemMenu.label}>
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
                         <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
                     </div>
                 </template>
@@ -327,7 +327,13 @@
             </template>
         </template>
         <template if:true={isDiagnostico}>
-
+            <div class="navMenu">
+                <template for:each={menuProntuario} for:item="itemMenu">
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                        <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
+                    </div>
+                </template>
+            </div>
             <template for:each={patient.treatments} for:item="treatment">
 
                 <div key={treatment.id} class="menusContainer" onclick={handleClickDiagnostico} data-id={treatment.id}>
@@ -415,6 +421,13 @@
             </template>
         </template>
         <template if:true={isHistoricoCconsultas}>
+            <div class="navMenu">
+                <template for:each={menuProntuario} for:item="itemMenu">
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                        <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
+                    </div>
+                </template>
+            </div>
             <template for:each={patient.treatments} for:item="treatment">
 
                 <div key={treatment.id} class="menusContainer" onclick={handleClickDiagnostico} data-id={treatment.id}>
@@ -560,6 +573,13 @@
             </template>
         </template>
         <template if:true={isHistoricoSaude}>
+            <div class="navMenu">
+                <template for:each={menuProntuario} for:item="itemMenu">
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
+                        <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
+                    </div>
+                </template>
+            </div>
             <div class="card">
 
                 <div class="subCard">

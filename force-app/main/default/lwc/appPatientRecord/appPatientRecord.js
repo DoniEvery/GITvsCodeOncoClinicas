@@ -32,18 +32,19 @@ export default class AppPatientRecord extends LightningElement {
         }
     ]
 
+
     menuProntuario = [
         {
             label: 'Tratamentos',
             icon: `${iconsZip}/APP_IconsPatientRecord/` + 'vaccines.svg',
-            selected: 'navMenuItem selected'
+            selected: 'navMenuItem'
 
 
         },
         {
             label: 'Diagnóstico e estadiamento',
             icon: `${iconsZip}/APP_IconsPatientRecord/` + 'diagnosis.svg',
-            selected: 'navMenuItem '
+            selected: 'navMenuItem'
 
 
         }
@@ -51,14 +52,14 @@ export default class AppPatientRecord extends LightningElement {
         {
             label: 'Histórico de consultas',
             icon: `${iconsZip}/APP_IconsPatientRecord/` + 'lab_profile.svg',
-            selected: 'navMenuItem '
+            selected: 'navMenuItem'
 
         }
         ,
         {
             label: 'Histórico de saúde',
             icon: `${iconsZip}/APP_IconsPatientRecord/` + 'person_heart.svg',
-            selected: 'navMenuItem '
+            selected: 'navMenuItem'
 
         }
     ]
@@ -89,22 +90,44 @@ export default class AppPatientRecord extends LightningElement {
         this.showDetails = !this.showDetails;
     }
     handleClickPatientMenu(event) {
-
         const pageName = event.currentTarget.dataset.name;
 
-        this.dispatchEvent(new CustomEvent('navigate', {
-            detail: {
-                pageName: pageName,
-                fromPage: 'Paciente'
-            },
-            bubbles: true,
-            composed: true
-        }));
+        setTimeout(() => {
+            this.menuProntuario = this.menuProntuario.map(item => ({
+                ...item,
+                selected: item.label === pageName
+                    ? 'navMenuItem selected'
+                    : 'navMenuItem'
+            }));
+
+            this.dispatchEvent(new CustomEvent('navigate', {
+                detail: {
+                    pageName,
+                    fromPage: 'Paciente'
+                },
+                bubbles: true,
+                composed: true
+            }));
+        }, 2000);
     }
+
 
     handleClickProntuarioMenu(event) {
 
         const pageName = event.currentTarget.dataset.name;
+
+        const newMenu = this.menuProntuario.map(item => {
+            return {
+                ...item,
+                selected: item.label === pageName
+                    ? 'navMenuItem selected'
+                    : 'navMenuItem'
+            };
+        });
+
+        this.menuProntuario = [...newMenu];
+        console.log(this.menuProntuario);
+
         this.dispatchEvent(new CustomEvent('navigate', {
             detail: {
                 pageName: pageName,
@@ -230,7 +253,7 @@ export default class AppPatientRecord extends LightningElement {
     get detailsClass() {
         return this.detailsClick ? 'details selected' : 'details';
     }
-  
+
     get showDetailsWrapperClass() {
         return this.showDetails ? 'details-wrapper open' : 'details-wrapper closed';
     }

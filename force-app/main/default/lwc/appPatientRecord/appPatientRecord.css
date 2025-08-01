@@ -168,7 +168,11 @@
 
 .patientInfos {
     display: flex;
-    padding-bottom: 14px;
+    padding-bottom: 30px;
+}
+
+.iconPatientCard {
+    padding-left: 24px;
 }
 
 .detailsText {
@@ -323,6 +327,7 @@
     overflow: hidden;
     justify-content: space-between;
     cursor: pointer;
+    width: 100%;
 }
 
 .menuCardContainerProtocolos::before {
@@ -641,11 +646,48 @@
     flex-direction: column;
 }
 
+.navMenuItem {
+    padding: 0 12px 8px 12px;
+    gap: 12px;
+    display: flex;
+    text-wrap: nowrap;
+    font-weight: 590;
+    font-style: Semibold;
+    line-height: 19px;
+    letter-spacing: 0%;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+}
+.navMenuItem2{
+    color: red;
+    font-size: 40px;
+}
+.navMenuItem.selected {
+    border-bottom: 3px solid black;
+    color: #08353D;
+}
+
+.navMenuItem:hover {
+    border-bottom: 3px solid black;
+    color: #08353D;
+
+}
+
+.details-icon-card-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+}
+
 @media screen and (max-width: 768px) {
     .patientInfos {
         display: flex;
         width: 100%;
         justify-content: space-between;
+        padding-bottom: 14px;
+
     }
 
     .showDetailsRightCollumn {
@@ -722,47 +764,8 @@
         display: flex;
         width: 100%;
         border-bottom: 1px solid #C9C9C9;
-        margin-bottom: 24px;
+        margin: 24px 0;
 
     }
 
-    .navMenuItem {
-        padding: 0 12px 8px 12px;
-        gap: 12px;
-        display: flex;
-        text-wrap: nowrap;
-        font-weight: 590;
-        font-style: Semibold;
-        line-height: 19px;
-        letter-spacing: 0%;
-        color: #5C5C5C;
-
-    }
-
-    .navMenuItem.selected {
-        padding: 0 12px 8px 0;
-        gap: 12px;
-        display: flex;
-        text-wrap: nowrap;
-        font-weight: 590;
-        font-style: Semibold;
-        line-height: 19px;
-        letter-spacing: 0%;
-        border-bottom: 3px solid black;
-        color: #08353D;
-
-    }
-
-    .navMenuItem:hover {
-        border-bottom: 3px solid black;
-        color: #08353D;
-
-    }
-
-    .details-icon-card-menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 17px;
-    }
 }
