@@ -659,10 +659,7 @@
     transition: border-color 0.2s ease, color 0.2s ease;
 
 }
-.navMenuItem2{
-    color: red;
-    font-size: 40px;
-}
+
 .navMenuItem.selected {
     border-bottom: 3px solid black;
     color: #08353D;

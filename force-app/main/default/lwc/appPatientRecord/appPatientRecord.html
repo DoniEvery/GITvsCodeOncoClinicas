@@ -127,14 +127,13 @@
             Sem tela
         </template>
 
-
         <!-- xxxxx -->
         <template if:true={isTratamentos}>
 
 
             <div class="navMenu">
                 <template for:each={menuProntuario} for:item="itemMenu">
-                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
                         <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
                     </div>
                 </template>
@@ -329,7 +328,7 @@
         <template if:true={isDiagnostico}>
             <div class="navMenu">
                 <template for:each={menuProntuario} for:item="itemMenu">
-                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
                         <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
                     </div>
                 </template>
@@ -423,7 +422,7 @@
         <template if:true={isHistoricoCconsultas}>
             <div class="navMenu">
                 <template for:each={menuProntuario} for:item="itemMenu">
-                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                    <div key={itemMenu.label} class={itemMenu.selected} onclick={handleClickProntuarioMenu} data-name={itemMenu.label}>
                         <img src={itemMenu.icon} class="details-icon-card-menu" alt="Ícone" />{itemMenu.label}
                     </div>
                 </template>

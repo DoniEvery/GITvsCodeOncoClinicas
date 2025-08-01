@@ -13,6 +13,16 @@ export default class AppPatientRecord extends LightningElement {
     @track openInfos = false;
     @track isModalOpen = false;
 
+    connectedCallback() {
+        console.log(1);
+
+        // Atualiza a lista do menu para aplicar a classe 'selected' ao item padrão.
+        this.menuProntuario = this.menuProntuario.map(item => ({
+            ...item,
+            // Verifica se o label do item é igual à página padrão.
+            selected: item.label === this.currentPage ? 'navMenuItem selected' : 'navMenuItem'
+        }));
+    }
 
     menuPatient = [
         {
@@ -90,33 +100,24 @@ export default class AppPatientRecord extends LightningElement {
         this.showDetails = !this.showDetails;
     }
     handleClickPatientMenu(event) {
+
         const pageName = event.currentTarget.dataset.name;
 
-        setTimeout(() => {
-            this.menuProntuario = this.menuProntuario.map(item => ({
-                ...item,
-                selected: item.label === pageName
-                    ? 'navMenuItem selected'
-                    : 'navMenuItem'
-            }));
 
-            this.dispatchEvent(new CustomEvent('navigate', {
-                detail: {
-                    pageName,
-                    fromPage: 'Paciente'
-                },
-                bubbles: true,
-                composed: true
-            }));
-        }, 2000);
+        this.dispatchEvent(new CustomEvent('navigate', {
+            detail: {
+                pageName: pageName,
+                fromPage: 'Paciente'
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
-
     handleClickProntuarioMenu(event) {
-
         const pageName = event.currentTarget.dataset.name;
 
-        const newMenu = this.menuProntuario.map(item => {
+        this.menuProntuario = this.menuProntuario.map(item => {
             return {
                 ...item,
                 selected: item.label === pageName
@@ -125,9 +126,9 @@ export default class AppPatientRecord extends LightningElement {
             };
         });
 
-        this.menuProntuario = [...newMenu];
-        console.log(this.menuProntuario);
+        console.log(JSON.stringify(this.menuProntuario))
 
+        // Adiciona um atraso de 100 milissegundos
         this.dispatchEvent(new CustomEvent('navigate', {
             detail: {
                 pageName: pageName,
