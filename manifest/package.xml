@@ -14,5 +14,10 @@
 		<members>appShowPatients</members>
 		<name>LightningComponentBundle</name>
 	</types>
+	<types>
+		<members>APP_IconsPatientRecord</members>
+		<members>APP_imagesAPPRecordMedical</members>
+		<name>StaticResource</name>
+	</types>
 	<version>64.0</version>
 </Package>
