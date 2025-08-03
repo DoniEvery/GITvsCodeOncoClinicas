@@ -179,14 +179,15 @@ public without sharing class APP_ProfissionalService {
         HttpResponse res = http.send(req);
     
         if (res.getStatusCode() == 200 && String.isNotBlank(res.getBody())) {
-            try {
-                String jsonBody = res.getBody()
-                    .replace('"date"', '"dateTm"');
         
-                APP_PatientRecordsResponseDTO prontuario = (APP_PatientRecordsResponseDTO) JSON.deserialize(jsonBody, APP_PatientRecordsResponseDTO.class);
-    
-                return prontuario;
-            } catch (Exception e) {
+        try {
+            String jsonBody = res.getBody()
+            .replace('"date"', '"dateTm"');
+            
+            APP_PatientRecordsResponseDTO prontuario = (APP_PatientRecordsResponseDTO) JSON.deserialize(jsonBody, APP_PatientRecordsResponseDTO.class);
+            
+            return prontuario;
+        } catch (Exception e) {
                 APP_Logger.logErro(req.getEndpoint(), 500, 'Erro de parsing JSON', e.getMessage());
                 return null;
             }

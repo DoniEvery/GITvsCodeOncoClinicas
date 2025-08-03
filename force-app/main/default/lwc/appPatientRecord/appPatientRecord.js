@@ -1,7 +1,5 @@
 import { LightningElement, track, api } from 'lwc';
-
 import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
-import buscarProntuarioPacientePorId from '@salesforce/apex/APP_PatientController.buscarProntuarioPacientePorId';
 
 export default class AppPatientRecord extends LightningElement {
 
@@ -15,7 +13,6 @@ export default class AppPatientRecord extends LightningElement {
     @track isModalOpen = false;
 
     connectedCallback() {
-        console.log(1);
 
         this.menuProntuario = this.menuProntuario.map(item => ({
             ...item,
@@ -74,7 +71,6 @@ export default class AppPatientRecord extends LightningElement {
     ]
 
     tableSessions = {
-
         ciclo: 'Ciclo',
         dia: 'Dia do ciclo',
         data: 'Data e hora',

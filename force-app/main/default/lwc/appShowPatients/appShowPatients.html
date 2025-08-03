@@ -18,7 +18,7 @@
                 <div class="peoplesContainer">
 
                     <template for:each={listOfResults} for:item="person">
-                        <div key={person.cpf} class="patientCardContainer" data-id={person.cpf} onclick={openPatient}>
+                        <div key={person.Id} class="patientCardContainer" data-id={person.Id} onclick={openPatient}>
                             <div class="patientCard">
                                 <div class="containerPeopleImage">
                                     <img src={person.PhotoUrl} class="peopleImage" alt="Foto" />

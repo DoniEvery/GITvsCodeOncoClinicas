@@ -3,16 +3,7 @@ import { LightningElement, track, api } from 'lwc';
 import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
 import imagesZip from '@salesforce/resourceUrl/APP_imagesAPPRecordMedical';
 import buscarProntuarioPacientePorId from '@salesforce/apex/APP_PatientController.buscarProntuarioPacientePorId';
-
-// Nao vou usar mais
-import getPatientInfo from '@salesforce/apex/APP_PatientController.getPatientInfo';
-import getPatientCount from '@salesforce/apex/APP_PatientController.getPatientCount';
-
-
 import searchPatients from '@salesforce/apex/APP_PatientController.searchPatients';
-
-
-
 
 export default class AppShowPatients extends LightningElement {
     search = `${iconsZip}/APP_IconsPatientRecord/search.png`;
@@ -61,7 +52,7 @@ export default class AppShowPatients extends LightningElement {
 
     handleInputChange(event) {
         this.currentTerm = event.target.value.trim().toLowerCase();
-        this.intOffset = 0; 
+        this.intOffset = 0;
 
         if (this.currentTerm.length > 2) {
             this.updateResults();
@@ -88,7 +79,7 @@ export default class AppShowPatients extends LightningElement {
     }
 
     loadPatientData(json) {
-        console.log(1);
+        console.log('json', json);
 
         json.treatments = (json.treatments || []).map((treatment, treatmentIndex) => {
             const addIndex = (arr) =>
@@ -179,7 +170,7 @@ export default class AppShowPatients extends LightningElement {
             .then(result => {
                 console.log(result);
                 console.log(JSON.stringify(result))
-                
+
                 this.listOfResults = result.patients;
                 this.totalResults = result.total;
                 this.results = result.patients.length > 0;
@@ -192,19 +183,6 @@ export default class AppShowPatients extends LightningElement {
             });
     }
 
-
-
-
-
-    // updateResults() {
-    //     const filtered = this.people.filter(person =>
-    //         person.nome.toLowerCase().includes(this.currentTerm)
-    //     );
-
-    //     this.totalResults = filtered.length;
-    //     this.listOfResults = filtered.slice(0, this.maxVisibleResults);
-    //     this.results = this.totalResults > 0;
-    // }
 
     handleViewMore() {
         this.intOffset += this.firstMaxVisibleResults;
@@ -227,23 +205,78 @@ export default class AppShowPatients extends LightningElement {
 
 
     openPatient(event) {
-
-        const cpf = event.currentTarget.dataset.id;
-
-        this.patient = this.people.find(person =>
-            person.cpf === cpf
+        const id = event.currentTarget.dataset.id;
+        this.patient = this.listOfResults.find(person =>
+            person.Id === id
         )
-        this.loadPatientData(this.apiData);
+        if (this.patient.APP_NumeroProntuario__c) {
 
-        this.dispatchEvent(new CustomEvent('patientselected', {
-            detail: {
-                patient: this.patient,
-                pageName: 'Paciente',
-                fromPage: 'Meus pacientes'
-            },
-            bubbles: true,
-            composed: true
-        }));
+            buscarProntuarioPacientePorId({ idProntuario: String(this.patient.APP_NumeroProntuario__c) })
+                .then(result => {
+                    console.log(JSON.stringify(result))
+
+                    if (result) {
+                        this.loadPatientData(result);
+                        this.dispatchEvent(new CustomEvent('patientselected', {
+                            detail: {
+                                patient: this.patient,
+                                pageName: 'Paciente',
+                                fromPage: 'Meus pacientes'
+                            },
+                            bubbles: true,
+                            composed: true
+                        }));
+                    }
+
+
+
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar prontuário:', error);
+
+                });
+
+        }
+
+        // Comentar esse else quando terminar os testes
+
+        // else {
+        //     buscarProntuarioPacientePorId(1852708).then(result => {
+        //         console.log(JSON.stringify(result))
+        //         this.loadPatientData(result);
+
+        //         this.dispatchEvent(new CustomEvent('patientselected', {
+        //             detail: {
+        //                 patient: this.patient,
+        //                 pageName: 'Paciente',
+        //                 fromPage: 'Meus pacientes'
+        //             },
+        //             bubbles: true,
+        //             composed: true
+        //         }));
+
+        //     })
+        //         .catch(error => {
+        //             console.error('Erro ao buscar prontuario:', error);
+
+        //         });
+
+        // }
+
+
+
+
+        // this.loadPatientData(this.patient);
+
+        // this.dispatchEvent(new CustomEvent('patientselected', {
+        //     detail: {
+        //         patient: this.patient,
+        //         pageName: 'Paciente',
+        //         fromPage: 'Meus pacientes'
+        //     },
+        //     bubbles: true,
+        //     composed: true
+        // }));
 
     }
 

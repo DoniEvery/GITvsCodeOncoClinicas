@@ -38,7 +38,7 @@ public without sharing class APP_PatientController {
     }
 
     @AuraEnabled(cacheable = true)
-    public static List<APP_ProfissionalListResponseDTO> listarAgendaMedicoLogado(String dateStart, String dateEnd) {
+    public static List<APP_ProfissionalListResponseDTO> listarAgendaMedicoLogado(String dateStart, String dateEnd, Integer page, Integer count) {
         try {
             String cpf = getCpfDoMedicoLogado();
 
@@ -49,7 +49,9 @@ public without sharing class APP_PatientController {
             }
 
             String prontuario = medicos[0].id;
-            List<APP_ProfissionalListResponseDTO> agendamentos = APP_ProfissionalService.listarAgendamentosFiltradosMedicos(1, 10, dateStart, dateEnd, prontuario);
+            page = (page != null) ? page : 1;
+            count = (count != null) ? count : 20;            
+            List<APP_ProfissionalListResponseDTO> agendamentos = APP_ProfissionalService.listarAgendamentosFiltradosMedicos(page, count, dateStart, dateEnd, prontuario);
 
             if (agendamentos != null) {
                 for (APP_ProfissionalListResponseDTO agendamento : agendamentos) {
@@ -291,5 +293,4 @@ public without sharing class APP_PatientController {
 
         return result;
     }
-
 }
