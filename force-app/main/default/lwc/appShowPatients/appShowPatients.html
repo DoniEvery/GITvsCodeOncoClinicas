@@ -21,24 +21,25 @@
                         <div key={person.cpf} class="patientCardContainer" data-id={person.cpf} onclick={openPatient}>
                             <div class="patientCard">
                                 <div class="containerPeopleImage">
-                                    <img src={person.photo} class="peopleImage" alt="Foto" />
+                                    <img src={person.PhotoUrl} class="peopleImage" alt="Foto" />
 
                                 </div>
                                 <div class="textContainer">
 
-                                    <span class="infoTitleText">{person.nome}</span>
+                                    <span class="infoTitleText">{person.Name}</span>
                                     <div class="infosText">
-
                                         <span>CPF:
                                             <span class="infoText">
-                                                {person.cpf}
+                                                {person.CNPJ__c}
                                             </span>
                                         </span>
+
+
                                         <span>
                                             Data Nasc.:
                                             <span class="infoText">
                                                 <lightning-formatted-date-time
-                                                                               value={person.dataNascimento}
+                                                                               value={person.PersonBirthdate}
                                                                                year="numeric"
                                                                                month="2-digit"
                                                                                day="2-digit">

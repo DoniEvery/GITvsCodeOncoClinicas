@@ -2,6 +2,17 @@ import { LightningElement, track, api } from 'lwc';
 
 import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
 import imagesZip from '@salesforce/resourceUrl/APP_imagesAPPRecordMedical';
+import buscarProntuarioPacientePorId from '@salesforce/apex/APP_PatientController.buscarProntuarioPacientePorId';
+
+// Nao vou usar mais
+import getPatientInfo from '@salesforce/apex/APP_PatientController.getPatientInfo';
+import getPatientCount from '@salesforce/apex/APP_PatientController.getPatientCount';
+
+
+import searchPatients from '@salesforce/apex/APP_PatientController.searchPatients';
+
+
+
 
 export default class AppShowPatients extends LightningElement {
     search = `${iconsZip}/APP_IconsPatientRecord/search.png`;
@@ -30,14 +41,19 @@ export default class AppShowPatients extends LightningElement {
 
     @api altura;
 
+    intOffset = 0;
+    firstMaxVisibleResults;
     totalResults = 0;
     maxVisibleResults;
-    firstMaxVisibleResults;
     currentTerm = '';
 
     @track allPlans = [];
 
     connectedCallback() {
+
+
+
+
 
         this.calcularAltura();
 
@@ -45,6 +61,7 @@ export default class AppShowPatients extends LightningElement {
 
     handleInputChange(event) {
         this.currentTerm = event.target.value.trim().toLowerCase();
+        this.intOffset = 0; 
 
         if (this.currentTerm.length > 2) {
             this.updateResults();
@@ -55,6 +72,8 @@ export default class AppShowPatients extends LightningElement {
             this.maxVisibleResults = this.firstMaxVisibleResults;
         }
     }
+
+
     calcularAltura() {
 
         // Aqui calcula quantos cards cabem na pagina
@@ -132,7 +151,7 @@ export default class AppShowPatients extends LightningElement {
             treatments: json.treatments || [],
         };
 
-        console.log("doni ", JSON.stringify(this.patient));
+        // console.log("doni ", JSON.stringify(this.patient));
 
     }
 
@@ -147,19 +166,65 @@ export default class AppShowPatients extends LightningElement {
         this.dispatchEvent(scrollEvent);
 
     }
+
+
     updateResults() {
-        const filtered = this.people.filter(person =>
-            person.nome.toLowerCase().includes(this.currentTerm)
-        );
-        this.totalResults = filtered.length;
-        this.listOfResults = filtered.slice(0, this.maxVisibleResults);
-        this.results = this.totalResults > 0;
+        this.intOffset = 0; // Sempre reinicia na primeira busca
+
+        searchPatients({
+            identificacao: this.currentTerm,
+            intOffset: this.intOffset,
+            intLimit: this.firstMaxVisibleResults
+        })
+            .then(result => {
+                console.log(result);
+                console.log(JSON.stringify(result))
+                
+                this.listOfResults = result.patients;
+                this.totalResults = result.total;
+                this.results = result.patients.length > 0;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar pacientes:', error);
+                this.listOfResults = [];
+                this.totalResults = 0;
+                this.results = false;
+            });
     }
 
+
+
+
+
+    // updateResults() {
+    //     const filtered = this.people.filter(person =>
+    //         person.nome.toLowerCase().includes(this.currentTerm)
+    //     );
+
+    //     this.totalResults = filtered.length;
+    //     this.listOfResults = filtered.slice(0, this.maxVisibleResults);
+    //     this.results = this.totalResults > 0;
+    // }
+
     handleViewMore() {
-        this.maxVisibleResults += this.firstMaxVisibleResults;
-        this.updateResults();
+        this.intOffset += this.firstMaxVisibleResults;
+
+        searchPatients({
+            identificacao: this.currentTerm,
+            intOffset: this.intOffset,
+            intLimit: this.firstMaxVisibleResults
+        })
+            .then(result => {
+                // Em vez de substituir, vamos concatenar os novos resultados
+                this.listOfResults = [...this.listOfResults, ...result.patients];
+                this.totalResults = result.total;
+                this.results = this.listOfResults.length > 0;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar mais pacientes:', error);
+            });
     }
+
 
     openPatient(event) {
 

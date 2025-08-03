@@ -1,6 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 
 import iconsZip from '@salesforce/resourceUrl/APP_IconsPatientRecord';
+import buscarProntuarioPacientePorId from '@salesforce/apex/APP_PatientController.buscarProntuarioPacientePorId';
 
 export default class AppPatientRecord extends LightningElement {
 
@@ -16,10 +17,8 @@ export default class AppPatientRecord extends LightningElement {
     connectedCallback() {
         console.log(1);
 
-        // Atualiza a lista do menu para aplicar a classe 'selected' ao item padrão.
         this.menuProntuario = this.menuProntuario.map(item => ({
             ...item,
-            // Verifica se o label do item é igual à página padrão.
             selected: item.label === this.currentPage ? 'navMenuItem selected' : 'navMenuItem'
         }));
     }
@@ -75,7 +74,7 @@ export default class AppPatientRecord extends LightningElement {
     ]
 
     tableSessions = {
-        
+
         ciclo: 'Ciclo',
         dia: 'Dia do ciclo',
         data: 'Data e hora',
