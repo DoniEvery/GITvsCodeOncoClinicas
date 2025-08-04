@@ -22,7 +22,7 @@ private class APP_LoggerTest {
         System.assertEquals('/servico/teste', log.APP_Endpoint__c);
         System.assertEquals(500, log.APP_StatusCode__c);
         System.assertEquals('Erro interno do servidor', log.APP_ReturnMessage__c);
-        System.assertEquals('Internal Server Error', log.APP_StatusDscription__c);
+        System.assertEquals('Erro interno do servidor', log.APP_StatusDscription__c);
         System.assertEquals('{ "mensagem": "erro inesperado" }', log.APP_Body__c);
     }
 }

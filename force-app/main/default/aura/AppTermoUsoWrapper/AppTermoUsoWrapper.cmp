@@ -1,4 +1,4 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens" access="global">
-    <p>Wrapper renderizado com sucesso</p>
-    <c:appTermoUsoPage />
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:availableForFlowScreens">
+    <!-- <c:appTermoUsoPage /> -->
+     <p>Wrapper renderizado com sucesso</p>
 </aura:component>

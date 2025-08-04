@@ -1,35 +1,34 @@
 <template>
     <template if:true={isOpen}>
-        <div class="lgpd-page slds-p-around_medium">
-            <h1 class="slds-text-heading_large slds-m-bottom_medium">Termo de adesão LGPD</h1>
-
-            <div class="lgpd-content slds-p-around_medium" style="max-height: 80vh; overflow-y: auto;">
-                <p>A gente se preocupa com a sua privacidade. Por isso, antes de seguir, queremos te contar como usamos seus dados aqui no app Onco Clínicas.</p>
-                <br />
-                <p><strong>📒 Quais dados coletamos?</strong></p>
-                <ul class="slds-list_dotted slds-p-left_medium">
-                    <li>Informações básicas: nome, CPF, data de nascimento, e-mail e telefone;</li>
-                    <li>Informações de saúde: resultados de exames, tratamentos, diagnósticos e evolução do seu quadro clínico;</li>
-                    <li>Informações de uso do app, como localização (se necessário) e dados técnicos de acesso.</li>
-                </ul>
-                <br />
-                <p><strong>🛠️ Para que usamos seus dados?</strong></p>
-                <ul class="slds-list_dotted slds-p-left_medium">
-                    <li>Agendar consultas e exames;</li>
-                    <li>Acompanhar seu tratamento e evolução.</li>
-                </ul>
-                <br />
-                <lightning-input 
-                    type="checkbox" 
-                    label="Li e aceito o uso dos meus dados pessoais e de saúde conforme descrito acima." 
-                    onchange={handleCheckboxChange}>
-                </lightning-input>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Termo de adesão LGPD</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" style="max-height: 400px; overflow-y: auto;">
+                    <p>A gente se preocupa com a sua privacidade. Por isso, antes de seguir, queremos te contar como usamos seus dados aqui no app Onco Clínicas.</p>
+                    <br />
+                    <p><strong>📒 Quais dados coletamos?</strong></p>
+                    <ul class="slds-list_dotted slds-p-left_medium">
+                        <li>Informações básicas: nome, CPF, data de nascimento, e-mail e telefone;</li>
+                        <li>Informações de saúde: resultados de exames, tratamentos, diagnósticos e evolução do seu quadro clínico;</li>
+                        <li>Informações de uso do app, como localização (se necessário) e dados técnicos de acesso.</li>
+                    </ul>
+                    <br />
+                    <p><strong>🛠️ Para que usamos seus dados?</strong></p>
+                    <ul class="slds-list_dotted slds-p-left_medium">
+                        <li>Agendar consultas e exames;</li>
+                        <li>Acompanhar seu tratamento e evolução.</li>
+                    </ul>
+                    <br />
+                    <lightning-input type="checkbox" label="Li e aceito o uso dos meus dados pessoais e de saúde conforme descrito acima." onchange={handleCheckboxChange}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer slds-grid slds-grid_align-spread">
+                    <lightning-button variant="neutral" label="Voltar" onclick={handleClose}></lightning-button>
+                    <lightning-button variant="brand" label="Continuar" onclick={handleContinue} disabled={isDisabled}></lightning-button>
+                </footer>
             </div>
-
-            <div class="lgpd-actions slds-m-top_large slds-grid slds-grid_align-spread">
-                <lightning-button variant="neutral" label="Voltar" onclick={handleClose}></lightning-button>
-                <lightning-button variant="brand" label="Continuar" onclick={handleContinue} disabled={isDisabled}></lightning-button>
-            </div>
-        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
 </template>

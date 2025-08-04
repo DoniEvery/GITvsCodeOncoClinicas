@@ -116,9 +116,6 @@ export default class AppSidebar extends LightningElement {
             case 'faleconosco':
                 label = 'Fale conosco';
                 break;
-            case 'checkin':
-                label = 'Pré checkin';
-                break;
             default:
                 label = '';
         }

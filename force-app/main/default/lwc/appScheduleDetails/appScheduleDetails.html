@@ -24,14 +24,9 @@
                     <p>{nomeUnidade}</p>
                 </div>
                 <div>
-                    <template if:true={isMedico}>
-                        <p class="label">Paciente</p>
-                    </template>
-                    <template if:false={isMedico}>
-                        <p class="label">Médico</p>
-                    </template>
+                    <p class="label">Médico</p>
                     <p>{nomeMedico}</p>
-                </div>                
+                </div>
                 <div>
                     <p class="label">Especialidade</p>
                     <p>{especialidade}</p>

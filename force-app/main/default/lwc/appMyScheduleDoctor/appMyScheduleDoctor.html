@@ -74,7 +74,13 @@
                                     </div>
                                 </div>
                             </div>
-            
+                
+                            <div class="linha-card"></div>
+                
+                            <div class="consulta-actions">
+                                <button class="cancel-home">Cancelar</button>
+                                <button class="confirm-home" onclick={abrirModalConfirmacao}>Confirmar</button>
+                            </div>
                         </div>
                 </template>
             </div>
@@ -137,6 +143,13 @@
                                             </div>
                                         </div>
                                     </div>
+        
+                                    <div class="linha-card"></div>
+        
+                                    <div class="consulta-actions">
+                                        <button class="cancel">Cancelar</button>
+                                        <button class="confirm" onclick={abrirModalConfirmacao}>Confirmar</button>
+                                    </div>
                                 </div>
                             </template>
                         </template>
@@ -149,7 +162,7 @@
         <!-- Caso não tenha agenda -->
         <template if:true={showNoAgendaAndModoHome}>
             <div class="no-agenda-container">
-              <p class="no-agenda-message">Não há consultas agendadas para hoje.</p>
+              <p class="no-agenda-message">Não há consultas agendadas.</p>
             </div>
         </template>
           
