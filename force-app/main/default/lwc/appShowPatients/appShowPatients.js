@@ -155,7 +155,7 @@ export default class AppShowPatients extends LightningElement {
 
     renderedCallback() {
 
-        // a pagina estava sempre sendo carregada na metade, e nao me permitua dar o scroll, ai fui no avo e dei o scroll
+        // a pagina estava sempre sendo carregada na metade, e nao me permitia dar o scroll, ai fui no avo e dei o scroll
         const scrollEvent = new CustomEvent('scrolltoprequest', {
             bubbles: true,
             composed: true
@@ -174,8 +174,6 @@ export default class AppShowPatients extends LightningElement {
             intLimit: this.firstMaxVisibleResults
         })
             .then(result => {
-                console.log(result);
-                console.log(JSON.stringify(result))
 
                 this.listOfResults = result.patients;
                 this.totalResults = result.total;
@@ -199,7 +197,6 @@ export default class AppShowPatients extends LightningElement {
             intLimit: this.firstMaxVisibleResults
         })
             .then(result => {
-                // Em vez de substituir, vamos concatenar os novos resultados
                 this.listOfResults = [...this.listOfResults, ...result.patients];
                 this.totalResults = result.total;
                 this.results = this.listOfResults.length > 0;
@@ -222,7 +219,6 @@ export default class AppShowPatients extends LightningElement {
 
             buscarProntuarioPacientePorId({ idProntuario: String(this.patient.APP_NumeroProntuario__c) })
                 .then(result => {
-                    console.log(JSON.stringify(result))
                     if (result) {
                         this.loadPatientData(result);
                         this.dispatchEvent(new CustomEvent('patientselected', {

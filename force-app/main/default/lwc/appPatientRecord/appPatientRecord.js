@@ -45,7 +45,6 @@ export default class AppPatientRecord extends LightningElement {
         this.menuPatient = this.menuPatient.map(item => {
             if (item.label === 'Prontuário') {
                 const isInactive = !this.patient?.treatments || this.patient.treatments.length === 0;
-                console.log(1111111);
 
                 return {
                     ...item,
@@ -148,9 +147,7 @@ export default class AppPatientRecord extends LightningElement {
             };
         });
 
-        console.log(JSON.stringify(this.menuProntuario))
 
-        // Adiciona um atraso de 100 milissegundos
         this.dispatchEvent(new CustomEvent('navigate', {
             detail: {
                 pageName: pageName,
@@ -165,8 +162,7 @@ export default class AppPatientRecord extends LightningElement {
 
     handleClickVewDetailTratamentos(event) {
         const id = event.currentTarget.dataset.id;
-        console.log(
-            'ID clicado:', id);
+   
 
         const clonedPatient = JSON.parse(JSON.stringify(this.patient));
         clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
@@ -190,8 +186,7 @@ export default class AppPatientRecord extends LightningElement {
     }
     handleClickDiagnostico(event) {
         const id = event.currentTarget.dataset.id;
-        console.log(
-            'ID clicado:', id);
+     
 
         const clonedPatient = JSON.parse(JSON.stringify(this.patient));
         clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
@@ -210,8 +205,7 @@ export default class AppPatientRecord extends LightningElement {
     handleClickViewProgress(event) {
         event.stopPropagation();
         const id = event.currentTarget.dataset.id;
-        console.log(
-            'ID clicado:', id);
+
 
 
         const clonedPatient = JSON.parse(JSON.stringify(this.patient));
@@ -238,11 +232,8 @@ export default class AppPatientRecord extends LightningElement {
     }
 
     closeModal(event) {
-        console.log(4);
         event.stopPropagation();
-        console.log(5);
         this.isModalOpen = false;
-        console.log(6);
     }
 
     // pages
