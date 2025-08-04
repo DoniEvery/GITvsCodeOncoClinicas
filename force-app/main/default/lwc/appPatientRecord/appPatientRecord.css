@@ -791,6 +791,17 @@
         align-items: center;
     }
 
+    .menuCardContainer.inativo {
+        width: 100%;
+        height: 156px;
+        justify-content: center;
+        align-items: center;
+        background-color: #dbdbdb;
+        pointer-events: none;
+        box-shadow: none;
+
+    }
+
     .menuCardContainer:hover {
         transform: translateY(-4px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);

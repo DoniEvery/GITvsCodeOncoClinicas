@@ -7,6 +7,28 @@ export default class AppPatientRecord extends LightningElement {
     menuSessions = `${iconsZip}/APP_IconsPatientRecord/menuSessions.svg`;
     fechar = `${iconsZip}/APP_IconsPatientRecord/fechar.svg`;
 
+
+    _currentPage;
+    _patient;
+    @api
+    set patient(value) {
+        if (value) {
+            this._patient = value;
+        }
+    }
+    @api
+    set currentPage(value) {
+        if (value) {
+            this._currentPage = value;
+        }
+    }
+    get currentPage() {
+        return this._currentPage;
+    }
+    get patient() {
+        return this._patient;
+    }
+
     @track detailsClick = false;
     @track showDetails = false;
     @track openInfos = false;
@@ -18,23 +40,40 @@ export default class AppPatientRecord extends LightningElement {
             ...item,
             selected: item.label === this.currentPage ? 'navMenuItem selected' : 'navMenuItem'
         }));
-    }
 
+
+        this.menuPatient = this.menuPatient.map(item => {
+            if (item.label === 'Prontuário') {
+                const isInactive = !this.patient?.treatments || this.patient.treatments.length === 0;
+                console.log(1111111);
+
+                return {
+                    ...item,
+                    menuPatientClass: isInactive ? 'menuCardContainer inativo' : 'menuCardContainer',
+                    helpText: isInactive ? 'Paciente sem número de protocolo' : ''
+                };
+            }
+            return item;
+        });
+
+    }
+    @track
     menuPatient = [
         {
             label: 'Prontuário',
-            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'clinical_notes.svg'
-
-
+            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'clinical_notes.svg',
+            menuPatientClass: 'menuCardContainer'
         },
         {
             label: 'Enviar arquivos',
-            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'attach_file.svg'
+            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'attach_file.svg',
+            menuPatientClass: 'menuCardContainer'
 
         },
         {
             label: 'Solicitar exames',
-            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'conditions.svg'
+            icon: `${iconsZip}/APP_IconsPatientRecord/` + 'conditions.svg',
+            menuPatientClass: 'menuCardContainer'
         }
     ]
 
@@ -77,28 +116,6 @@ export default class AppPatientRecord extends LightningElement {
         session: 'Status'
     }
 
-
-
-    _currentPage;
-    _patient;
-    @api
-    set patient(value) {
-        if (value) {
-            this._patient = value;
-        }
-    }
-    @api
-    set currentPage(value) {
-        if (value) {
-            this._currentPage = value;
-        }
-    }
-    get currentPage() {
-        return this._currentPage;
-    }
-    get patient() {
-        return this._patient;
-    }
 
     handleClickDetails() {
         this.detailsClick = !this.detailsClick;

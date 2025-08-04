@@ -5,17 +5,22 @@
 
             <div class="patientCard">
                 <div class="containerPeopleImage">
-                    <img src={patient.photo} class="peopleImage" alt="Foto" />
+                    <template if:true={patient.APP_FotoPerfil__c}>
+                        <img src={patient.APP_FotoPerfil__c} class="peopleImage" alt="Foto" />
+                    </template>
+                    <template if:false={patient.APP_FotoPerfil__c}>
+                        <img src={patient.PhotoUrl} class="peopleImage" alt="Foto" />
+                    </template>
 
                 </div>
                 <div class="textContainer">
 
-                    <span class="infoTitleText">{patient.nome}</span>
+                    <span class="infoTitleText">{patient.Name}</span>
                     <div class="infosTextCard">
 
                         <span>CPF:
                             <span class="infoText">
-                                {patient.cpf}
+                                {patient.CNPJ__c}
                             </span>
                         </span>
                         <span>
@@ -23,7 +28,7 @@
                             <span class="infoText">
 
                                 <lightning-formatted-date-time
-                                                               value={patient.dataNascimento}
+                                                               value={patient.PersonBirthdate}
                                                                year="numeric"
                                                                month="2-digit"
                                                                day="2-digit">
@@ -50,35 +55,35 @@
                 <div class="showDetailsRightCollumn">
                     <span class="showDetailsClassTextContainer">
                         Altura
-                        <span class="showDetailsClassText"> {patient.altura}m </span>
+                        <span class="showDetailsClassText"> {patient.height}</span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Peso
-                        <span class="showDetailsClassText"> {patient.peso}Kg </span>
+                        <span class="showDetailsClassText"> {patient.weight}</span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Sexo
-                        <span class="showDetailsClassText"> {patient.sexo} </span>
+                        <span class="showDetailsClassText"> {patient.HealthCloudGA__Gender__pc} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Prontuário
-                        <span class="showDetailsClassText"> {patient.prontuario} </span>
+                        <span class="showDetailsClassText"> {patient.APP_NumeroProntuario__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Filiação 1
-                        <span class="showDetailsClassText"> {patient.filiacao1} </span>
+                        <span class="showDetailsClassText"> {patient.APP_Filiacao1__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Filiação 2
-                        <span class="showDetailsClassText"> {patient.filiacao2} </span>
+                        <span class="showDetailsClassText"> {patient.APP_Filiacao2__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Telefone
-                        <span class="showDetailsClassText"> {patient.telefone} </span>
+                        <span class="showDetailsClassText"> {patient.Telefone__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Email
-                        <span class="showDetailsClassText"> {patient.email} </span>
+                        <span class="showDetailsClassText"> {patient.PersonEmail} </span>
                     </span>
                 </div>
             </div>
@@ -86,7 +91,7 @@
         <template if:true={isPatientPage}>
             <div class="menusContainer">
                 <template for:each={menuPatient} for:item="itemMenu">
-                    <div key={itemMenu.label} class="menuCardContainer" onclick={handleClickPatientMenu} data-name={itemMenu.label}>
+                    <div key={itemMenu.label} class={itemMenu.menuPatientClass} onclick={handleClickPatientMenu} data-name={itemMenu.label}>
                         <div class="infoTextCard desktopChanges">
                             <img src={itemMenu.icon} class="details-icon-card" alt="Ícone" />{itemMenu.label}
                         </div>

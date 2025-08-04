@@ -9,23 +9,8 @@ export default class AppShowPatients extends LightningElement {
     search = `${iconsZip}/APP_IconsPatientRecord/search.png`;
     details = `${iconsZip}/APP_IconsPatientRecord/docs_add_on.svg`;
 
-
-
-
-    @track patient = {
-        nome: '',
-        photo: '',
-        cpf: '',
-        dataNascimento: '',
-        altura: 0,
-        peso: 0,
-        sexo: '',
-        filiacao1: '',
-        filiacao2: '',
-        telefone: '',
-        email: '',
-        prontuario: ''
-    };
+    @track isLoading = false;
+    @track patient;
 
     @track listOfResults = [];
     @track results = false;
@@ -38,14 +23,8 @@ export default class AppShowPatients extends LightningElement {
     maxVisibleResults;
     currentTerm = '';
 
-    @track allPlans = [];
 
     connectedCallback() {
-
-
-
-
-
         this.calcularAltura();
 
     }
@@ -79,8 +58,18 @@ export default class AppShowPatients extends LightningElement {
     }
 
     loadPatientData(json) {
-        console.log('json', json);
+        let weight = null;
+        let height = null;
 
+        if (Array.isArray(json.observations)) {
+            for (let obs of json.observations) {
+                if (obs.type === 'BodyWeight' && weight === null) {
+                    weight = obs.value + obs.unit;
+                } else if (obs.type === 'BodyHeight' && height === null) {
+                    height = obs.value + obs.unit;
+                }
+            }
+        }
         json.treatments = (json.treatments || []).map((treatment, treatmentIndex) => {
             const addIndex = (arr) =>
                 Array.isArray(arr) && arr.length > 0
@@ -91,13 +80,27 @@ export default class AppShowPatients extends LightningElement {
                 const updatedSessions = (plan.sessions || []).map(session => {
                     const firstState = Array.isArray(session.state) ? session.state[0] : session.state;
 
-                    const stateClass = firstState === 'pending-prescription'
-                        ? 'stateClasspending'
-                        : 'stateClassCompleted';
+                    const stateTranslations = {
+                        'released-prescription': 'Prescrição liberada',
+                        'pending-prescription': 'Prescrição pendente',
+                        'suspended-prescription': 'Prescrição suspensa',
+                        'pending-prescription-signature': 'Assinatura da prescrição pendente',
+                        'authorized-cycle': 'Ciclo autorizado',
+                        'attended-day': 'Concluído',
+                        'release-required': 'Liberação necessária',
+                        'suspended-day': 'Dia suspenso'
+                    };
 
-                    const translatedState = firstState === 'pending-prescription'
-                        ? 'Pendente'
-                        : firstState;
+                    const pendingStates = new Set([
+                        'attended-day', 'released-prescription'
+                    ]);
+
+                    const stateClass = pendingStates.has(firstState)
+                        ? 'stateClassCompleted'
+                        : 'stateClasspending';
+
+                    const translatedState = stateTranslations[firstState] || firstState;
+
 
                     return {
                         ...session,
@@ -133,16 +136,19 @@ export default class AppShowPatients extends LightningElement {
             };
         });
 
+        if (!this.patient.PersonBirthdate) {
+            this.patient.PersonBirthdate = '';
+        }
 
         this.patient = {
             ...this.patient,
+            weight: weight,
+            height: height,
             observations: json.observations || [],
             allergies: json.allergies || [],
             medications: json.medications || [],
             treatments: json.treatments || [],
         };
-
-        // console.log("doni ", JSON.stringify(this.patient));
 
     }
 
@@ -160,7 +166,7 @@ export default class AppShowPatients extends LightningElement {
 
 
     updateResults() {
-        this.intOffset = 0; // Sempre reinicia na primeira busca
+        this.intOffset = 0;
 
         searchPatients({
             identificacao: this.currentTerm,
@@ -205,16 +211,18 @@ export default class AppShowPatients extends LightningElement {
 
 
     openPatient(event) {
+        this.isLoading = true;
         const id = event.currentTarget.dataset.id;
         this.patient = this.listOfResults.find(person =>
             person.Id === id
         )
+
+
         if (this.patient.APP_NumeroProntuario__c) {
 
             buscarProntuarioPacientePorId({ idProntuario: String(this.patient.APP_NumeroProntuario__c) })
                 .then(result => {
                     console.log(JSON.stringify(result))
-
                     if (result) {
                         this.loadPatientData(result);
                         this.dispatchEvent(new CustomEvent('patientselected', {
@@ -227,56 +235,33 @@ export default class AppShowPatients extends LightningElement {
                             composed: true
                         }));
                     }
-
-
-
+                    this.isLoading = false;
                 })
                 .catch(error => {
                     console.error('Erro ao buscar prontuário:', error);
+                    this.isLoading = false;
 
                 });
 
         }
 
-        // Comentar esse else quando terminar os testes
 
-        // else {
-        //     buscarProntuarioPacientePorId(1852708).then(result => {
-        //         console.log(JSON.stringify(result))
-        //         this.loadPatientData(result);
+        else {
+            this.dispatchEvent(new CustomEvent('patientselected', {
+                detail: {
+                    patient: this.patient,
+                    pageName: 'Paciente',
+                    fromPage: 'Meus pacientes'
+                },
+                bubbles: true,
+                composed: true
+            }));
+            this.isLoading = false;
 
-        //         this.dispatchEvent(new CustomEvent('patientselected', {
-        //             detail: {
-        //                 patient: this.patient,
-        //                 pageName: 'Paciente',
-        //                 fromPage: 'Meus pacientes'
-        //             },
-        //             bubbles: true,
-        //             composed: true
-        //         }));
-
-        //     })
-        //         .catch(error => {
-        //             console.error('Erro ao buscar prontuario:', error);
-
-        //         });
-
-        // }
+        }
 
 
 
-
-        // this.loadPatientData(this.patient);
-
-        // this.dispatchEvent(new CustomEvent('patientselected', {
-        //     detail: {
-        //         patient: this.patient,
-        //         pageName: 'Paciente',
-        //         fromPage: 'Meus pacientes'
-        //     },
-        //     bubbles: true,
-        //     composed: true
-        // }));
 
     }
 
@@ -302,472 +287,4 @@ export default class AppShowPatients extends LightningElement {
         return this.allPlans && this.allPlans.length > 0;
     }
 
-
-
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    // APAGAR DEPOIS DE INTEGRAR, DADOS SOMENTE DE TESTE
-
-
-
-
-    people = [
-        {
-            nome: 'Gustavo Mioto',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'mioto.png',
-            cpf: '123.456.789-01',
-            dataNascimento: '1990-05-12',
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            // altura: 1.81, dentro do observation
-            // peso: 81,
-            prontuario: 'Informação',
-            observations: [],
-            allergies: [],
-            medications: []
-
-        },
-        {
-            nome: 'Gustavo Bertoni',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'bertoni.png',
-            cpf: '123.456.789-02',
-            dataNascimento: '1990-05-12',
-            altura: 1.81,
-            peso: 81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-        {
-            nome: 'Gustavo Gaitero',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'gaitero.jpg',
-            cpf: '123.456.789-03',
-            dataNascimento: '1990-05-12',
-            peso: 81,
-            altura: 1.81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação',
-            prontuarios: this.prontuarios,
-            diagnosticos: this.diagnosticos
-        },
-        {
-            nome: 'Gustavo Gomes',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'gomes.png',
-            cpf: '123.456.789-04',
-            dataNascimento: '1990-05-12',
-            peso: 81,
-            altura: 1.81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-        {
-            nome: 'Gustavo Kuerten',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'kuerten.jpg',
-            cpf: '123.456.789-05',
-            peso: 81,
-            dataNascimento: '1990-05-12',
-            altura: 1.81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-        {
-            nome: 'Gustavo Liberato',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'liberato.jpg',
-            cpf: '123.456.789-06',
-            dataNascimento: '1990-05-12',
-            peso: 81,
-            altura: 1.81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-        {
-            nome: 'Gustavo Lima',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'lima.png',
-            cpf: '123.456.789-07',
-            dataNascimento: '1990-05-12',
-            altura: 1.81,
-            peso: 81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-        {
-            nome: 'Gustavo scarpa',
-            photo: `${imagesZip}/APP_imagesAPPRecordMedical/` + 'scarpa.png',
-            cpf: '123.456.789-08',
-            dataNascimento: '1990-05-12',
-            peso: 81,
-            altura: 1.81,
-            sexo: 'Masculino',
-            filiacao1: 'Jose',
-            filiacao2: 'Maria',
-            telefone: '32187861',
-            email: 'mioto@msn.com',
-            prontuario: 'Informação'
-        },
-
-    ];
-
-    apiData = {
-        "observations": [
-            {
-                "id": 4573597,
-                "type": "BodyWeight",
-                "date": "2025-06-10T11:14:49",
-                "encounter": 4856865,
-                "patient": 4856865,
-                "unit": "Kg",
-                "value": 80
-            },
-            {
-                "id": 4573597,
-                "type": "BodyHeight",
-                "date": "2025-06-10T11:14:49",
-                "encounter": 4856865,
-                "patient": 4856865,
-                "unit": "cm",
-                "value": 180
-            }
-        ],
-        "allergies": [
-            {
-                "id": 439264,
-                "date": "2025-05-29T14:03:53",
-                "encounter": 4856587,
-                "patient": 4856587,
-                "substance": "Látex",
-                "reaction": "N/A"
-            }
-        ],
-        "medications": [
-            {
-                "id": 382059,
-                "date": "2025-07-23T10:31:39",
-                "patient": "1852708",
-                "description": "Atenolol",
-                "dosageQuantity": null,
-                "dosageUnit": null
-            }
-        ],
-        "treatments": [
-            {
-                "id": "2438019.790633",
-                "diagnosis": {
-                    "id": 790633,
-                    "date": "2025-07-23T11:28:27",
-                    "disease": {
-                        "code": "Anemia Por Deficiência de Ferro",
-                        "description": "Anemia Por Deficiência de Ferro"
-                    },
-                    "topografy": {
-                        "code": "D50.9",
-                        "description": "Anemia Por Deficiência de Ferro Não Especificada"
-                    },
-                    "morfology": {
-                        "code": "9980/1",
-                        "description": "Anemia refrataria, SOE"
-                    },
-                    "physician": {
-                        "code": "100",
-                        "name": "Mariana Tosello Laloni"
-                    },
-                    "unitCare": {
-                        "code": 4,
-                        "description": "QAS_200525 | CPO Faria Lima"
-                    }
-                },
-                "anamnesis": [],
-                "evolution": [
-                    {
-                        "description": "EVOLUÇÃO PACIENTE GABRIELA",
-                        "complement": "RESUMO PACIENTE GABRIELA",
-                        "date": "2025-07-23T11:26:39",
-                        "conduct": null
-                    }
-                ],
-                "conducts": [
-                    {
-                        "description": "CONDUTA PACIENTE GABRIELA",
-                        "date": "2025-07-23T11:31:57"
-                    }
-                ],
-                "diagnosticImpression": [],
-                "plans": [
-                    {
-                        "physician": "849545",
-                        "summary": "Preferencial/Acido Zoledrônico 4mg IV D1 a cada 1 ano",
-                        "protocolKey": "209.293",
-                        "startDate": "1987-05-07T16:00:00",
-                        "lastSessionDate": null,
-                        "sessions": [
-                            {
-                                "id": 5689562,
-                                "cycle": 1,
-                                "day": "D1",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-07-25T16:00:00",
-                                "realDate": "2025-07-25T09:00:00"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "id": "2437949.790627",
-                "diagnosis": {
-                    "id": 790627,
-                    "date": "2025-07-02T16:09:39",
-                    "disease": {
-                        "code": "Neoplasia Maligna de Outras Glândulas Endócrinas e de Estruturas Relacionadas",
-                        "description": "Neoplasia Maligna de Outras Glândulas Endócrinas e de Estruturas Relacionadas"
-                    },
-                    "topografy": {
-                        "code": "C75.0",
-                        "description": "Neoplasia Maligna da Glândula Paratireóide"
-                    },
-                    "morfology": {
-                        "code": "8000/0",
-                        "description": "Neoplasia Benigna"
-                    },
-                    "physician": {
-                        "code": "849545",
-                        "name": "Bianca Pinna Pascual"
-                    },
-                    "unitCare": {
-                        "code": 4,
-                        "description": "QAS_200525 | CPO Faria Lima"
-                    }
-                },
-                "anamnesis": [
-                    {
-                        "complaint": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "hpma": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "isda": "N",
-                        "date": "2025-05-30T09:16:14"
-                    }
-                ],
-                "evolution": [],
-                "conducts": [
-                    {
-                        "description": "AETEESSATE",
-                        "date": "2025-05-30T09:17:03"
-                    }
-                ],
-                "diagnosticImpression": [],
-                "plans": null
-            },
-            {
-                "id": "2437949.790613",
-                "diagnosis": {
-                    "id": 790613,
-                    "date": "2025-05-30T09:17:53",
-                    "disease": {
-                        "code": "Imunodeficiência Com Predominância de Defeitos de Anticorpos",
-                        "description": "Imunodeficiência Com Predominância de Defeitos de Anticorpos"
-                    },
-                    "topografy": {
-                        "code": "D80.6",
-                        "description": "Deficiência de Anticorpos Com Imunoglobulinas Próximas do Normal ou Com Hiperimunoglobulinemia"
-                    },
-                    "morfology": {
-                        "code": null,
-                        "description": null
-                    },
-                    "physician": {
-                        "code": "849545",
-                        "name": "Bianca Pinna Pascual"
-                    },
-                    "unitCare": {
-                        "code": 4,
-                        "description": "QAS_200525 | CPO Faria Lima"
-                    }
-                },
-                "anamnesis": [
-                    {
-                        "complaint": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "hpma": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "isda": "N",
-                        "date": "2025-05-30T09:16:14"
-                    }
-                ],
-                "evolution": [],
-                "conducts": [
-                    {
-                        "description": "AETEESSATE",
-                        "date": "2025-05-30T09:17:03"
-                    }
-                ],
-                "diagnosticImpression": [],
-                "plans": [
-                    {
-                        "physician": "849545",
-                        "summary": "Imunomediados/Imunoglobulina (Endobulin e Gamunex) 400mg/kg a 800mg/kg SC  - a cada 28 dias",
-                        "protocolKey": "208.167",
-                        "startDate": "2025-05-30T15:00:00",
-                        "lastSessionDate": "2025-06-27T08:30:00",
-                        "sessions": [
-                            {
-                                "id": 5689261,
-                                "cycle": 1,
-                                "day": "D1",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-05-30T15:00:00",
-                                "realDate": "2025-05-30T11:00:00"
-                            },
-                            {
-                                "id": 5689262,
-                                "cycle": 2,
-                                "day": "D2",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-06-27T15:00:00",
-                                "realDate": "2025-06-27T08:30:00"
-                            },
-                            {
-                                "id": 5689263,
-                                "cycle": 3,
-                                "day": "D3",
-                                "state": [
-                                    "Completed"
-                                ],
-                                "expectedDate": "2025-07-25T15:00:00",
-                                "realDate": "2025-07-25T10:00:00"
-                            },
-                            {
-                                "id": 5689264,
-                                "cycle": 4,
-                                "day": "D4",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-08-22T15:00:00",
-                                "realDate": "2025-08-22T14:00:00"
-                            },
-                            {
-                                "id": 5689265,
-                                "cycle": 5,
-                                "day": "D5",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-09-19T15:00:00",
-                                "realDate": "2025-09-19T15:00:00"
-                            },
-                            {
-                                "id": 5689266,
-                                "cycle": 6,
-                                "day": "D6",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-10-17T15:00:00",
-                                "realDate": "2025-10-17T15:00:00"
-                            },
-                            {
-                                "id": 5689267,
-                                "cycle": 7,
-                                "day": "D7",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-11-14T15:00:00",
-                                "realDate": "2025-11-14T15:00:00"
-                            },
-                            {
-                                "id": 5689268,
-                                "cycle": 8,
-                                "day": "D8",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2025-12-12T15:00:00",
-                                "realDate": "2025-12-12T15:00:00"
-                            },
-                            {
-                                "id": 5689269,
-                                "cycle": 9,
-                                "day": "D9",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2026-01-09T15:00:00",
-                                "realDate": "2026-01-09T15:00:00"
-                            },
-                            {
-                                "id": 5689270,
-                                "cycle": 10,
-                                "day": "D10",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2026-02-06T15:00:00",
-                                "realDate": "2026-02-06T15:00:00"
-                            },
-                            {
-                                "id": 5689271,
-                                "cycle": 11,
-                                "day": "D11",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2026-03-06T15:00:00",
-                                "realDate": "2026-03-06T15:00:00"
-                            },
-                            {
-                                "id": 5689272,
-                                "cycle": 12,
-                                "day": "D12",
-                                "state": [
-                                    "pending-prescription"
-                                ],
-                                "expectedDate": "2026-04-03T15:00:00",
-                                "realDate": "2026-04-03T15:00:00"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
 }

@@ -1,87 +1,102 @@
 <template>
+    <template if:true={isLoading}>
+        <div class="loading-spinner-container">
+            <lightning-spinner alternative-text="Carregando..." size="medium"></lightning-spinner>
 
-    <div class="maxContent" style={maxContentStyle}>
-        <div class="input-container">
-            <label for="inputText" class="input-label">Buscar paciente</label>
-            <div class="input-wrapper">
-                <img src={search} class="input-icon" alt="Ícone" />
-                <input
-                       id="inputText"
-                       type="text"
-                       class="input-field"
-                       onkeyup={handleInputChange}
-                       placeholder="Nome, nº de prontuário, CPF ou RNE" />
-            </div>
+            <div class="loading-text">Aguarde o carregamento do prontuário...</div>
         </div>
-        <template if:true={results}>
-            <div class="secondContainer">
-                <div class="peoplesContainer">
+    </template>
 
-                    <template for:each={listOfResults} for:item="person">
-                        <div key={person.Id} class="patientCardContainer" data-id={person.Id} onclick={openPatient}>
-                            <div class="patientCard">
-                                <div class="containerPeopleImage">
-                                    <img src={person.PhotoUrl} class="peopleImage" alt="Foto" />
+    <template if:false={isLoading}>
 
-                                </div>
-                                <div class="textContainer">
 
-                                    <span class="infoTitleText">{person.Name}</span>
-                                    <div class="infosText">
-                                        <span>CPF:
-                                            <span class="infoText">
-                                                {person.CNPJ__c}
+        <div class="maxContent" style={maxContentStyle}>
+            <div class="input-container">
+                <label for="inputText" class="input-label">Buscar paciente</label>
+                <div class="input-wrapper">
+                    <img src={search} class="input-icon" alt="Ícone" />
+                    <input
+                           id="inputText"
+                           type="text"
+                           class="input-field"
+                           onkeyup={handleInputChange}
+                           placeholder="Nome, nº de prontuário, CPF ou RNE" />
+                </div>
+            </div>
+            <template if:true={results}>
+                <div class="secondContainer">
+                    <div class="peoplesContainer">
+                        <template for:each={listOfResults} for:item="person">
+                            <div key={person.Id} class="patientCardContainer" data-id={person.Id} onclick={openPatient}>
+                                <div class="patientCard">
+                                    <div class="containerPeopleImage">
+                                        <template if:true={person.APP_FotoPerfil__c}>
+                                            <img src={person.APP_FotoPerfil__c} class="peopleImage" alt="Foto" />
+                                        </template>
+                                        <template if:false={person.APP_FotoPerfil__c}>
+                                            <img src={person.PhotoUrl} class="peopleImage" alt="Foto" />
+                                        </template>
+
+                                    </div>
+                                    <div class="textContainer">
+
+                                        <span class="infoTitleText">{person.Name} </span>
+                                        <div class="infosText">
+                                            <span>CPF:
+                                                <span class="infoText">
+                                                    {person.CNPJ__c}
+                                                </span>
                                             </span>
-                                        </span>
 
 
-                                        <span>
-                                            Data Nasc.:
-                                            <span class="infoText">
-                                                <lightning-formatted-date-time
-                                                                               value={person.PersonBirthdate}
-                                                                               year="numeric"
-                                                                               month="2-digit"
-                                                                               day="2-digit">
-                                                </lightning-formatted-date-time>
+                                            <span>
+                                                Data Nasc.:
+                                                <span class="infoText">
+                                                    <lightning-formatted-date-time
+                                                                                   value={person.PersonBirthdate}
+                                                                                   year="numeric"
+                                                                                   month="2-digit"
+                                                                                   day="2-digit">
+                                                    </lightning-formatted-date-time>
 
 
 
+                                                </span>
                                             </span>
-                                        </span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="iconPatientCard ">
+                                    <lightning-icon
+                                                    icon-name="utility:chevronright"
+                                                    alternative-text="chevronright"
+                                                    size="x-small"
+                                                    title="large size"
+                                                    variant="default"></lightning-icon>
+                                </div>
                             </div>
-                            <div class="iconPatientCard ">
-                                <lightning-icon
-                                                icon-name="utility:chevronright"
-                                                alternative-text="chevronright"
-                                                size="x-small"
-                                                title="large size"
-                                                variant="default"></lightning-icon>
-                            </div>
-                        </div>
-                    </template>
+                        </template>
+                    </div>
+
+                    <div class="buttonContainer">
+
+                        <p class="listOfResultsText">
+                            Visualizando {listOfResults.length} de {totalResults} resultados
+                        </p>
+
+                        <template if:true={showViewMoreButton}>
+                            <button
+                                    class="view-more-button"
+
+                                    onclick={handleViewMore}>Visualizar mais resultados
+                            </button>
+                        </template>
+                    </div>
                 </div>
 
-                <div class="buttonContainer">
 
-                    <p class="listOfResultsText">
-                        Visualizando {listOfResults.length} de {totalResults} resultados
-                    </p>
-
-                    <template if:true={showViewMoreButton}>
-                        <button
-                                class="view-more-button"
-
-                                onclick={handleViewMore}>Visualizar mais resultados
-                        </button>
-                    </template>
-                </div>
-            </div>
-
-
-        </template>
-    </div>
+            </template>
+        </div>
+    </template>
 
 </template>
