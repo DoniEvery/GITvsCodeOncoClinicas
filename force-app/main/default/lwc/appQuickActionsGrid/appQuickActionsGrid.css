@@ -62,6 +62,8 @@
         /* display: flex;
         flex-wrap: wrap;
         justify-content: flex-start; */
+        grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+
         gap: 0.5rem;
         padding: 0rem;
         padding-right: 0rem;
