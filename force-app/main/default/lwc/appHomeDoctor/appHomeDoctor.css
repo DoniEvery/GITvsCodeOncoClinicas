@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
-    padding: 8px 12px; 
+    padding: 8px 12px;
     margin-bottom: 16px;
     background-color: #F6F6F6;
 }
@@ -60,15 +60,19 @@
     background-color: #0CA29C;
     color: #fff;
     border: none;
-    padding: 0.3rem 0.6rem; /* Menor altura e largura */
+    padding: 0.3rem 0.6rem;
+    /* Menor altura e largura */
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 400;
     margin-top: 0.5rem;
-    width: auto; /* Largura justa ao conteúdo */
-    display: inline-block; /* Garante que o botão só ocupe o necessário */
-    align-self: flex-start; /* Alinha à esquerda no container flex, se aplicável */
+    width: auto;
+    /* Largura justa ao conteúdo */
+    display: inline-block;
+    /* Garante que o botão só ocupe o necessário */
+    align-self: flex-start;
+    /* Alinha à esquerda no container flex, se aplicável */
 }
 
 .button-teleconsulta:hover {
@@ -77,7 +81,8 @@
 
 .botao-container {
     display: flex;
-    justify-content: flex-start; /* Alinha o botão à esquerda */
+    justify-content: flex-start;
+    /* Alinha o botão à esquerda */
 }
 
 .back-button {
@@ -98,7 +103,7 @@
     justify-content: space-between;
     border: 2px solid #93E9E1;
     border-radius: 10px;
-    padding: 8px 12px; 
+    padding: 8px 12px;
     margin-bottom: 16px;
     background-color: #D1F5F4;
 }
@@ -112,8 +117,7 @@
 
 .greeting,
 .user-name,
-.user-name-doctor
-.subtitle {
+.user-name-doctor .subtitle {
     margin: 0;
     padding: 0;
     line-height: 1.2;
@@ -151,13 +155,12 @@
     --slds-c-button-text-color: #3666AE;
 }
 
-.header-container, 
+.header-container,
 .header-container-conversations {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
+
 }
 
 .header-container-conversations {
@@ -171,16 +174,16 @@
     padding: 0;
 }
 
-.user-name, 
+.user-name,
 .horario-texto,
-.greeting, 
+.greeting,
 .user-name-doctor,
 .title {
     color: #3F3E3E;
     font-weight: 400;
     font-size: 14px;
-    padding-left: 0.1rem;
-    
+    gap: 8px;
+
 }
 
 .user-name {
@@ -193,24 +196,23 @@
 }
 
 .custom-icon {
-    transform: scale(0.85);
-    width: 24px;
-    height: 24px;
+
+    height: 16px;
 }
 
 .button-agenda-completa {
-    background-color: #CEEFEE; 
+    background-color: #CEEFEE;
     color: #007D77;
     border: none;
     border-radius: 8px;
     padding: 1rem;
     width: 100%;
     padding: 0.4rem 0;
-    font-size: 0.95rem;    
+    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
     margin-top: 0.25rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
     margin-bottom: 1rem;
     overflow-x: visible;
@@ -229,6 +231,7 @@
 }
 
 @media only screen and (max-width: 900px) {
+
     .greeting,
     .user-name {
         font-size: 18px;
@@ -249,14 +252,11 @@
     .button-agenda-completa {
         display: none;
     }
-    
-    .button-agenda-completa{
+
+    .button-agenda-completa {
         overflow-x: visible;
     }
 
-    .header-container, 
-    .header-container-conversations {
-        padding-right: 1rem;
-    }
-    
+
+
 }

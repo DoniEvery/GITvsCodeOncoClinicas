@@ -8,9 +8,12 @@
 	</types>
 	<types>
 		<members>appHeader</members>
+		<members>appHome</members>
+		<members>appHomeDoctor</members>
 		<members>appLayoutCustomDoctor</members>
 		<members>appMainContent</members>
 		<members>appPatientRecord</members>
+		<members>appQuickActionsGrid</members>
 		<members>appShowPatients</members>
 		<name>LightningComponentBundle</name>
 	</types>

@@ -62,7 +62,7 @@
 
     .chevron-button {
         width: 32px;
-        height: 32px;
+        height: 100%;
         padding: 0;
         margin-right: 0.25rem;
         display: flex;
