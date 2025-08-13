@@ -17,10 +17,7 @@
 		<members>appShowPatients</members>
 		<name>LightningComponentBundle</name>
 	</types>
-	<types>
-		<members>Customer Community Login User</members>
-		<name>Profile</name>
-	</types>
+
 	<types>
 		<members>APP_IconsPatientRecord</members>
 		<members>APP_imagesAPPRecordMedical</members>

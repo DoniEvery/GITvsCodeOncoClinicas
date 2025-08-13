@@ -136,8 +136,8 @@ export default class AppShowPatients extends LightningElement {
             };
         });
 
-        if (!this.patient.PersonBirthdate) {
-            this.patient.PersonBirthdate = '';
+        if (!this.patient.Account.PersonBirthdate) {
+            this.patient.Account.PersonBirthdate = '';
         }
 
         this.patient = {
@@ -211,13 +211,13 @@ export default class AppShowPatients extends LightningElement {
         this.isLoading = true;
         const id = event.currentTarget.dataset.id;
         this.patient = this.listOfResults.find(person =>
-            person.Id === id
+            person.Account.Id === id
         )
 
 
-        if (this.patient.APP_NumeroProntuario__c) {
+        if (this.patient.Account.APP_NumeroProntuario__c) {
 
-            buscarProntuarioPacientePorId({ idProntuario: String(this.patient.APP_NumeroProntuario__c) })
+            buscarProntuarioPacientePorId({ idProntuario: String(this.patient.Account.APP_NumeroProntuario__c) })
                 .then(result => {
                     if (result) {
                         this.loadPatientData(result);

@@ -35,6 +35,7 @@ export default class AppPatientRecord extends LightningElement {
     @track isModalOpen = false;
 
     connectedCallback() {
+        console.log(JSON.stringify(this.patient));
 
         this.menuProntuario = this.menuProntuario.map(item => ({
             ...item,
@@ -162,7 +163,7 @@ export default class AppPatientRecord extends LightningElement {
 
     handleClickVewDetailTratamentos(event) {
         const id = event.currentTarget.dataset.id;
-   
+
 
         const clonedPatient = JSON.parse(JSON.stringify(this.patient));
         clonedPatient.treatments = clonedPatient.treatments.map(treatment => {
@@ -186,7 +187,7 @@ export default class AppPatientRecord extends LightningElement {
     }
     handleClickDiagnostico(event) {
         const id = event.currentTarget.dataset.id;
-     
+
 
         const clonedPatient = JSON.parse(JSON.stringify(this.patient));
         clonedPatient.treatments = clonedPatient.treatments.map(treatment => {

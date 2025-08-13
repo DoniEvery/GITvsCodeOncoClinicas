@@ -27,24 +27,24 @@
                 <div class="secondContainer">
                     <div class="peoplesContainer">
                         <template for:each={listOfResults} for:item="person">
-                            <div key={person.Id} class="patientCardContainer" data-id={person.Id} onclick={openPatient}>
+                            <div key={person.Account.Id} class="patientCardContainer" data-id={person.Account.Id} onclick={openPatient}>
                                 <div class="patientCard">
                                     <div class="containerPeopleImage">
-                                        <template if:true={person.APP_FotoPerfil__c}>
-                                            <img src={person.APP_FotoPerfil__c} class="peopleImage" alt="Foto" />
+                                        <template if:true={person.SmallPhotoUrl}>
+                                            <img src={person.SmallPhotoUrl} class="peopleImage" alt="Foto" />
                                         </template>
-                                        <template if:false={person.APP_FotoPerfil__c}>
-                                            <img src={person.PhotoUrl} class="peopleImage" alt="Foto" />
+                                        <template if:false={person.SmallPhotoUrl}>
+                                            <img src={person.Account.PhotoUrl} class="peopleImage" alt="Foto" />
                                         </template>
 
                                     </div>
                                     <div class="textContainer">
 
-                                        <span class="infoTitleText">{person.Name} </span>
+                                        <span class="infoTitleText">{person.Account.Name} </span>
                                         <div class="infosText">
                                             <span>CPF:
                                                 <span class="infoText">
-                                                    {person.CNPJ__c}
+                                                    {person.Account.CNPJ__c}
                                                 </span>
                                             </span>
 
@@ -53,7 +53,7 @@
                                                 Data Nasc.:
                                                 <span class="infoText">
                                                     <lightning-formatted-date-time
-                                                                                   value={person.PersonBirthdate}
+                                                                                   value={person.Account.PersonBirthdate}
                                                                                    year="numeric"
                                                                                    month="2-digit"
                                                                                    day="2-digit">

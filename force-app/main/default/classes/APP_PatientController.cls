@@ -202,13 +202,14 @@ public without sharing class APP_PatientController {
         return APP_ProfissionalService.buscarProntuarioPacientePorId(idProntuario);
     }
 
-    // Busco os resultados que preciso e tb o numero total de registros em uma única chamada
+     // Busco os resultados que preciso e tb o numero total de registros em uma única chamada
     public class PatientSearchResponse {
         @AuraEnabled
-        public List<Account> patients;
+        public List<user> patients;
         @AuraEnabled
         public Integer total;
     }
+
     @AuraEnabled
     public static PatientSearchResponse searchPatients(String identificacao, Integer intOffset, Integer intLimit) {
         String searchKey = '%' + identificacao + '%';
@@ -216,26 +217,27 @@ public without sharing class APP_PatientController {
         PatientSearchResponse result = new PatientSearchResponse();
 
         result.patients = [SELECT Id, 
-                                  Name, 
-                                  CNPJ__c, 
-                                  RNE__c, 
-                                  PersonBirthdate, 
-                                  HealthCloudGA__Gender__pc, 
-                                  APP_NumeroProntuario__c, 
-                                  APP_Filiacao1__c, 
-                                  APP_Filiacao2__c, 
-                                  Phone, 
-                                  PersonEmail,
-                                  PhotoUrl
-                           FROM Account
-                           WHERE RecordType.DeveloperName = 'PersonAccount' AND (Name LIKE:searchKey OR CNPJ__c LIKE:searchKey OR RNE__c LIKE:searchKey OR APP_NumeroProntuario__c LIKE:searchKey)
+                                  SmallPhotoUrl, 
+                                  Account.Id, 
+                                  Account.Name, 
+                                  Account.CNPJ__c, 
+                                  Account.RNE__c, 
+                                  Account.PersonBirthdate, 
+                                  Account.HealthCloudGA__Gender__pc, 
+                                  Account.APP_NumeroProntuario__c, 
+                                  Account.APP_Filiacao1__c, 
+                                  Account.APP_Filiacao2__c, 
+                                  Account.Phone, 
+                                  Account.PersonEmail, 
+                                  Account.PhotoUrl
+                           FROM User
+                           WHERE Account.RecordType.DeveloperName = 'PersonAccount' AND (Account.Name LIKE:searchKey OR Account.CNPJ__c LIKE:searchKey OR Account.RNE__c LIKE:searchKey OR Account.APP_NumeroProntuario__c LIKE:searchKey)
                            LIMIT :intLimit
                            OFFSET :intOffset];
 
         result.total = [SELECT COUNT()
-                        FROM Account 
-                        WHERE RecordType.DeveloperName = 'PersonAccount' AND (Name LIKE:searchKey OR CNPJ__c LIKE:searchKey OR RNE__c LIKE:searchKey OR APP_NumeroProntuario__c LIKE:searchKey)];
-
+                        FROM User 
+                        WHERE Account.RecordType.DeveloperName = 'PersonAccount' AND (Account.Name LIKE:searchKey OR Account.CNPJ__c LIKE:searchKey OR Account.RNE__c LIKE:searchKey OR Account.APP_NumeroProntuario__c LIKE:searchKey)];
         return result;
     }
 }

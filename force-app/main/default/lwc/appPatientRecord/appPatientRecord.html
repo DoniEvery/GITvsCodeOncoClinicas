@@ -5,22 +5,22 @@
 
             <div class="patientCard">
                 <div class="containerPeopleImage">
-                    <template if:true={patient.APP_FotoPerfil__c}>
-                        <img src={patient.APP_FotoPerfil__c} class="peopleImage" alt="Foto" />
+                    <template if:true={patient.SmallPhotoUrl}>
+                        <img src={patient.SmallPhotoUrl} class="peopleImage" alt="Foto" />
                     </template>
-                    <template if:false={patient.APP_FotoPerfil__c}>
-                        <img src={patient.PhotoUrl} class="peopleImage" alt="Foto" />
+                    <template if:false={patient.SmallPhotoUrl}>
+                        <img src={patient.Account.PhotoUrl} class="peopleImage" alt="Foto" />
                     </template>
 
                 </div>
                 <div class="textContainer">
 
-                    <span class="infoTitleText">{patient.Name}</span>
+                    <span class="infoTitleText">{patient.Account.Name}</span>
                     <div class="infosTextCard">
 
                         <span>CPF:
                             <span class="infoText">
-                                {patient.CNPJ__c}
+                                {patient.Account.CNPJ__c}
                             </span>
                         </span>
                         <span>
@@ -28,7 +28,7 @@
                             <span class="infoText">
 
                                 <lightning-formatted-date-time
-                                                               value={patient.PersonBirthdate}
+                                                               value={patient.Account.PersonBirthdate}
                                                                year="numeric"
                                                                month="2-digit"
                                                                day="2-digit">
@@ -55,35 +55,35 @@
                 <div class="showDetailsRightCollumn">
                     <span class="showDetailsClassTextContainer">
                         Altura
-                        <span class="showDetailsClassText"> {patient.height}</span>
+                        <span class="showDetailsClassText"> {patient.Account.height}</span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Peso
-                        <span class="showDetailsClassText"> {patient.weight}</span>
+                        <span class="showDetailsClassText"> {patient.Account.weight}</span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Sexo
-                        <span class="showDetailsClassText"> {patient.HealthCloudGA__Gender__pc} </span>
+                        <span class="showDetailsClassText"> {patient.Account.HealthCloudGA__Gender__pc} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Prontuário
-                        <span class="showDetailsClassText"> {patient.APP_NumeroProntuario__c} </span>
+                        <span class="showDetailsClassText"> {patient.Account.APP_NumeroProntuario__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Filiação 1
-                        <span class="showDetailsClassText"> {patient.APP_Filiacao1__c} </span>
+                        <span class="showDetailsClassText"> {patient.Account.APP_Filiacao1__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Filiação 2
-                        <span class="showDetailsClassText"> {patient.APP_Filiacao2__c} </span>
+                        <span class="showDetailsClassText"> {patient.Account.APP_Filiacao2__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Telefone
-                        <span class="showDetailsClassText"> {patient.Telefone__c} </span>
+                        <span class="showDetailsClassText"> {patient.Account.Telefone__c} </span>
                     </span>
                     <span class="showDetailsClassTextContainer">
                         Email
-                        <span class="showDetailsClassText"> {patient.PersonEmail} </span>
+                        <span class="showDetailsClassText"> {patient.Account.PersonEmail} </span>
                     </span>
                 </div>
             </div>
@@ -455,7 +455,7 @@
                                         </span>
                                     </span>
                                     <span class="showDetailsClassTextContainer">
-                                        Morfologia nome <span class="showDetailsClassText">
+                                        Topografia nome <span class="showDetailsClassText">
                                             {treatment.diagnosis.topografy.description}
                                         </span>
                                     </span>
@@ -466,7 +466,7 @@
                                         </span>
                                     </span>
                                     <span class="showDetailsClassTextContainer">
-                                        Topografia nome <span class="showDetailsClassText">
+                                        Morfologia nome <span class="showDetailsClassText">
                                             {treatment.diagnosis.morfology.description}
                                         </span>
                                     </span>
