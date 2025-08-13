@@ -97,7 +97,19 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>APP_ChatControllerGroup</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>APP_ChatControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APP_ChatGroupService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APP_ChatGroupServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -130,6 +142,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APP_CommunityManualControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APP_EapiResponse</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -202,6 +218,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>APP_MockAgendaPacienteServiceTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APP_OncoController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>APP_OncoControllerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -394,6 +418,26 @@
     </classAccesses>
     <classAccesses>
         <apexClass>MicrobatchSelfRegControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>NgrokController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OncoApiDTOs</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OncoApiMock</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OncoApiService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OncoApiServiceTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -616,6 +660,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>APP_ChatGroup__c.APP_Foto__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>APP_ChatGroup__c.APP_Tipo__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>APP_ChatGroup__c.CreatedByAccountUserId__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -692,6 +746,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>APP_ChatPermission__c.TargetContactUserId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>APP_ChatPlataformEvent__e.APP_GroupId__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -881,6 +940,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>APP_JuncUnidade__c.APP_IdExterno__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>APP_JuncUnidade__c.APP_Medico__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -917,6 +981,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>APP_JuncUnidade__c.APP_Unidade__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>APP_JuncaoAtendimentoMedicoPaciente__c.APP_IdExterno__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>APP_JuncaoAtendimentoMedicoPaciente__c.APP_Medico__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>APP_JuncaoAtendimentoMedicoPaciente__c.APP_Paciente__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2242,6 +2321,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>App_JuncEspMedico__c.APP_EspecialidadeMedico__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>App_JuncEspMedico__c.APP_IdExterno__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4744,6 +4828,9 @@
     <layoutAssignments>
         <layout>APP_JuncUnidade__c-Unidade dos Pacientes</layout>
         <recordType>APP_JuncUnidade__c.APP_Paciente</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>APP_JuncaoAtendimentoMedicoPaciente__c-Junção Atendimento Médico Paciente Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>APP_MFAToken__c-MFA Token Layout</layout>

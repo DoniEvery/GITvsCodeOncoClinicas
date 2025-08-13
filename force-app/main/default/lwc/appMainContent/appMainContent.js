@@ -2,7 +2,6 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import USER_ID from '@salesforce/user/Id';
 import PROFILE_NAME_FIELD from '@salesforce/schema/User.Profile.Name';
-import listarAgendaPacienteLogado from '@salesforce/apex/APP_PatientController.listarAgendaPacienteLogado';
 
 const ALIAS_FIELD = 'User.Alias';
 
@@ -89,7 +88,9 @@ export default class AppMainContent extends LightningElement {
     }
 
     get isConversas() {
-        return this.currentPage === 'Minhas conversas';
+        if (this.currentPage === 'Minhas conversas') {
+            window.location.href = '/apppaciente/s/chat';
+        }
     }
 
     get isPrivacidade() {

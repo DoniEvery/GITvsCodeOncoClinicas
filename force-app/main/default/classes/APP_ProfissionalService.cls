@@ -26,7 +26,8 @@ public without sharing class APP_ProfissionalService {
         if (res.getStatusCode() == 200 && String.isNotBlank(res.getBody())) {
             String jsonBody = res.getBody()
                 .replace('"end"', '"endDate"')
-                .replace('"system"', '"systemValue"');
+                .replace('"system"', '"systemValue"')
+                .replace('"number"', '"numberValue"');
 
                 List<APP_ProfissionalListResponseDTO> lista = 
                     (List<APP_ProfissionalListResponseDTO>) JSON.deserialize(jsonBody, List<APP_ProfissionalListResponseDTO>.class);
@@ -68,7 +69,8 @@ public without sharing class APP_ProfissionalService {
         if (res.getStatusCode() == 200 && String.isNotBlank(res.getBody())) {
             String jsonBody = res.getBody()
                 .replace('"end"', '"endDate"')
-                .replace('"system"', '"systemValue"');
+                .replace('"system"', '"systemValue"')
+                .replace('"number"', '"numberValue"');
 
                 List<APP_ProfissionalListResponseDTO> lista = 
                     (List<APP_ProfissionalListResponseDTO>) JSON.deserialize(jsonBody, List<APP_ProfissionalListResponseDTO>.class);
@@ -179,15 +181,14 @@ public without sharing class APP_ProfissionalService {
         HttpResponse res = http.send(req);
     
         if (res.getStatusCode() == 200 && String.isNotBlank(res.getBody())) {
+            try {
+                String jsonBody = res.getBody()
+                    .replace('"date"', '"dateTm"');
         
-        try {
-            String jsonBody = res.getBody()
-            .replace('"date"', '"dateTm"');
-            
-            APP_PatientRecordsResponseDTO prontuario = (APP_PatientRecordsResponseDTO) JSON.deserialize(jsonBody, APP_PatientRecordsResponseDTO.class);
-            
-            return prontuario;
-        } catch (Exception e) {
+                APP_PatientRecordsResponseDTO prontuario = (APP_PatientRecordsResponseDTO) JSON.deserialize(jsonBody, APP_PatientRecordsResponseDTO.class);
+    
+                return prontuario;
+            } catch (Exception e) {
                 APP_Logger.logErro(req.getEndpoint(), 500, 'Erro de parsing JSON', e.getMessage());
                 return null;
             }
