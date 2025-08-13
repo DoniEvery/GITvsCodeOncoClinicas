@@ -2,8 +2,6 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
 		<members>APP_PatientController</members>
-		<members>APP_PatientRecordsResponseDTO</members>
-		<members>APP_ProfissionalService</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -19,8 +17,8 @@
 	</types>
 
 	<types>
-		<members>APP_IconsPatientRecord</members>
-		<members>APP_imagesAPPRecordMedical</members>
+		<members>APP_MensagensIcon</members>
+		<members>APP_AgendaIcon</members>
 		<name>StaticResource</name>
 	</types>
 	<version>64.0</version>

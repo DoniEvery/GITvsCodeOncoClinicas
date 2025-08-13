@@ -35,21 +35,24 @@ export default class AppQuickActionsGrid extends LightningElement {
 
     get toggleButtonLabel() {
         return this.showAll ? 'Ver menos' : 'Ver todos';
-    }    
+    }
 
     handleToggleView() {
         this.showAll = !this.showAll;
     }
-    
+
 
     get visibleCards() {
-        return this.showAll ? this.cards : this.cards.slice(0, 5);
+        if (this.showAll) {
+            return this.cards;
+        }
+        return this.cards.slice(0, this.isMobile ? 4 : 5);
     }
 
     get temMuitosCards() {
         return this.cards.length > 4;
     }
-    
+
     connectedCallback() {
         this.isMobile = window.innerWidth <= 768;
         console.log('Largura: ' + window.innerWidth + 'px');
@@ -58,25 +61,25 @@ export default class AppQuickActionsGrid extends LightningElement {
 
     get showMedicoMobileMessage() {
         return this.userProfileName === 'APP_Medico' && this.isMobile;
-    }      
+    }
 
     async loadCards() {
         this.isLoading = true;
         try {
-            const allCards = await getAvailableCards();    
+            const allCards = await getAvailableCards();
             const isAdmin = (
-                this.userProfileName === 'System Administrator' || 
+                this.userProfileName === 'System Administrator' ||
                 this.userProfileName === 'Administrador do sistema' ||
                 this.userProfileName === 'Administrador'
             );
-    
+
             const filteredCards = isAdmin
                 ? allCards
                 : allCards.filter(c => !c.perfil || c.perfil === this.userProfileName);
-    
+
             this.originalCards = filteredCards;
             await this.loadUserOrder(filteredCards);
-    
+
         } catch (error) {
             console.error('Erro ao carregar os cards:', error);
         } finally {

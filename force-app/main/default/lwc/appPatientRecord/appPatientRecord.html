@@ -31,7 +31,7 @@
                                                                value={patient.Account.PersonBirthdate}
                                                                year="numeric"
                                                                month="2-digit"
-                                                               day="2-digit">
+                                                               day="2-digit" time-zone="UTC">
                                 </lightning-formatted-date-time>
 
 
@@ -199,7 +199,7 @@
                                                                            value={plan.startDate}
                                                                            year="numeric"
                                                                            month="2-digit"
-                                                                           day="2-digit">
+                                                                           day="2-digit" time-zone="UTC">
                                             </lightning-formatted-date-time>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@
                                                                            value={plan.lastSessionDate}
                                                                            year="numeric"
                                                                            month="2-digit"
-                                                                           day="2-digit">
+                                                                           day="2-digit" time-zone="UTC">
                                             </lightning-formatted-date-time>
                                         </div>
                                     </div>
@@ -277,13 +277,13 @@
                                                                                            value={session.realDate}
                                                                                            year="numeric"
                                                                                            month="2-digit"
-                                                                                           day="2-digit">
+                                                                                           day="2-digit" time-zone="UTC">
                                                             </lightning-formatted-date-time>&nbsp;-&nbsp;
                                                             <lightning-formatted-date-time
                                                                                            value={session.realDate}
                                                                                            hour="2-digit"
                                                                                            minute="2-digit"
-                                                                                           time-zone="America/Sao_Paulo">
+                                                                                           time-zone="UTC">
                                                             </lightning-formatted-date-time>
                                                         </span>
                                                         <span class={session.stateClass}> {session.state}</span>
@@ -337,13 +337,13 @@
                                                                                        value={session.realDate}
                                                                                        year="numeric"
                                                                                        month="2-digit"
-                                                                                       day="2-digit">
+                                                                                       day="2-digit" time-zone="UTC">
                                                         </lightning-formatted-date-time>&nbsp;-&nbsp;
                                                         <lightning-formatted-date-time
                                                                                        value={session.realDate}
                                                                                        hour="2-digit"
                                                                                        minute="2-digit"
-                                                                                       time-zone="America/Sao_Paulo">
+                                                                                       time-zone="UTC">
                                                         </lightning-formatted-date-time>
 
 
@@ -426,7 +426,7 @@
                                                                    value={treatment.diagnosis.date}
                                                                    year="numeric"
                                                                    month="2-digit"
-                                                                   day="2-digit">
+                                                                   day="2-digit" time-zone="UTC">
                                     </lightning-formatted-date-time>
                                 </div>
                             </div>
@@ -535,7 +535,7 @@
                                                                    value={treatment.diagnosis.date}
                                                                    year="numeric"
                                                                    month="2-digit"
-                                                                   day="2-digit">
+                                                                   day="2-digit" time-zone="UTC">
                                     </lightning-formatted-date-time>
                                 </div>
                             </div>
