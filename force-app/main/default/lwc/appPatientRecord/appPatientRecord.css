@@ -258,7 +258,7 @@
 }
 
 .details-wrapper.open {
-    max-height: 100vh;
+    /* max-height: 100vh; */
     opacity: 1;
 }
 
