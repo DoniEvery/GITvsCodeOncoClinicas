@@ -275,12 +275,7 @@ public without sharing class APP_PatientController {
                                   Account.Phone, 
                                   Account.Telefone__c, 
                                   Account.PersonEmail, 
-                                  Account.PhotoUrl, 
-                                  Account.PersonOtherPhone, 
-                                  Account.PersonMobilePhone, 
-                                  Account.PersonHomePhone, 
-                                  Account.PersonAssistantPhone, 
-                                  Account.NumeroWhatsApp__c
+                                  Account.PhotoUrl
                            FROM User
                            WHERE Account.RecordType.DeveloperName = 'PersonAccount' AND (Account.Name LIKE:searchKey OR Account.CNPJ__c LIKE:searchKey OR Account.RNE__c LIKE:searchKey OR Account.APP_NumeroProntuario__c LIKE:searchKey)
                            LIMIT :intLimit

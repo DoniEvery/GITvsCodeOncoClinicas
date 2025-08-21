@@ -8,6 +8,7 @@
 		<members>appHeader</members>
 		<members>appHome</members>
 		<members>appHomeDoctor</members>
+		<members>appLayoutCustom</members>
 		<members>appLayoutCustomDoctor</members>
 		<members>appMainContent</members>
 		<members>appPatientRecord</members>

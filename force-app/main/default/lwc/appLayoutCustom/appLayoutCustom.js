@@ -3,7 +3,7 @@ import HEADER_IMAGE from '@salesforce/resourceUrl/APP_FundoHeader';
 import dateIcon from '@salesforce/resourceUrl/APP_DateIcon';
 import dateIcon2 from '@salesforce/resourceUrl/APP_DateIcon2';
 import detalhesConsultaIcon from '@salesforce/resourceUrl/APP_DetalhesConsultaIcon';
-import precisaAceitarTermo from '@salesforce/apex/APP_TermoUsoPageController.precisaAceitarTermo';
+import identificarCliente from '@salesforce/apex/APP_ApiIdentificacaoClienteController.identificarCliente';
 
 export default class AppLayoutCustom extends LightningElement {
     currentPage = 'Início';
@@ -19,11 +19,14 @@ export default class AppLayoutCustom extends LightningElement {
     @track detalhesConsulta;
     @track showDateFilterModal = false;
     @track bloqueado = false;
-    @track mostrarTermo = false;
+    @track mostrarLoginContainer = false;
+    @track tipoUsuarioSelecionado = '';
 
     connectedCallback() {
         this.updateIsMobile();
         this.checkCurrentUrl();
+        this.buscaIdPlusoft();
+        this.verificarTipoUsuario();
         window.addEventListener('resize', () => this.updateIsMobile());
         window.addEventListener('popstate', () => this.checkCurrentUrl());
 
@@ -32,18 +35,7 @@ export default class AppLayoutCustom extends LightningElement {
             this.currentPage = storedPage;
             localStorage.removeItem('currentPage');
         }
-
-        precisaAceitarTermo()
-            .then((precisa) => {
-                console.log('Valor de precisaAceitarTermo:', precisa);
-                console.log('URL atual:', window.location.pathname);
-                if (precisa) {
-                    this.mostrarTermo = true;
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao verificar aceite do termo:', error);
-            });
+     
     }
 
 
@@ -125,8 +117,6 @@ export default class AppLayoutCustom extends LightningElement {
         const mainContent = this.template.querySelector('c-app-main-content');
         if (mainContent) {
             const sucesso = mainContent.aplicarFiltroCustomRange(dataInicial, dataFinal);
-            
-            console.log('sucesso? >>', sucesso);
             if (sucesso) {
                 this.showDateFilterModal = false;
             }
@@ -139,7 +129,6 @@ export default class AppLayoutCustom extends LightningElement {
     }
 
     abrirConfirmModal() {
-        console.log('Abrindo modal de confirmação');
         this.detalhesConsulta = null; 
         this.showConfirmModal = true;
         this.showDetalhesModal = false;
@@ -160,20 +149,64 @@ export default class AppLayoutCustom extends LightningElement {
     }
 
     confirmarConsulta() {
-        // Sua lógica de confirmação
         this.fecharTodosModais();
     }
 
-    handleTermoAceito() {
-        this.mostrarTermo = false;
+    buscaIdPlusoft() {
+       
+        identificarCliente()
+        .then(result => {          
+        })
+        .catch(error => {
+            console.error('Erro ao identificar cliente:', error);           
+        });
+    }
+
+    verificarTipoUsuario() {
+        const tipoUsuario = localStorage.getItem('tipoUsuarioSelecionado');
+        const pacienteId = localStorage.getItem('pacienteId');
+    
+        console.log("tipo Usuário >>> " + tipoUsuario);
+        console.log("Paciente selecionado >>> " + pacienteId);
+    
+        if (tipoUsuario === 'Acompanhante' && !pacienteId) {
+            // Só mostra login acompanhante se ainda não tiver paciente selecionado
+            this.mostrarLoginContainer = true;
+            this.tipoUsuarioSelecionado = tipoUsuario;
+        } else {
+            this.mostrarLoginContainer = false;
+        }
+    }    
+
+    handleAcompanhante(event) {
+        this.mostrarLoginContainer = false;
+        console.log("caiu no handle >>> " + tipoUsuario);
+        // Armazena o ID do paciente selecionado
+        localStorage.setItem('pacienteSelecionadoId', event.detail.id);
+        // Limpa o tipo de usuário do localStorage
+        localStorage.removeItem('tipoUsuarioSelecionado');
+        
+        // Atualiza a interface para mostrar o layout principal
+        this.currentPage = 'Início'; // Ou a página que deve ser mostrada após seleção
+    }
+
+
+    handleLoginConcluido(event) {
+        const pacienteId = event.detail.pacienteId;
+        console.log('Login concluído com pacienteId:', pacienteId);
+
+        // Salva no localStorage
+        localStorage.setItem('pacienteId', pacienteId);
+
+        this.pacienteId = pacienteId;
+        this.mostrarLoginContainer = false;
     }
 
     renderedCallback() {
-        if(this.mostrarTermo) {
+        if(this.mostrarLoginContainer) {
             document.body.classList.add('ocultar-header');
         } else {
             document.body.classList.remove('ocultar-header');
         }
     }
-    
 }

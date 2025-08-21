@@ -60,6 +60,10 @@
             <c-app-acompanhantes-management onback={handleBack}></c-app-acompanhantes-management>
         </template>
 
+        <template if:true={showGerenciarNotificacoes}>
+            <c-app-notification-settings-patient></c-app-notification-settings-patient>
+        </template>
+
         <template if:true={showNossosServicos}>
             <p>Nossos serviços</p>
         </template>

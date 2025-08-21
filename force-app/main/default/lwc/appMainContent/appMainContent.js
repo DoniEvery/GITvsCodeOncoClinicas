@@ -66,6 +66,7 @@ export default class AppMainContent extends LightningElement {
             'Manual do paciente',
             'Meu prontuário',
             'Acompanhantes',
+            'Gerenciar notificações',
             'Nossos serviços',
             'Saiba mais sobre o APP',
             'Meus pacientes',
@@ -132,6 +133,12 @@ export default class AppMainContent extends LightningElement {
     get showAcompanhantes() {
         return this.currentPage === 'Acompanhantes';
     }
+
+    get showGerenciarNotificacoes() {
+        return this.currentPage === 'Gerenciar notificações';
+    }
+
+
 
     get showManual() {
         return this.currentPage === 'Manual do paciente';

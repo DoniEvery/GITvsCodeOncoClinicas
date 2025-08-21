@@ -2,7 +2,7 @@
     <div class={hostClass}>
 
         <!-- Mostrar layout completo apenas se NÃO estiver mostrando termo -->
-        <template if:false={mostrarTermo}>
+        <template if:false={mostrarLoginContainer}>
             <div class="layout-container">
                 <div class="main-wrapper">
                     <template if:false={isProfilePage}>
@@ -30,7 +30,7 @@
                         <div class="right-container">
                             <template if:true={showHeader}>
                                 <div class="header-container">
-                                    <c-app-header page-name={currentPage} from-page={previousPage} onnavigate={handleNavigate}></c-app-header>
+                                    <c-app-header page-name={currentPage} onnavigate={handleNavigate}></c-app-header>
                                 </div>
                             </template>                    
                             <template if:false={isProfilePage} class={mainContainerClass}>
@@ -94,9 +94,18 @@
             </template>    
         </template>
 
-        <!-- Mostrar componente do termo se precisar aceitar -->
-        <template if:true={mostrarTermo}>
-            <c-app-termo-uso-page onaceito={handleTermoAceito}></c-app-termo-uso-page>
+        <!-- Mostrar componente de login acompanhante -->
+        <template if:true={mostrarLoginContainer}>
+            <div class="container">
+                <div class="right-panel">
+                    <div class="right-content">
+                        <c-app-login-acompanhante-container
+                            onpacienteselecionado={handleAcompanhanteConcluido}
+                            onloginconcluido={handleLoginConcluido}>
+                        </c-app-login-acompanhante-container>
+                    </div>
+                </div>
+            </div>
         </template>
     </div>
 </template>
