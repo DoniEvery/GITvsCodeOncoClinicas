@@ -4,6 +4,7 @@ import dateIcon from '@salesforce/resourceUrl/APP_DateIcon';
 import dateIcon2 from '@salesforce/resourceUrl/APP_DateIcon2';
 import detalhesConsultaIcon from '@salesforce/resourceUrl/APP_DetalhesConsultaIcon';
 import identificarCliente from '@salesforce/apex/APP_ApiIdentificacaoClienteController.identificarCliente';
+import identificarPacienteCidC from '@salesforce/apex/APP_DiagnosisController.buscaCID';
 
 export default class AppLayoutCustom extends LightningElement {
     currentPage = 'Início';
@@ -26,6 +27,7 @@ export default class AppLayoutCustom extends LightningElement {
         this.updateIsMobile();
         this.checkCurrentUrl();
         this.buscaIdPlusoft();
+        this.buscaPacienteCidC();
         this.verificarTipoUsuario();
         window.addEventListener('resize', () => this.updateIsMobile());
         window.addEventListener('popstate', () => this.checkCurrentUrl());
@@ -162,12 +164,18 @@ export default class AppLayoutCustom extends LightningElement {
         });
     }
 
+    buscaPacienteCidC() {
+        identificarPacienteCidC()
+        .then(result => {
+        })
+        .catch(error => {
+            console.error('Erro ao identificar CID C do paciente:', error);           
+        });
+    }
+
     verificarTipoUsuario() {
         const tipoUsuario = localStorage.getItem('tipoUsuarioSelecionado');
         const pacienteId = localStorage.getItem('pacienteId');
-    
-        console.log("tipo Usuário >>> " + tipoUsuario);
-        console.log("Paciente selecionado >>> " + pacienteId);
     
         if (tipoUsuario === 'Acompanhante' && !pacienteId) {
             // Só mostra login acompanhante se ainda não tiver paciente selecionado
@@ -180,7 +188,6 @@ export default class AppLayoutCustom extends LightningElement {
 
     handleAcompanhante(event) {
         this.mostrarLoginContainer = false;
-        console.log("caiu no handle >>> " + tipoUsuario);
         // Armazena o ID do paciente selecionado
         localStorage.setItem('pacienteSelecionadoId', event.detail.id);
         // Limpa o tipo de usuário do localStorage
@@ -193,8 +200,7 @@ export default class AppLayoutCustom extends LightningElement {
 
     handleLoginConcluido(event) {
         const pacienteId = event.detail.pacienteId;
-        console.log('Login concluído com pacienteId:', pacienteId);
-
+        
         // Salva no localStorage
         localStorage.setItem('pacienteId', pacienteId);
 

@@ -85,9 +85,25 @@ html, body {
 }
 
 .header-container {
-    height: 60px;
+    /* Layout automático */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    
+    width: 1440px;
+    height: 80px;
+    
+    /* Auto layout por dentro */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    
+    /* Mantendo propriedades originais necessárias */
     background-color: white;
-    flex-shrink: 0;
     position: relative;
     z-index: 2;
     margin-right: 0rem;
@@ -160,8 +176,7 @@ html, body {
     }
 
     .main-container {
-        padding-left: 1rem;
-        padding-right: 0 !important;
+
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-bottom: 200px;
