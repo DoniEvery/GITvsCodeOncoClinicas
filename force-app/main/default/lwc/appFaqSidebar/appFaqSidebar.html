@@ -1,9 +1,50 @@
 <template>
-    <div class="slds-p-around_medium">
-        <template for:each={artigos} for:item="artigo">
-            <div key={artigo.Id} class="assunto-item slds-m-bottom_medium" onclick={handleClick} data-id={artigo.Id} style="cursor: pointer;">
-                <div lwc:dom="manual" class="assunto-richtext" data-html-id={artigo.Id}></div>
+
+    <div class="containerFilter">
+        <label class="labelClass">Filtro</label>
+        <div class="inputWrapper">
+            <img src={searchIcon} alt="Buscar" class="inputIcon" />
+            <input class="inputText"
+                   placeholder="Digite um termo para refinar o resultado"
+                   oninput={handleDigitName}>
+        </div>
+    </div>
+
+    <template if:true={processedArts}>
+        <template for:each={processedArts} for:item="artigo">
+            <div key={artigo.id} class="container" data-id={artigo.id} onclick={openArticle}>
+                <div class="titleContainer">
+                    <div class="">
+                        {artigo.tema}
+                    </div>
+                    <div class={artigo.iconClass} data-icon={artigo.id}>
+                        <lightning-icon
+                                        icon-name="utility:chevrondown"
+                                        size="x-small"
+                                        class="custom-icon">
+                        </lightning-icon>
+                    </div>
+
+                </div>
+                <div class={artigo.containerClass}>
+
+                    <template for:each={artigo.questoes} for:item="q">
+
+                        <div key={q.id} data-artid={artigo.id} data-qid={q.id} class={q.itemClass} onclick={openItem}>
+                            <div class="titleQuestion">
+
+                                {q.titulo}
+                            </div>
+
+                            <div class={q.questionClass}>
+
+                                <div style="white-space: pre-line;" class="">{q.conteudo}</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
             </div>
         </template>
-    </div>
+    </template>
 </template>

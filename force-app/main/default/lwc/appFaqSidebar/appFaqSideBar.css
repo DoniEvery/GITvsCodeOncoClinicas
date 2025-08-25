@@ -1,15 +1,196 @@
-:host {
-    border: none;
-    background-color: transparent;
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 16px 0;
+    border: 1px solid #F5F5F5;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0px 20px;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-weight: 590;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #3F3E3E;
+    padding: 20px 0 20px 0px;
+    width: 100%;
+    gap: 10px;
+
+}
+
+.iconDrop {
+    color: #2E2E2E;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.iconDrop.open {
+    transform: rotate(-180deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.secondContainer {
+    opacity: 0;
+    overflow: hidden;
+    height: 0;
+    max-height: 0;
+    transition: max-content 0.5s ease-in-out, opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    transform: translateY(-14%);
+}
+
+.secondContainer.open {
+    max-height: 5000000000000000000000px;
+    opacity: 1;
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    gap: 16px;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+    transition: max-content 0.3s ease-in-out, opacity 0.8s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(0);
+    position: relative;
+
+}
+
+.menuCardContainer {
+    transition: max-height 0.8s ease-in-out, padding 0.6s ease;
+    max-height: 64px;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    cursor: pointer;
+    width: 100%;
+    padding: 20px 24px;
+    display: flex;
+    height: auto;
+    position: relative;
+}
+
+.menuCardContainer.open {
+    max-height: 9999999999px;
+    padding: 20px 24px;
+    /* padding volta só quando abrir */
+}
+
+.menuCardContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #93E9E1;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.questionClass {
+    opacity: 0;
+    overflow: hidden;
+    height: 0;
+    max-height: 0;
+    transition: max-content 0.5s ease-in-out, opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    transform: translateY(-2%);
+
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0%;
+
+
+
+}
+
+.questionClass.open {
+    max-height: 5000000000px;
+    opacity: 1;
+    display: flex;
+    height: auto;
+    transition: max-content 0.3s ease-in-out, opacity 0.8s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(0);
+}
+
+.titleQuestion {
+    font-weight: 700;
+    line-height: 19px;
+    color: #575757;
+    padding-bottom: 8px;
+
+}
+
+.containerFilter {
+    background-color: #F5F5F5;
+    border: 1px solid #F5F5F5;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 32px;
+}
+
+.labelClass {
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0%;
+    color: #5C5C5C;
+    position: relative;
+    padding-bottom: 4px;
+
+}
+
+.inputText {
+    height: 52px;
+    opacity: 1;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 16px;
+    border: 1px solid #5C5C5C;
+    width: 100%;
+    padding-right: 25px;
+    /* espaço para ícone */
+    box-sizing: border-box;
+    cursor: pointer;
+    max-width: 524px;
+}
+
+.inputWrapper {
+    max-width: 524px;
+    position: relative;
+    display: inline-block;
     width: 100%;
 }
 
-.assunto-item {
-    line-height: 1.8;
-}
-
-@media screen and (max-width: 768px) {
-    .assunto-item {
-        font-size: 0.95rem;
-    }
+.inputIcon {
+    position: absolute;
+    right: 16px; /* ícone do lado direito */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    pointer-events: none; /* para não bloquear o input */
 }

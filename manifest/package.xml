@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>APP_CommunityManualController</members>
+		<members>APP_CommunityFaqController</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>appManualHeader</members>
-		<members>appManualPage</members>
-		<members>appManualSideBar</members>
+		<members>appFaqPage</members>
+		<members>appFaqSidebar</members>
 		<name>LightningComponentBundle</name>
 	</types>
 	<version>64.0</version>
