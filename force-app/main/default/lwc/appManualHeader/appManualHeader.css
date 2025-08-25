@@ -1,23 +1,38 @@
-.faq-header-container {
-    padding: 1rem;
+.container {
+    background-color: #F5F5F5;
+    border: 1px solid #F5F5F5;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 62px;
 }
-
-.text-container {
-    text-align: left;
+.welcomeTitle {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    font-weight: 590;
+    font-style: Semibold;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    padding-bottom: 10px;
+    
 }
+.subContainer {
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    color: #575757;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: font/scale/2;
+    line-height: 22px;
+    letter-spacing: 0%;
+    background-color: white;
 
-
-.header-title {
-    color: #06b6ae;
-    text-align: left;
-    margin-bottom: 0.5rem;
-}
-
-@media (max-width: 768px) {
-    .faq-subtitle-bold {
-        font-size: 1.1rem;
-    }
-    .faq-subtitle-light {
-        font-size: 0.95rem;
-    }
 }

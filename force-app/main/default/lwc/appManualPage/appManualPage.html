@@ -1,18 +1,12 @@
 <template>
-    <div class="manual-container slds-p-around_medium">
+    <div class="manual-container ">
         
-        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+        <div class="slds-col ">
             <c-app-manual-header></c-app-manual-header>
         </div>
 
         <div class="content-grid">
-            <div class="sidebar">
-                <c-app-manual-side-bar onartigochange={handleArtigoChange}></c-app-manual-side-bar>
-            </div>
-
-            <div class="list">
-                <c-app-manual-list artigo-id={selectedArtigoId}></c-app-manual-list>
-            </div>
+                <c-app-manual-side-bar ></c-app-manual-side-bar>
         </div>
     </div>
 </template>

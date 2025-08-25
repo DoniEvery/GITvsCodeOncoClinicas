@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>APP_PatientController</members>
+		<members>APP_CommunityManualController</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>appHeader</members>
-		<members>appHome</members>
-		<members>appHomeDoctor</members>
-		<members>appLayoutCustom</members>
-		<members>appLayoutCustomDoctor</members>
-		<members>appMainContent</members>
-		<members>appPatientRecord</members>
-		<members>appQuickActionsGrid</members>
-		<members>appShowPatients</members>
+		<members>appManualHeader</members>
+		<members>appManualPage</members>
+		<members>appManualSideBar</members>
 		<name>LightningComponentBundle</name>
-	</types>
-
-	<types>
-		<members>APP_MensagensIcon</members>
-		<members>APP_AgendaIcon</members>
-		<name>StaticResource</name>
 	</types>
 	<version>64.0</version>
 </Package>
