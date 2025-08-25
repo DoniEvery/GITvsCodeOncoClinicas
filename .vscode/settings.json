@@ -5,6 +5,7 @@
     "**/.sfdx": true
   },
   "workbench.colorCustomizations": {
-    "statusBar.background": "#00AS40"
+    "statusBar.background": "#00AS40",
+    "activityBar.background": "#00AS40"
   }
 }

@@ -134,12 +134,8 @@
 }
 
 .titleQuestion {
-    font-family: font/family/base;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 14px;
+    font-weight: 700;
     line-height: 19px;
-    letter-spacing: 0%;
     color: #575757;
     padding-bottom: 8px;
 
